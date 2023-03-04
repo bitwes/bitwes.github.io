@@ -1,0 +1,36 @@
+
+        <html><head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+
+            @media (max-width: 767px) {
+                .markdown-body {
+                    padding: 15px;
+                }
+            }
+        </style>
+        <link rel="stylesheet" href="github-markdown.css"/>
+</head><body><article class="markdown-body"><h1><a id="user-content-orphans" class="anchor" aria-hidden="true" href="#orphans"><span aria-hidden="true" class="octicon octicon-link"></span></a>Orphans</h1>
+<p>GUT can display when your program or test generates orphaned nodes.  This can be very helpful when tracking down memory leaks in your application.  Note that GUT has no way to know if it was your program or your test that created the orphans.</p>
+<p>This option is enabled by default.  You can disable it in the scene by unchecking "show orphans".  From the command line specify the <code>-ghide_orphans</code> option.</p>
+<h2><a id="user-content-printing-stray-nodes" class="anchor" aria-hidden="true" href="#printing-stray-nodes"><span aria-hidden="true" class="octicon octicon-link"></span></a>Printing stray nodes</h2>
+<h3><a id="user-content-command-line" class="anchor" aria-hidden="true" href="#command-line"><span aria-hidden="true" class="octicon octicon-link"></span></a>Command Line</h3>
+<p>If you run your tests with the Godot <code>--verbose</code> flag from the command line then Godot will print out all the stray nodes and references at the end.  You can also print out just the stray nodes yourself if you use a <a href="Hooks.md">post-run script</a>.</p>
+<pre><code>extends GutHookScript
+
+func run():
+    # Note, this will node will be included in the stray node list.
+    var n = Node.new()
+    n.print_stray_nodes()
+    n.free()
+</code></pre>
+<h3><a id="user-content-scene" class="anchor" aria-hidden="true" href="#scene"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scene</h3>
+<p>If you are using a scene you can call <code>print_stray_nodes</code> in the <code>tests_finished</code> signal emitted by GUT.</p>
+</article></body>

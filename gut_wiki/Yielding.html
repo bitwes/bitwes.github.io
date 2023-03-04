@@ -1,0 +1,52 @@
+
+        <html><head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+
+            @media (max-width: 767px) {
+                .markdown-body {
+                    padding: 15px;
+                }
+            }
+        </style>
+        <link rel="stylesheet" href="github-markdown.css"/>
+</head><body><article class="markdown-body"><h1><a id="user-content-yielding" class="anchor" aria-hidden="true" href="#yielding"><span aria-hidden="true" class="octicon octicon-link"></span></a>Yielding</h1>
+<h2><a id="user-content--yielding-during-a-test" class="anchor" aria-hidden="true" href="#-yielding-during-a-test"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-yielding"> Yielding during a test</a></h2>
+<p>I'm not going to try and explain yielding here.  It can be a bit confusing and <a href="https://docs.godotengine.org/en/latest/getting_started/scripting/gdscript/gdscript_basics.html#coroutines-with-yield" rel="nofollow">Godot does a pretty good job of it already</a>.  Gut has support for yielding though, so you can yield at anytime in your test.</p>
+<p>When might you want to yield?  Yielding is very handy when you want to wait for a signal to occur instead of running for a finite amount of time.  For example, you could have your test yield until your character gets hit by something (<code>yield(my_char, 'hit')</code>).  An added bonus of this approach is that you can watch everything happen.  In your test you create your character, the object to hit it, and then watch the interaction play out.</p>
+<p>Here's an example of yielding to a custom signal.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_yield_to_custom_signal</span>():
+	my_object <span class="pl-k">=</span> <span class="pl-c1">ObjectToTest</span>.<span class="pl-c1">new</span>()
+	<span class="pl-c1">add_child_autofree</span>(my_object)
+	<span class="pl-k">yield</span>(my_object, <span class="pl-s">'custom_signal'</span>)
+	<span class="pl-c1">assert_true</span>(some_condition, <span class="pl-s">'After signal fired, this should be true'</span>)</pre></div>
+<h3><a id="user-content-yield_to" class="anchor" aria-hidden="true" href="#yield_to"><span aria-hidden="true" class="octicon octicon-link"></span></a>yield_to</h3>
+<p>Sometimes you need to wait for a signal to be emitted, but you can never really be sure it will, we are making tests after all.  You could <code>yield</code> to that signal in your test and hope it gets emitted.  If it doesn't though, your test will just hang forever.  The <code>yield_to</code> method addresses this by allowing you to <code>yield</code> to a signal or a maximum amount of time, whichever occurs first.  You must make sure the 2nd parameter to <code>yield</code> is the <code>YIELD</code> constant.  This constant is available to all test scripts.  As an extra bonus, Gut will watch the signals on the object you passed in, so you can save yourself a call to <code>watch_signals</code> if you want, but you don't have to.  How all this magic works is covered a couple of sections down.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-c"><span class="pl-c">#</span> wait for my_object to emit the signal 'my_signal'</span>
+<span class="pl-c"><span class="pl-c">#</span> or 5 seconds, whichever comes first.</span>
+<span class="pl-k">yield</span>(<span class="pl-c1">yield_to</span>(my_object, <span class="pl-s">'my_signal'</span>, <span class="pl-c1">5</span>), <span class="pl-k">YIELD</span>)
+<span class="pl-c1">assert_signal_emitted</span>(my_object, <span class="pl-s">'my_signal'</span>, \
+                     <span class="pl-s">'Maybe it did, maybe it didnt, but we still got here.'</span>)</pre></div>
+<h3><a id="user-content-yield_for" class="anchor" aria-hidden="true" href="#yield_for"><span aria-hidden="true" class="octicon octicon-link"></span></a>yield_for</h3>
+<p>Another use case I have come across is when creating integration tests and you want to verify that a complex interaction ends with an expected result.  In this case you might have an idea of how long the interaction will take to play out but you don't have a signal that you can attach to.  Instead you want to pause your test execution until that time has elapsed.  For this, Gut has the <code>yield_for</code> method.  For example <code>yield(yield_for(5), YIELD)</code> will pause your test execution for 5 seconds while the rest of your code executes as expected.  You must make sure the 2nd parameter to <code>yield</code> is the <code>YIELD</code> constant.  This constant is available to all test scripts.  How all this magic works is covered a couple of sections down.</p>
+<p>Here's an example of yielding for 5 seconds.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_wait_for_a_bit</span>():
+	my_object <span class="pl-k">=</span> <span class="pl-c1">ObjectToTest</span>.<span class="pl-c1">new</span>()
+	my_object.<span class="pl-c1">do_something</span>()
+	<span class="pl-c"><span class="pl-c">#</span>wait 5 seconds</span>
+	<span class="pl-k">yield</span>(<span class="pl-c1">yield_for</span>(<span class="pl-c1">5</span>), <span class="pl-k">YIELD</span>)
+	gut.<span class="pl-c1">assert_eq</span>(my_object.some_property, <span class="pl-s">'some value'</span>, <span class="pl-s">'After waiting 5 seconds, this property should be set'</span>)</pre></div>
+<h3><a id="user-content-pause_before_teardown" class="anchor" aria-hidden="true" href="#pause_before_teardown"><span aria-hidden="true" class="octicon octicon-link"></span></a>pause_before_teardown</h3>
+<p>Sometimes it's also helpful to just watch things play out.  Yield is great for that, you just create a couple objects, set them to interact and then yield.  You can leave the yields in or take them out if your test passes without them.  You can also use the <code>pause_before_teardown</code> method that will pause test execution before it runs <code>teardown</code> and moves onto the next test.  This keeps the game loop running after the test has finished and you can see what everything looks like.</p>
+<h3><a id="user-content-how-yielding-and-gut-works" class="anchor" aria-hidden="true" href="#how-yielding-and-gut-works"><span aria-hidden="true" class="octicon octicon-link"></span></a>How Yielding and Gut Works</h3>
+<p>For those that are interested, Gut is able to detect when a test has called yield because the method returns a special class back (<code>GDScriptFunctionState</code>).  Gut itself will then <code>yield</code> to the <code>completed</code> signal provided by the <code>GDScriptFunctionState</code> that is returned when your test yielded.  It also kicks off a timer that will print out messages so you know it hasn't locked up.</p>
+<p>The <code>yield_for()</code> method and <code>YIELD</code> constant are some syntax sugar built into the <code>Test</code> object.  <code>yield</code> takes in an object and a signal.  The <code>yield_for</code> method kicks off a timer inside Gut that will run for however many seconds you passed in.  It also returns the Gut object so that <code>yield</code> has an object to yield to.  The <code>YIELD</code> constant contains the name of the signal that Gut emits when the timer finishes.</p>
+<p><code>yield_to</code> works similarly to <code>yield_for</code> except it takes the extra step that Gut will watch the signal you pass in.  It will emit the same signal (<code>YIELD</code>) when it detects the signal you specified or it will emit the signal when the timer times out.</p>
+</article></body>
