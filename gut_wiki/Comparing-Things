@@ -1,0 +1,1198 @@
+
+        <html><head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+
+            @media (max-width: 767px) {
+                .markdown-body {
+                    padding: 15px;
+                }
+            }
+
+        
+
+
+.markdown-body .octicon {
+    display: inline-block;
+    fill: currentColor;
+    vertical-align: text-bottom;
+  }
+
+  .markdown-body .anchor {
+    float: left;
+    line-height: 1;
+    margin-left: -20px;
+    padding-right: 4px;
+  }
+
+  .markdown-body .anchor:focus {
+    outline: none;
+  }
+
+  .markdown-body h1 .octicon-link,
+  .markdown-body h2 .octicon-link,
+  .markdown-body h3 .octicon-link,
+  .markdown-body h4 .octicon-link,
+  .markdown-body h5 .octicon-link,
+  .markdown-body h6 .octicon-link {
+    color: #1b1f23;
+    vertical-align: middle;
+    visibility: hidden;
+  }
+
+  .markdown-body h1:hover .anchor,
+  .markdown-body h2:hover .anchor,
+  .markdown-body h3:hover .anchor,
+  .markdown-body h4:hover .anchor,
+  .markdown-body h5:hover .anchor,
+  .markdown-body h6:hover .anchor {
+    text-decoration: none;
+  }
+
+  .markdown-body h1:hover .anchor .octicon-link,
+  .markdown-body h2:hover .anchor .octicon-link,
+  .markdown-body h3:hover .anchor .octicon-link,
+  .markdown-body h4:hover .anchor .octicon-link,
+  .markdown-body h5:hover .anchor .octicon-link,
+  .markdown-body h6:hover .anchor .octicon-link {
+    visibility: visible;
+  }
+
+  .markdown-body h1:hover .anchor .octicon-link:before,
+  .markdown-body h2:hover .anchor .octicon-link:before,
+  .markdown-body h3:hover .anchor .octicon-link:before,
+  .markdown-body h4:hover .anchor .octicon-link:before,
+  .markdown-body h5:hover .anchor .octicon-link:before,
+  .markdown-body h6:hover .anchor .octicon-link:before {
+    width: 16px;
+    height: 16px;
+    content: ' ';
+    display: inline-block;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath fill-rule='evenodd' d='M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z'%3E%3C/path%3E%3C/svg%3E");
+  }.markdown-body {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    line-height: 1.5;
+    color: #24292e;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+    font-size: 16px;
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+
+  .markdown-body details {
+    display: block;
+  }
+
+  .markdown-body summary {
+    display: list-item;
+  }
+
+  .markdown-body a {
+    background-color: initial;
+  }
+
+  .markdown-body a:active,
+  .markdown-body a:hover {
+    outline-width: 0;
+  }
+
+  .markdown-body strong {
+    font-weight: inherit;
+    font-weight: bolder;
+  }
+
+  .markdown-body h1 {
+    font-size: 2em;
+    margin: .67em 0;
+  }
+
+  .markdown-body img {
+    border-style: none;
+  }
+
+  .markdown-body code,
+  .markdown-body kbd,
+  .markdown-body pre {
+    font-family: monospace,monospace;
+    font-size: 1em;
+  }
+
+  .markdown-body hr {
+    box-sizing: initial;
+    height: 0;
+    overflow: visible;
+  }
+
+  .markdown-body input {
+    font: inherit;
+    margin: 0;
+  }
+
+  .markdown-body input {
+    overflow: visible;
+  }
+
+  .markdown-body [type=checkbox] {
+    box-sizing: border-box;
+    padding: 0;
+  }
+
+  .markdown-body * {
+    box-sizing: border-box;
+  }
+
+  .markdown-body input {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .markdown-body a {
+    color: #0366d6;
+    text-decoration: none;
+  }
+
+  .markdown-body a:hover {
+    text-decoration: underline;
+  }
+
+  .markdown-body strong {
+    font-weight: 600;
+  }
+
+  .markdown-body hr {
+    height: 0;
+    margin: 15px 0;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #dfe2e5;
+  }
+
+  .markdown-body hr:after,
+  .markdown-body hr:before {
+    display: table;
+    content: "";
+  }
+
+  .markdown-body hr:after {
+    clear: both;
+  }
+
+  .markdown-body table {
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+
+  .markdown-body td,
+  .markdown-body th {
+    padding: 0;
+  }
+
+  .markdown-body details summary {
+    cursor: pointer;
+  }
+
+  .markdown-body kbd {
+    display: inline-block;
+    padding: 3px 5px;
+    font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    line-height: 10px;
+    color: #444d56;
+    vertical-align: middle;
+    background-color: #fafbfc;
+    border: 1px solid #d1d5da;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 #d1d5da;
+  }
+
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3,
+  .markdown-body h4,
+  .markdown-body h5,
+  .markdown-body h6 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .markdown-body h1 {
+    font-size: 32px;
+  }
+
+  .markdown-body h1,
+  .markdown-body h2 {
+    font-weight: 600;
+  }
+
+  .markdown-body h2 {
+    font-size: 24px;
+  }
+
+  .markdown-body h3 {
+    font-size: 20px;
+  }
+
+  .markdown-body h3,
+  .markdown-body h4 {
+    font-weight: 600;
+  }
+
+  .markdown-body h4 {
+    font-size: 16px;
+  }
+
+  .markdown-body h5 {
+    font-size: 14px;
+  }
+
+  .markdown-body h5,
+  .markdown-body h6 {
+    font-weight: 600;
+  }
+
+  .markdown-body h6 {
+    font-size: 12px;
+  }
+
+  .markdown-body p {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .markdown-body blockquote {
+    margin: 0;
+  }
+
+  .markdown-body ol,
+  .markdown-body ul {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .markdown-body ol ol,
+  .markdown-body ul ol {
+    list-style-type: lower-roman;
+  }
+
+  .markdown-body ol ol ol,
+  .markdown-body ol ul ol,
+  .markdown-body ul ol ol,
+  .markdown-body ul ul ol {
+    list-style-type: lower-alpha;
+  }
+
+  .markdown-body dd {
+    margin-left: 0;
+  }
+
+  .markdown-body code,
+  .markdown-body pre {
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-size: 12px;
+  }
+
+  .markdown-body pre {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .markdown-body input::-webkit-inner-spin-button,
+  .markdown-body input::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .markdown-body :checked+.radio-label {
+    position: relative;
+    z-index: 1;
+    border-color: #0366d6;
+  }
+
+  .markdown-body .border {
+    border: 1px solid #e1e4e8!important;
+  }
+
+  .markdown-body .border-0 {
+    border: 0!important;
+  }
+
+  .markdown-body .border-bottom {
+    border-bottom: 1px solid #e1e4e8!important;
+  }
+
+  .markdown-body .rounded-1 {
+    border-radius: 3px!important;
+  }
+
+  .markdown-body .bg-white {
+    background-color: #fff!important;
+  }
+
+  .markdown-body .bg-gray-light {
+    background-color: #fafbfc!important;
+  }
+
+  .markdown-body .text-gray-light {
+    color: #6a737d!important;
+  }
+
+  .markdown-body .mb-0 {
+    margin-bottom: 0!important;
+  }
+
+  .markdown-body .my-2 {
+    margin-top: 8px!important;
+    margin-bottom: 8px!important;
+  }
+
+  .markdown-body .pl-0 {
+    padding-left: 0!important;
+  }
+
+  .markdown-body .py-0 {
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+  }
+
+  .markdown-body .pl-1 {
+    padding-left: 4px!important;
+  }
+
+  .markdown-body .pl-2 {
+    padding-left: 8px!important;
+  }
+
+  .markdown-body .py-2 {
+    padding-top: 8px!important;
+    padding-bottom: 8px!important;
+  }
+
+  .markdown-body .pl-3,
+  .markdown-body .px-3 {
+    padding-left: 16px!important;
+  }
+
+  .markdown-body .px-3 {
+    padding-right: 16px!important;
+  }
+
+  .markdown-body .pl-4 {
+    padding-left: 24px!important;
+  }
+
+  .markdown-body .pl-5 {
+    padding-left: 32px!important;
+  }
+
+  .markdown-body .pl-6 {
+    padding-left: 40px!important;
+  }
+
+  .markdown-body .f6 {
+    font-size: 12px!important;
+  }
+
+  .markdown-body .lh-condensed {
+    line-height: 1.25!important;
+  }
+
+  .markdown-body .text-bold {
+    font-weight: 600!important;
+  }
+
+  .markdown-body .pl-c {
+    color: #6a737d;
+  }
+
+  .markdown-body .pl-c1,
+  .markdown-body .pl-s .pl-v {
+    color: #005cc5;
+  }
+
+  .markdown-body .pl-e,
+  .markdown-body .pl-en {
+    color: #6f42c1;
+  }
+
+  .markdown-body .pl-s .pl-s1,
+  .markdown-body .pl-smi {
+    color: #24292e;
+  }
+
+  .markdown-body .pl-ent {
+    color: #22863a;
+  }
+
+  .markdown-body .pl-k {
+    color: #d73a49;
+  }
+
+  .markdown-body .pl-pds,
+  .markdown-body .pl-s,
+  .markdown-body .pl-s .pl-pse .pl-s1,
+  .markdown-body .pl-sr,
+  .markdown-body .pl-sr .pl-cce,
+  .markdown-body .pl-sr .pl-sra,
+  .markdown-body .pl-sr .pl-sre {
+    color: #032f62;
+  }
+
+  .markdown-body .pl-smw,
+  .markdown-body .pl-v {
+    color: #e36209;
+  }
+
+  .markdown-body .pl-bu {
+    color: #b31d28;
+  }
+
+  .markdown-body .pl-ii {
+    color: #fafbfc;
+    background-color: #b31d28;
+  }
+
+  .markdown-body .pl-c2 {
+    color: #fafbfc;
+    background-color: #d73a49;
+  }
+
+  .markdown-body .pl-c2:before {
+    content: "^M";
+  }
+
+  .markdown-body .pl-sr .pl-cce {
+    font-weight: 700;
+    color: #22863a;
+  }
+
+  .markdown-body .pl-ml {
+    color: #735c0f;
+  }
+
+  .markdown-body .pl-mh,
+  .markdown-body .pl-mh .pl-en,
+  .markdown-body .pl-ms {
+    font-weight: 700;
+    color: #005cc5;
+  }
+
+  .markdown-body .pl-mi {
+    font-style: italic;
+    color: #24292e;
+  }
+
+  .markdown-body .pl-mb {
+    font-weight: 700;
+    color: #24292e;
+  }
+
+  .markdown-body .pl-md {
+    color: #b31d28;
+    background-color: #ffeef0;
+  }
+
+  .markdown-body .pl-mi1 {
+    color: #22863a;
+    background-color: #f0fff4;
+  }
+
+  .markdown-body .pl-mc {
+    color: #e36209;
+    background-color: #ffebda;
+  }
+
+  .markdown-body .pl-mi2 {
+    color: #f6f8fa;
+    background-color: #005cc5;
+  }
+
+  .markdown-body .pl-mdr {
+    font-weight: 700;
+    color: #6f42c1;
+  }
+
+  .markdown-body .pl-ba {
+    color: #586069;
+  }
+
+  .markdown-body .pl-sg {
+    color: #959da5;
+  }
+
+  .markdown-body .pl-corl {
+    text-decoration: underline;
+    color: #032f62;
+  }
+
+  .markdown-body .mb-0 {
+    margin-bottom: 0!important;
+  }
+
+  .markdown-body .my-2 {
+    margin-bottom: 8px!important;
+  }
+
+  .markdown-body .my-2 {
+    margin-top: 8px!important;
+  }
+
+  .markdown-body .pl-0 {
+    padding-left: 0!important;
+  }
+
+  .markdown-body .py-0 {
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+  }
+
+  .markdown-body .pl-1 {
+    padding-left: 4px!important;
+  }
+
+  .markdown-body .pl-2 {
+    padding-left: 8px!important;
+  }
+
+  .markdown-body .py-2 {
+    padding-top: 8px!important;
+    padding-bottom: 8px!important;
+  }
+
+  .markdown-body .pl-3 {
+    padding-left: 16px!important;
+  }
+
+  .markdown-body .pl-4 {
+    padding-left: 24px!important;
+  }
+
+  .markdown-body .pl-5 {
+    padding-left: 32px!important;
+  }
+
+  .markdown-body .pl-6 {
+    padding-left: 40px!important;
+  }
+
+  .markdown-body .pl-7 {
+    padding-left: 48px!important;
+  }
+
+  .markdown-body .pl-8 {
+    padding-left: 64px!important;
+  }
+
+  .markdown-body .pl-9 {
+    padding-left: 80px!important;
+  }
+
+  .markdown-body .pl-10 {
+    padding-left: 96px!important;
+  }
+
+  .markdown-body .pl-11 {
+    padding-left: 112px!important;
+  }
+
+  .markdown-body .pl-12 {
+    padding-left: 128px!important;
+  }
+
+  .markdown-body hr {
+    border-bottom-color: #eee;
+  }
+
+  .markdown-body kbd {
+    display: inline-block;
+    padding: 3px 5px;
+    font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    line-height: 10px;
+    color: #444d56;
+    vertical-align: middle;
+    background-color: #fafbfc;
+    border: 1px solid #d1d5da;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 #d1d5da;
+  }
+
+  .markdown-body:after,
+  .markdown-body:before {
+    display: table;
+    content: "";
+  }
+
+  .markdown-body:after {
+    clear: both;
+  }
+
+  .markdown-body>:first-child {
+    margin-top: 0!important;
+  }
+
+  .markdown-body>:last-child {
+    margin-bottom: 0!important;
+  }
+
+  .markdown-body a:not([href]) {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .markdown-body blockquote,
+  .markdown-body details,
+  .markdown-body dl,
+  .markdown-body ol,
+  .markdown-body p,
+  .markdown-body pre,
+  .markdown-body table,
+  .markdown-body ul {
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+
+  .markdown-body hr {
+    height: .25em;
+    padding: 0;
+    margin: 24px 0;
+    background-color: #e1e4e8;
+    border: 0;
+  }
+
+  .markdown-body blockquote {
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: .25em solid #dfe2e5;
+  }
+
+  .markdown-body blockquote>:first-child {
+    margin-top: 0;
+  }
+
+  .markdown-body blockquote>:last-child {
+    margin-bottom: 0;
+  }
+
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3,
+  .markdown-body h4,
+  .markdown-body h5,
+  .markdown-body h6 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .markdown-body h1 {
+    font-size: 2em;
+  }
+
+  .markdown-body h1,
+  .markdown-body h2 {
+    padding-bottom: .3em;
+    border-bottom: 1px solid #eaecef;
+  }
+
+  .markdown-body h2 {
+    font-size: 1.5em;
+  }
+
+  .markdown-body h3 {
+    font-size: 1.25em;
+  }
+
+  .markdown-body h4 {
+    font-size: 1em;
+  }
+
+  .markdown-body h5 {
+    font-size: .875em;
+  }
+
+  .markdown-body h6 {
+    font-size: .85em;
+    color: #6a737d;
+  }
+
+  .markdown-body ol,
+  .markdown-body ul {
+    padding-left: 2em;
+  }
+
+  .markdown-body ol ol,
+  .markdown-body ol ul,
+  .markdown-body ul ol,
+  .markdown-body ul ul {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .markdown-body li {
+    word-wrap: break-all;
+  }
+
+  .markdown-body li>p {
+    margin-top: 16px;
+  }
+
+  .markdown-body li+li {
+    margin-top: .25em;
+  }
+
+  .markdown-body dl {
+    padding: 0;
+  }
+
+  .markdown-body dl dt {
+    padding: 0;
+    margin-top: 16px;
+    font-size: 1em;
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  .markdown-body dl dd {
+    padding: 0 16px;
+    margin-bottom: 16px;
+  }
+
+  .markdown-body table {
+    display: block;
+    width: 100%;
+    overflow: auto;
+  }
+
+  .markdown-body table th {
+    font-weight: 600;
+  }
+
+  .markdown-body table td,
+  .markdown-body table th {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+  }
+
+  .markdown-body table tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+  }
+
+  .markdown-body table tr:nth-child(2n) {
+    background-color: #f6f8fa;
+  }
+
+  .markdown-body img {
+    max-width: 100%;
+    box-sizing: initial;
+    background-color: #fff;
+  }
+
+  .markdown-body img[align=right] {
+    padding-left: 20px;
+  }
+
+  .markdown-body img[align=left] {
+    padding-right: 20px;
+  }
+
+  .markdown-body code {
+    padding: .2em .4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(27,31,35,.05);
+    border-radius: 3px;
+  }
+
+  .markdown-body pre {
+    word-wrap: normal;
+  }
+
+  .markdown-body pre>code {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    word-break: normal;
+    white-space: pre;
+    background: transparent;
+    border: 0;
+  }
+
+  .markdown-body .highlight {
+    margin-bottom: 16px;
+  }
+
+  .markdown-body .highlight pre {
+    margin-bottom: 0;
+    word-break: normal;
+  }
+
+  .markdown-body .highlight pre,
+  .markdown-body pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f6f8fa;
+    border-radius: 3px;
+  }
+
+  .markdown-body pre code {
+    display: inline;
+    max-width: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    line-height: inherit;
+    word-wrap: normal;
+    background-color: initial;
+    border: 0;
+  }
+
+  .markdown-body .commit-tease-sha {
+    display: inline-block;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-size: 90%;
+    color: #444d56;
+  }
+
+  .markdown-body .full-commit .btn-outline:not(:disabled):hover {
+    color: #005cc5;
+    border-color: #005cc5;
+  }
+
+  .markdown-body .blob-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .markdown-body .blob-wrapper-embedded {
+    max-height: 240px;
+    overflow-y: auto;
+  }
+
+  .markdown-body .blob-num {
+    width: 1%;
+    min-width: 50px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-size: 12px;
+    line-height: 20px;
+    color: rgba(27,31,35,.3);
+    text-align: right;
+    white-space: nowrap;
+    vertical-align: top;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .markdown-body .blob-num:hover {
+    color: rgba(27,31,35,.6);
+  }
+
+  .markdown-body .blob-num:before {
+    content: attr(data-line-number);
+  }
+
+  .markdown-body .blob-code {
+    position: relative;
+    padding-right: 10px;
+    padding-left: 10px;
+    line-height: 20px;
+    vertical-align: top;
+  }
+
+  .markdown-body .blob-code-inner {
+    overflow: visible;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-size: 12px;
+    color: #24292e;
+    word-wrap: normal;
+    white-space: pre;
+  }
+
+  .markdown-body .pl-token.active,
+  .markdown-body .pl-token:hover {
+    cursor: pointer;
+    background: #ffea7f;
+  }
+
+  .markdown-body .tab-size[data-tab-size="1"] {
+    -moz-tab-size: 1;
+    tab-size: 1;
+  }
+
+  .markdown-body .tab-size[data-tab-size="2"] {
+    -moz-tab-size: 2;
+    tab-size: 2;
+  }
+
+  .markdown-body .tab-size[data-tab-size="3"] {
+    -moz-tab-size: 3;
+    tab-size: 3;
+  }
+
+  .markdown-body .tab-size[data-tab-size="4"] {
+    -moz-tab-size: 4;
+    tab-size: 4;
+  }
+
+  .markdown-body .tab-size[data-tab-size="5"] {
+    -moz-tab-size: 5;
+    tab-size: 5;
+  }
+
+  .markdown-body .tab-size[data-tab-size="6"] {
+    -moz-tab-size: 6;
+    tab-size: 6;
+  }
+
+  .markdown-body .tab-size[data-tab-size="7"] {
+    -moz-tab-size: 7;
+    tab-size: 7;
+  }
+
+  .markdown-body .tab-size[data-tab-size="8"] {
+    -moz-tab-size: 8;
+    tab-size: 8;
+  }
+
+  .markdown-body .tab-size[data-tab-size="9"] {
+    -moz-tab-size: 9;
+    tab-size: 9;
+  }
+
+  .markdown-body .tab-size[data-tab-size="10"] {
+    -moz-tab-size: 10;
+    tab-size: 10;
+  }
+
+  .markdown-body .tab-size[data-tab-size="11"] {
+    -moz-tab-size: 11;
+    tab-size: 11;
+  }
+
+  .markdown-body .tab-size[data-tab-size="12"] {
+    -moz-tab-size: 12;
+    tab-size: 12;
+  }
+
+  .markdown-body .task-list-item {
+    list-style-type: none;
+  }
+
+  .markdown-body .task-list-item+.task-list-item {
+    margin-top: 3px;
+  }
+
+  .markdown-body .task-list-item input {
+    margin: 0 .2em .25em -1.6em;
+    vertical-align: middle;
+  }
+</style>
+</head><body><article class="markdown-body"><h1><a id="user-content-overview" class="anchor" aria-hidden="true" href="#overview"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h1>
+<p>Comparing values with GUT's asserts works the way you would expect it to in most cases.  Arrays and dictionaries are a little more complicated.  The following methods can help with this:</p>
+<ul>
+<li><code>compare_shallow</code></li>
+<li><code>compare_deep</code></li>
+<li>
+<a href="Asserts-and-Methods#assert_eq_shallow"><code>assert_eq_shallow</code></a>, <a href="Asserts-and-Methods#assert_ne_shallow"><code>assert_ne_shallow</code></a>
+</li>
+<li>
+<a href="Asserts-and-Methods#assert_eq_deep"><code>assert_eq_deep</code></a>, <a href="Asserts-and-Methods#assert_ne_deep"><code>assert_ne_deep</code></a>
+</li>
+</ul>
+<p>The asserts listed are convenience wrappers around <code>compare_shallow</code> and <code>compare_deep</code>.  In most cases this will be all you need.  If you would like to further inspect the differences with code then or adjust the number of differences displayed then use the "compare" methods.  These methods return a <a href="#CompareResult"><code>CompareResult</code></a> object which is described below.</p>
+<h3><a id="user-content-shallow" class="anchor" aria-hidden="true" href="#shallow"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shallow</h3>
+<p>A shallow compare will look at each element in a dictionary or array and use the default Godot equivalence logic.  Floats and Integers are never equal.  See <a href="Asserts-and-Methods#assert_eq_shallow"><code>assert_eq_shallow</code></a> for examples.</p>
+<h3><a id="user-content-deep" class="anchor" aria-hidden="true" href="#deep"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deep</h3>
+<p>A deep compare will recursively compare all values in the dictionary/array and all sub-dictionaries and sub-arrays.  Floats and Integers are never equal.  See <a href="Asserts-and-Methods#assert_eq_deep"><code>assert_eq_deep</code></a> for examples.</p>
+<h1><a id="user-content-comparing-arrays" class="anchor" aria-hidden="true" href="#comparing-arrays"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-ComparingArrays">Comparing Arrays</a></h1>
+<ul>
+<li>Godot compares arrays by value with some caveats.
+<ul>
+<li>Unlike when using <code>==</code>, floats never == integers in an array.</li>
+<li>Dictionaries are compared by reference.  Two different dictionaries with the same values are not equal.</li>
+</ul>
+</li>
+<li>Sub arrays are compared the same way.</li>
+<li>Cannot compare arrays by reference.</li>
+</ul>
+<h3><a id="user-content-asserts-and-arrays" class="anchor" aria-hidden="true" href="#asserts-and-arrays"><span aria-hidden="true" class="octicon octicon-link"></span></a>Asserts and Arrays</h3>
+<ul>
+<li>The <code>assert_eq</code> and <code>assert_ne</code> functions simulate Godot's behavior but have improved output.
+<ul>
+<li>Up to 30 differences in index values are listed including any missing indexes.</li>
+<li>Dictionaries anywhere in the array are compared-by-ref.</li>
+<li>Sub-arrays are summarized, the number of indexes that do not match are listed, but each different value is not.</li>
+</ul>
+</li>
+<li>
+<code>assert_called</code> and <code>assert_not_called</code> perform deep compares on any parameters specified.</li>
+<li>
+<code>assert_signal_emitted_with_parameters</code> performs a deep compare on the parameters specified.</li>
+<li>
+<code>assert_has</code> and <code>assert_does_not_have</code> use Godot's default behavior.</li>
+</ul>
+<h3><a id="user-content-shallow-1" class="anchor" aria-hidden="true" href="#shallow-1"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shallow</h3>
+<p>A shallow compare of arrays acts the same as <code>assert_eq</code>/<code>assert_ne</code>.  Any dictionaries in the array or sub-arrays will be compared by reference.  Floats and Integers are never equal.</p>
+<h3><a id="user-content-deep-1" class="anchor" aria-hidden="true" href="#deep-1"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deep</h3>
+<p>A deep compare of arrays will compare all indexes and the values in all sub-arrays/sub-dictionaries found.  Floats and Integers are never equal.</p>
+<h1><a id="user-content-comparing-dictionaries" class="anchor" aria-hidden="true" href="#comparing-dictionaries"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-ComparingDictionaries">Comparing Dictionaries</a></h1>
+<ul>
+<li>Godot compares dictionaries by reference.</li>
+<li>Dictionary keys are ordered (which is unusual).</li>
+<li>The dictionary <code>hash</code> fuction requires dictionary keys be in the same order to generate the same hash so comparing dictionaries by value cannot be done reliably without additional coding.</li>
+<li>In order to compare values in dictionary you must use one of the shallow or deep methods listed above.</li>
+</ul>
+<h3><a id="user-content-asserts-and-dictionaries" class="anchor" aria-hidden="true" href="#asserts-and-dictionaries"><span aria-hidden="true" class="octicon octicon-link"></span></a>Asserts and Dictionaries</h3>
+<ul>
+<li>The <code>assert_eq</code> and <code>assert_ne</code> uses Godot's default behavior and compares them by reference.</li>
+<li>
+<code>assert_called</code> and <code>assert_not_called</code> perform deep compares on any parameters specified.</li>
+<li>
+<code>assert_signal_emitted_with_parameters</code> performs a deep compare on the parameters specified.</li>
+<li>
+<code>assert_has</code> and <code>assert_does_not_have</code> use Godot's default behavior.</li>
+</ul>
+<h3><a id="user-content-shallow-2" class="anchor" aria-hidden="true" href="#shallow-2"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shallow</h3>
+<p>A shallow compare of dictionaries will compare all values found in the dictionary.  Sub-dictionaries are compared by value.  Sub-arrays are compared with <code>==</code>.  Floats and Integers are never equal.</p>
+<h3><a id="user-content-deep-2" class="anchor" aria-hidden="true" href="#deep-2"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deep</h3>
+<p>A  deep compare of dictionaries will compare all keys and the values  in all sub-arrays/sub-dictionaries found.  Floats and Integers are never equal.</p>
+<h1><a id="user-content--compareresult" class="anchor" aria-hidden="true" href="#-compareresult"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-CompareResult"> CompareResult</a></h1>
+<p>A CompareResult object is returned from <code>compare_shallow</code> and <code>compare_deep</code>.  You can use this object to further inspect the differences or adjust the output.</p>
+<h3><a id="user-content-properties" class="anchor" aria-hidden="true" href="#properties"><span aria-hidden="true" class="octicon octicon-link"></span></a>Properties</h3>
+<ul>
+<li>
+<code>are_equal</code>: returns <code>true</code>/<code>false</code> if the two objects are equal based on the kind of comparison performed.</li>
+<li>
+<code>summary</code>: returrns a string of all the differences found.  This will display <code>max_differences</code> differences.  When performing a deep compare, it will also display <code>max_differences</code> per each sub-array/sub-dictionary. This is returned if you use <code>str</code> on a <code>CompareResult</code>.</li>
+<li>
+<code>max_differences</code>:  The number of differences to display.  This only affects output, all differences are accessible from the <code>differences</code> property.  Set this to -1 to show the maximum number of differences (10,000)</li>
+<li>
+<code>differences</code>:  This is a dictionary of all the keys/indexes that are different between the compared items.  The key is the key/index that is different.  Keys/indexes that are missing from one of the compared objects are included.  The value of each index is a <code>CompareResult</code>.
+<br><br>
+<code>CompareResult</code>s for sub-arrays/sub-dictionaries <code>differences</code> will contain all their differences.  You can use  the <code>differences</code> property for that key to dig deeper into the differences.  <code>differences</code> will be an empty dictionary for any element that is not an array or dictionary.</li>
+</ul>
+<h2><a id="user-content-examples" class="anchor" aria-hidden="true" href="#examples"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h2>
+<h3><a id="user-content-deep-array-compare" class="anchor" aria-hidden="true" href="#deep-array-compare"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deep array compare:</h3>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> a1 <span class="pl-k">=</span> [
+    [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>],
+    [[<span class="pl-c1">4</span>, <span class="pl-c1">5</span>, <span class="pl-c1">6</span>], [<span class="pl-s">'same'</span>], [<span class="pl-c1">7</span>, <span class="pl-c1">8</span>, <span class="pl-c1">9</span>]]
+]
+<span class="pl-k">var</span> a2 <span class="pl-k">=</span> [
+    [<span class="pl-s">"1"</span>, <span class="pl-c1">2.0</span>, <span class="pl-c1">13</span>],
+    [[<span class="pl-c1">14</span>, <span class="pl-c1">15</span>, <span class="pl-c1">16</span>], [<span class="pl-s">'same'</span>], [<span class="pl-c1">17</span>, <span class="pl-c1">18</span>, <span class="pl-c1">19</span>]]
+]
+<span class="pl-k">var</span> result <span class="pl-k">=</span> <span class="pl-c1">compare_deep</span>(a1, a2)
+<span class="pl-c1">print</span>(result.summary)
+
+<span class="pl-c1">print</span>(<span class="pl-s">'Traversing differences:'</span>)
+<span class="pl-c1">print</span>(result.differences[<span class="pl-c1">1</span>].differences[<span class="pl-c1">2</span>].differences[<span class="pl-c1">0</span>])</pre></div>
+<p>Output</p>
+<pre><code>[[1, 2, 3, 4], [[4, 5, 6], [same], [7, 8...7, 8, 9]]] != [[1, 2, 13], [[14, 15, 16], [same], [17,... 18, 19]]]  2 of 2 indexes do not match.
+    [
+        0:  [
+            0:  1 != "1".  Cannot compare Int with String.
+            1:  2 != 2.0.  Cannot compare Int with Float/Real.
+            2:  3 != 13
+            3:  4 != &lt;missing index&gt;
+        ]
+        1:  [
+            0:  [
+                0:  4 != 14
+                1:  5 != 15
+                2:  6 != 16
+            ]
+            2:  [
+                0:  7 != 17
+                1:  8 != 18
+                2:  9 != 19
+            ]
+        ]
+    ]
+Traversing differences:
+7 != 17
+</code></pre>
+<h3><a id="user-content-deep-dictionary-compare" class="anchor" aria-hidden="true" href="#deep-dictionary-compare"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deep Dictionary Compare</h3>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> v1 <span class="pl-k">=</span> {<span class="pl-s">'a'</span>:{<span class="pl-s">'b'</span>:{<span class="pl-s">'c'</span>:{<span class="pl-s">'d'</span>:<span class="pl-c1">1</span>}}}}
+<span class="pl-k">var</span> v2 <span class="pl-k">=</span> {<span class="pl-s">'a'</span>:{<span class="pl-s">'b'</span>:{<span class="pl-s">'c'</span>:{<span class="pl-s">'d'</span>:<span class="pl-c1">2</span>}}}}
+<span class="pl-k">var</span> result <span class="pl-k">=</span> <span class="pl-c1">compare_deep</span>(v1, v2)
+<span class="pl-c1">print</span>(result.summary)
+
+<span class="pl-c1">print</span>(<span class="pl-s">'Traversing differences:'</span>)
+<span class="pl-c1">print</span>(result.differences[<span class="pl-s">'a'</span>].differences[<span class="pl-s">'b'</span>].differences[<span class="pl-s">'c'</span>])</pre></div>
+<p>Output</p>
+<pre><code>{a:{b:{c:{d:1}}}} != {a:{b:{c:{d:2}}}}  1 of 1 keys do not match.
+    {
+        a:  {
+            b:  {
+                c:  {
+                    d:  1 != 2
+                }
+            }
+        }
+    }
+Traversing differences:
+{d:1} != {d:2}  1 of 1 keys do not match.
+    {
+        d:  1 != 2
+    }
+</code></pre>
+<h3><a id="user-content-mix-bag-of-differences" class="anchor" aria-hidden="true" href="#mix-bag-of-differences"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mix Bag of Differences</h3>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> a1 <span class="pl-k">=</span> [
+    <span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>, <span class="pl-s">'c'</span>,
+    [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>],
+    {<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>, <span class="pl-s">'b'</span>:<span class="pl-c1">2</span>, <span class="pl-s">'c'</span>:<span class="pl-c1">3</span>},
+    [{<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}, {<span class="pl-s">'b'</span>:<span class="pl-c1">2</span>}]
+]
+<span class="pl-k">var</span> a2 <span class="pl-k">=</span> [
+    <span class="pl-s">'a'</span>, <span class="pl-c1">2</span>, <span class="pl-s">'c'</span>,
+    [<span class="pl-s">'a'</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-s">'d'</span>],
+    {<span class="pl-s">'a'</span>:<span class="pl-c1">11</span>, <span class="pl-s">'b'</span>:<span class="pl-c1">12</span>, <span class="pl-s">'c'</span>:<span class="pl-c1">13</span>},
+    [{<span class="pl-s">'a'</span>:<span class="pl-s">'diff'</span>}, {<span class="pl-s">'b'</span>:<span class="pl-c1">2</span>}]
+]
+<span class="pl-k">var</span> result <span class="pl-k">=</span> <span class="pl-c1">compare_deep</span>(a1, a2)
+<span class="pl-c1">print</span>(result.summary)
+
+<span class="pl-c1">print</span>(<span class="pl-s">'Traversing differences:'</span>)
+<span class="pl-c1">print</span>(result.differences[<span class="pl-c1">5</span>].differences[<span class="pl-c1">0</span>].differences[<span class="pl-s">'a'</span>])
+</pre></div>
+<p>Output</p>
+<pre><code>[a, b, c, [1, 2, 3, 4], {a:1, b:2, c:3},...}, {b:2}]] != [a, 2, c, [a, 2, 3, d], {a:11, b:12, c:1...}, {b:2}]]  4 of 6 indexes do not match.
+    [
+        1:  "b" != 2.  Cannot compare String with Int.
+        3:  [
+            0:  1 != "a".  Cannot compare Int with String.
+            3:  4 != "d".  Cannot compare Int with String.
+        ]
+        4:  {
+            a:  1 != 11
+            b:  2 != 12
+            c:  3 != 13
+        }
+        5:  [
+            0:  {
+                a:  1 != "diff".  Cannot compare Int with String.
+            }
+        ]
+    ]
+    Traversing differences:
+    1 != "diff".  Cannot compare Int with String.
+</code></pre>
+</article></body>

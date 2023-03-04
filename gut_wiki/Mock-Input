@@ -1,0 +1,1308 @@
+
+        <html><head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+
+            @media (max-width: 767px) {
+                .markdown-body {
+                    padding: 15px;
+                }
+            }
+
+        
+
+
+.markdown-body .octicon {
+    display: inline-block;
+    fill: currentColor;
+    vertical-align: text-bottom;
+  }
+
+  .markdown-body .anchor {
+    float: left;
+    line-height: 1;
+    margin-left: -20px;
+    padding-right: 4px;
+  }
+
+  .markdown-body .anchor:focus {
+    outline: none;
+  }
+
+  .markdown-body h1 .octicon-link,
+  .markdown-body h2 .octicon-link,
+  .markdown-body h3 .octicon-link,
+  .markdown-body h4 .octicon-link,
+  .markdown-body h5 .octicon-link,
+  .markdown-body h6 .octicon-link {
+    color: #1b1f23;
+    vertical-align: middle;
+    visibility: hidden;
+  }
+
+  .markdown-body h1:hover .anchor,
+  .markdown-body h2:hover .anchor,
+  .markdown-body h3:hover .anchor,
+  .markdown-body h4:hover .anchor,
+  .markdown-body h5:hover .anchor,
+  .markdown-body h6:hover .anchor {
+    text-decoration: none;
+  }
+
+  .markdown-body h1:hover .anchor .octicon-link,
+  .markdown-body h2:hover .anchor .octicon-link,
+  .markdown-body h3:hover .anchor .octicon-link,
+  .markdown-body h4:hover .anchor .octicon-link,
+  .markdown-body h5:hover .anchor .octicon-link,
+  .markdown-body h6:hover .anchor .octicon-link {
+    visibility: visible;
+  }
+
+  .markdown-body h1:hover .anchor .octicon-link:before,
+  .markdown-body h2:hover .anchor .octicon-link:before,
+  .markdown-body h3:hover .anchor .octicon-link:before,
+  .markdown-body h4:hover .anchor .octicon-link:before,
+  .markdown-body h5:hover .anchor .octicon-link:before,
+  .markdown-body h6:hover .anchor .octicon-link:before {
+    width: 16px;
+    height: 16px;
+    content: ' ';
+    display: inline-block;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath fill-rule='evenodd' d='M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z'%3E%3C/path%3E%3C/svg%3E");
+  }.markdown-body {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    line-height: 1.5;
+    color: #24292e;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+    font-size: 16px;
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+
+  .markdown-body details {
+    display: block;
+  }
+
+  .markdown-body summary {
+    display: list-item;
+  }
+
+  .markdown-body a {
+    background-color: initial;
+  }
+
+  .markdown-body a:active,
+  .markdown-body a:hover {
+    outline-width: 0;
+  }
+
+  .markdown-body strong {
+    font-weight: inherit;
+    font-weight: bolder;
+  }
+
+  .markdown-body h1 {
+    font-size: 2em;
+    margin: .67em 0;
+  }
+
+  .markdown-body img {
+    border-style: none;
+  }
+
+  .markdown-body code,
+  .markdown-body kbd,
+  .markdown-body pre {
+    font-family: monospace,monospace;
+    font-size: 1em;
+  }
+
+  .markdown-body hr {
+    box-sizing: initial;
+    height: 0;
+    overflow: visible;
+  }
+
+  .markdown-body input {
+    font: inherit;
+    margin: 0;
+  }
+
+  .markdown-body input {
+    overflow: visible;
+  }
+
+  .markdown-body [type=checkbox] {
+    box-sizing: border-box;
+    padding: 0;
+  }
+
+  .markdown-body * {
+    box-sizing: border-box;
+  }
+
+  .markdown-body input {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .markdown-body a {
+    color: #0366d6;
+    text-decoration: none;
+  }
+
+  .markdown-body a:hover {
+    text-decoration: underline;
+  }
+
+  .markdown-body strong {
+    font-weight: 600;
+  }
+
+  .markdown-body hr {
+    height: 0;
+    margin: 15px 0;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #dfe2e5;
+  }
+
+  .markdown-body hr:after,
+  .markdown-body hr:before {
+    display: table;
+    content: "";
+  }
+
+  .markdown-body hr:after {
+    clear: both;
+  }
+
+  .markdown-body table {
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+
+  .markdown-body td,
+  .markdown-body th {
+    padding: 0;
+  }
+
+  .markdown-body details summary {
+    cursor: pointer;
+  }
+
+  .markdown-body kbd {
+    display: inline-block;
+    padding: 3px 5px;
+    font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    line-height: 10px;
+    color: #444d56;
+    vertical-align: middle;
+    background-color: #fafbfc;
+    border: 1px solid #d1d5da;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 #d1d5da;
+  }
+
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3,
+  .markdown-body h4,
+  .markdown-body h5,
+  .markdown-body h6 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .markdown-body h1 {
+    font-size: 32px;
+  }
+
+  .markdown-body h1,
+  .markdown-body h2 {
+    font-weight: 600;
+  }
+
+  .markdown-body h2 {
+    font-size: 24px;
+  }
+
+  .markdown-body h3 {
+    font-size: 20px;
+  }
+
+  .markdown-body h3,
+  .markdown-body h4 {
+    font-weight: 600;
+  }
+
+  .markdown-body h4 {
+    font-size: 16px;
+  }
+
+  .markdown-body h5 {
+    font-size: 14px;
+  }
+
+  .markdown-body h5,
+  .markdown-body h6 {
+    font-weight: 600;
+  }
+
+  .markdown-body h6 {
+    font-size: 12px;
+  }
+
+  .markdown-body p {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .markdown-body blockquote {
+    margin: 0;
+  }
+
+  .markdown-body ol,
+  .markdown-body ul {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .markdown-body ol ol,
+  .markdown-body ul ol {
+    list-style-type: lower-roman;
+  }
+
+  .markdown-body ol ol ol,
+  .markdown-body ol ul ol,
+  .markdown-body ul ol ol,
+  .markdown-body ul ul ol {
+    list-style-type: lower-alpha;
+  }
+
+  .markdown-body dd {
+    margin-left: 0;
+  }
+
+  .markdown-body code,
+  .markdown-body pre {
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-size: 12px;
+  }
+
+  .markdown-body pre {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .markdown-body input::-webkit-inner-spin-button,
+  .markdown-body input::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .markdown-body :checked+.radio-label {
+    position: relative;
+    z-index: 1;
+    border-color: #0366d6;
+  }
+
+  .markdown-body .border {
+    border: 1px solid #e1e4e8!important;
+  }
+
+  .markdown-body .border-0 {
+    border: 0!important;
+  }
+
+  .markdown-body .border-bottom {
+    border-bottom: 1px solid #e1e4e8!important;
+  }
+
+  .markdown-body .rounded-1 {
+    border-radius: 3px!important;
+  }
+
+  .markdown-body .bg-white {
+    background-color: #fff!important;
+  }
+
+  .markdown-body .bg-gray-light {
+    background-color: #fafbfc!important;
+  }
+
+  .markdown-body .text-gray-light {
+    color: #6a737d!important;
+  }
+
+  .markdown-body .mb-0 {
+    margin-bottom: 0!important;
+  }
+
+  .markdown-body .my-2 {
+    margin-top: 8px!important;
+    margin-bottom: 8px!important;
+  }
+
+  .markdown-body .pl-0 {
+    padding-left: 0!important;
+  }
+
+  .markdown-body .py-0 {
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+  }
+
+  .markdown-body .pl-1 {
+    padding-left: 4px!important;
+  }
+
+  .markdown-body .pl-2 {
+    padding-left: 8px!important;
+  }
+
+  .markdown-body .py-2 {
+    padding-top: 8px!important;
+    padding-bottom: 8px!important;
+  }
+
+  .markdown-body .pl-3,
+  .markdown-body .px-3 {
+    padding-left: 16px!important;
+  }
+
+  .markdown-body .px-3 {
+    padding-right: 16px!important;
+  }
+
+  .markdown-body .pl-4 {
+    padding-left: 24px!important;
+  }
+
+  .markdown-body .pl-5 {
+    padding-left: 32px!important;
+  }
+
+  .markdown-body .pl-6 {
+    padding-left: 40px!important;
+  }
+
+  .markdown-body .f6 {
+    font-size: 12px!important;
+  }
+
+  .markdown-body .lh-condensed {
+    line-height: 1.25!important;
+  }
+
+  .markdown-body .text-bold {
+    font-weight: 600!important;
+  }
+
+  .markdown-body .pl-c {
+    color: #6a737d;
+  }
+
+  .markdown-body .pl-c1,
+  .markdown-body .pl-s .pl-v {
+    color: #005cc5;
+  }
+
+  .markdown-body .pl-e,
+  .markdown-body .pl-en {
+    color: #6f42c1;
+  }
+
+  .markdown-body .pl-s .pl-s1,
+  .markdown-body .pl-smi {
+    color: #24292e;
+  }
+
+  .markdown-body .pl-ent {
+    color: #22863a;
+  }
+
+  .markdown-body .pl-k {
+    color: #d73a49;
+  }
+
+  .markdown-body .pl-pds,
+  .markdown-body .pl-s,
+  .markdown-body .pl-s .pl-pse .pl-s1,
+  .markdown-body .pl-sr,
+  .markdown-body .pl-sr .pl-cce,
+  .markdown-body .pl-sr .pl-sra,
+  .markdown-body .pl-sr .pl-sre {
+    color: #032f62;
+  }
+
+  .markdown-body .pl-smw,
+  .markdown-body .pl-v {
+    color: #e36209;
+  }
+
+  .markdown-body .pl-bu {
+    color: #b31d28;
+  }
+
+  .markdown-body .pl-ii {
+    color: #fafbfc;
+    background-color: #b31d28;
+  }
+
+  .markdown-body .pl-c2 {
+    color: #fafbfc;
+    background-color: #d73a49;
+  }
+
+  .markdown-body .pl-c2:before {
+    content: "^M";
+  }
+
+  .markdown-body .pl-sr .pl-cce {
+    font-weight: 700;
+    color: #22863a;
+  }
+
+  .markdown-body .pl-ml {
+    color: #735c0f;
+  }
+
+  .markdown-body .pl-mh,
+  .markdown-body .pl-mh .pl-en,
+  .markdown-body .pl-ms {
+    font-weight: 700;
+    color: #005cc5;
+  }
+
+  .markdown-body .pl-mi {
+    font-style: italic;
+    color: #24292e;
+  }
+
+  .markdown-body .pl-mb {
+    font-weight: 700;
+    color: #24292e;
+  }
+
+  .markdown-body .pl-md {
+    color: #b31d28;
+    background-color: #ffeef0;
+  }
+
+  .markdown-body .pl-mi1 {
+    color: #22863a;
+    background-color: #f0fff4;
+  }
+
+  .markdown-body .pl-mc {
+    color: #e36209;
+    background-color: #ffebda;
+  }
+
+  .markdown-body .pl-mi2 {
+    color: #f6f8fa;
+    background-color: #005cc5;
+  }
+
+  .markdown-body .pl-mdr {
+    font-weight: 700;
+    color: #6f42c1;
+  }
+
+  .markdown-body .pl-ba {
+    color: #586069;
+  }
+
+  .markdown-body .pl-sg {
+    color: #959da5;
+  }
+
+  .markdown-body .pl-corl {
+    text-decoration: underline;
+    color: #032f62;
+  }
+
+  .markdown-body .mb-0 {
+    margin-bottom: 0!important;
+  }
+
+  .markdown-body .my-2 {
+    margin-bottom: 8px!important;
+  }
+
+  .markdown-body .my-2 {
+    margin-top: 8px!important;
+  }
+
+  .markdown-body .pl-0 {
+    padding-left: 0!important;
+  }
+
+  .markdown-body .py-0 {
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+  }
+
+  .markdown-body .pl-1 {
+    padding-left: 4px!important;
+  }
+
+  .markdown-body .pl-2 {
+    padding-left: 8px!important;
+  }
+
+  .markdown-body .py-2 {
+    padding-top: 8px!important;
+    padding-bottom: 8px!important;
+  }
+
+  .markdown-body .pl-3 {
+    padding-left: 16px!important;
+  }
+
+  .markdown-body .pl-4 {
+    padding-left: 24px!important;
+  }
+
+  .markdown-body .pl-5 {
+    padding-left: 32px!important;
+  }
+
+  .markdown-body .pl-6 {
+    padding-left: 40px!important;
+  }
+
+  .markdown-body .pl-7 {
+    padding-left: 48px!important;
+  }
+
+  .markdown-body .pl-8 {
+    padding-left: 64px!important;
+  }
+
+  .markdown-body .pl-9 {
+    padding-left: 80px!important;
+  }
+
+  .markdown-body .pl-10 {
+    padding-left: 96px!important;
+  }
+
+  .markdown-body .pl-11 {
+    padding-left: 112px!important;
+  }
+
+  .markdown-body .pl-12 {
+    padding-left: 128px!important;
+  }
+
+  .markdown-body hr {
+    border-bottom-color: #eee;
+  }
+
+  .markdown-body kbd {
+    display: inline-block;
+    padding: 3px 5px;
+    font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    line-height: 10px;
+    color: #444d56;
+    vertical-align: middle;
+    background-color: #fafbfc;
+    border: 1px solid #d1d5da;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 #d1d5da;
+  }
+
+  .markdown-body:after,
+  .markdown-body:before {
+    display: table;
+    content: "";
+  }
+
+  .markdown-body:after {
+    clear: both;
+  }
+
+  .markdown-body>:first-child {
+    margin-top: 0!important;
+  }
+
+  .markdown-body>:last-child {
+    margin-bottom: 0!important;
+  }
+
+  .markdown-body a:not([href]) {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .markdown-body blockquote,
+  .markdown-body details,
+  .markdown-body dl,
+  .markdown-body ol,
+  .markdown-body p,
+  .markdown-body pre,
+  .markdown-body table,
+  .markdown-body ul {
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+
+  .markdown-body hr {
+    height: .25em;
+    padding: 0;
+    margin: 24px 0;
+    background-color: #e1e4e8;
+    border: 0;
+  }
+
+  .markdown-body blockquote {
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: .25em solid #dfe2e5;
+  }
+
+  .markdown-body blockquote>:first-child {
+    margin-top: 0;
+  }
+
+  .markdown-body blockquote>:last-child {
+    margin-bottom: 0;
+  }
+
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3,
+  .markdown-body h4,
+  .markdown-body h5,
+  .markdown-body h6 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .markdown-body h1 {
+    font-size: 2em;
+  }
+
+  .markdown-body h1,
+  .markdown-body h2 {
+    padding-bottom: .3em;
+    border-bottom: 1px solid #eaecef;
+  }
+
+  .markdown-body h2 {
+    font-size: 1.5em;
+  }
+
+  .markdown-body h3 {
+    font-size: 1.25em;
+  }
+
+  .markdown-body h4 {
+    font-size: 1em;
+  }
+
+  .markdown-body h5 {
+    font-size: .875em;
+  }
+
+  .markdown-body h6 {
+    font-size: .85em;
+    color: #6a737d;
+  }
+
+  .markdown-body ol,
+  .markdown-body ul {
+    padding-left: 2em;
+  }
+
+  .markdown-body ol ol,
+  .markdown-body ol ul,
+  .markdown-body ul ol,
+  .markdown-body ul ul {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .markdown-body li {
+    word-wrap: break-all;
+  }
+
+  .markdown-body li>p {
+    margin-top: 16px;
+  }
+
+  .markdown-body li+li {
+    margin-top: .25em;
+  }
+
+  .markdown-body dl {
+    padding: 0;
+  }
+
+  .markdown-body dl dt {
+    padding: 0;
+    margin-top: 16px;
+    font-size: 1em;
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  .markdown-body dl dd {
+    padding: 0 16px;
+    margin-bottom: 16px;
+  }
+
+  .markdown-body table {
+    display: block;
+    width: 100%;
+    overflow: auto;
+  }
+
+  .markdown-body table th {
+    font-weight: 600;
+  }
+
+  .markdown-body table td,
+  .markdown-body table th {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+  }
+
+  .markdown-body table tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+  }
+
+  .markdown-body table tr:nth-child(2n) {
+    background-color: #f6f8fa;
+  }
+
+  .markdown-body img {
+    max-width: 100%;
+    box-sizing: initial;
+    background-color: #fff;
+  }
+
+  .markdown-body img[align=right] {
+    padding-left: 20px;
+  }
+
+  .markdown-body img[align=left] {
+    padding-right: 20px;
+  }
+
+  .markdown-body code {
+    padding: .2em .4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(27,31,35,.05);
+    border-radius: 3px;
+  }
+
+  .markdown-body pre {
+    word-wrap: normal;
+  }
+
+  .markdown-body pre>code {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    word-break: normal;
+    white-space: pre;
+    background: transparent;
+    border: 0;
+  }
+
+  .markdown-body .highlight {
+    margin-bottom: 16px;
+  }
+
+  .markdown-body .highlight pre {
+    margin-bottom: 0;
+    word-break: normal;
+  }
+
+  .markdown-body .highlight pre,
+  .markdown-body pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f6f8fa;
+    border-radius: 3px;
+  }
+
+  .markdown-body pre code {
+    display: inline;
+    max-width: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    line-height: inherit;
+    word-wrap: normal;
+    background-color: initial;
+    border: 0;
+  }
+
+  .markdown-body .commit-tease-sha {
+    display: inline-block;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-size: 90%;
+    color: #444d56;
+  }
+
+  .markdown-body .full-commit .btn-outline:not(:disabled):hover {
+    color: #005cc5;
+    border-color: #005cc5;
+  }
+
+  .markdown-body .blob-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .markdown-body .blob-wrapper-embedded {
+    max-height: 240px;
+    overflow-y: auto;
+  }
+
+  .markdown-body .blob-num {
+    width: 1%;
+    min-width: 50px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-size: 12px;
+    line-height: 20px;
+    color: rgba(27,31,35,.3);
+    text-align: right;
+    white-space: nowrap;
+    vertical-align: top;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .markdown-body .blob-num:hover {
+    color: rgba(27,31,35,.6);
+  }
+
+  .markdown-body .blob-num:before {
+    content: attr(data-line-number);
+  }
+
+  .markdown-body .blob-code {
+    position: relative;
+    padding-right: 10px;
+    padding-left: 10px;
+    line-height: 20px;
+    vertical-align: top;
+  }
+
+  .markdown-body .blob-code-inner {
+    overflow: visible;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-size: 12px;
+    color: #24292e;
+    word-wrap: normal;
+    white-space: pre;
+  }
+
+  .markdown-body .pl-token.active,
+  .markdown-body .pl-token:hover {
+    cursor: pointer;
+    background: #ffea7f;
+  }
+
+  .markdown-body .tab-size[data-tab-size="1"] {
+    -moz-tab-size: 1;
+    tab-size: 1;
+  }
+
+  .markdown-body .tab-size[data-tab-size="2"] {
+    -moz-tab-size: 2;
+    tab-size: 2;
+  }
+
+  .markdown-body .tab-size[data-tab-size="3"] {
+    -moz-tab-size: 3;
+    tab-size: 3;
+  }
+
+  .markdown-body .tab-size[data-tab-size="4"] {
+    -moz-tab-size: 4;
+    tab-size: 4;
+  }
+
+  .markdown-body .tab-size[data-tab-size="5"] {
+    -moz-tab-size: 5;
+    tab-size: 5;
+  }
+
+  .markdown-body .tab-size[data-tab-size="6"] {
+    -moz-tab-size: 6;
+    tab-size: 6;
+  }
+
+  .markdown-body .tab-size[data-tab-size="7"] {
+    -moz-tab-size: 7;
+    tab-size: 7;
+  }
+
+  .markdown-body .tab-size[data-tab-size="8"] {
+    -moz-tab-size: 8;
+    tab-size: 8;
+  }
+
+  .markdown-body .tab-size[data-tab-size="9"] {
+    -moz-tab-size: 9;
+    tab-size: 9;
+  }
+
+  .markdown-body .tab-size[data-tab-size="10"] {
+    -moz-tab-size: 10;
+    tab-size: 10;
+  }
+
+  .markdown-body .tab-size[data-tab-size="11"] {
+    -moz-tab-size: 11;
+    tab-size: 11;
+  }
+
+  .markdown-body .tab-size[data-tab-size="12"] {
+    -moz-tab-size: 12;
+    tab-size: 12;
+  }
+
+  .markdown-body .task-list-item {
+    list-style-type: none;
+  }
+
+  .markdown-body .task-list-item+.task-list-item {
+    margin-top: 3px;
+  }
+
+  .markdown-body .task-list-item input {
+    margin: 0 .2em .25em -1.6em;
+    vertical-align: middle;
+  }
+</style>
+</head><body><article class="markdown-body"><h1><a id="user-content-input-sender" class="anchor" aria-hidden="true" href="#input-sender"><span aria-hidden="true" class="octicon octicon-link"></span></a>Input Sender</h1>
+<p>The <code>InputSender</code> class can be used to send <code>InputEvent*</code> events to various objects.  It also allows you to script out a series of inputs and play them back in real time.  You could use it to:</p>
+<ul>
+<li>Verify that jump height depends on how long the jump button is pressed.</li>
+<li>Double tap a direction performs a dash.</li>
+<li>Down, Down-Forward, Forward + punch throws a fireball.</li>
+</ul>
+<p>And much much more.</p>
+<h1><a id="user-content-methods" class="anchor" aria-hidden="true" href="#methods"><span aria-hidden="true" class="octicon octicon-link"></span></a>Methods</h1>
+<p>|
+<a href="#add_receiver">add_receiver</a>|
+<a href="#get_receivers">get_receivers</a>|
+<a href="#release_all">release_all</a>|
+<a href="#clear">clear</a>|
+<a href="#is_idle">is_idle</a>|
+<a href="#wait">wait</a>|
+<a href="#wait_frames">wait_frames</a>|
+<a href="#wait_secs">wait_secs</a>|
+<a href="#hold_for">hold_for</a>|
+<a href="#mouse_set_position">mouse_set_position</a>|
+<a href="#set_auto_flush_input">set_auto_flush_input</a>|
+<a href="#get_auto_flush_input">get_auto_flush_input</a>|</p>
+<h1><a id="user-content-sending-inputevents" class="anchor" aria-hidden="true" href="#sending-inputevents"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sending InputEvents</h1>
+<p>|
+<a href="#send_event">send_event</a>|
+<a href="#action_down">action_down</a>|
+<a href="#action_up">action_up</a>|
+<a href="#key_down">key_down</a>|
+<a href="#key_echo">key_echo</a>|
+<a href="#key_up">key_up</a>|
+<a href="#mouse_double_click">mouse_double_click</a>|
+<a href="#mouse_left_button_down">mouse_left_button_down</a>|
+<a href="#mouse_left_button_up">mouse_left_button_up</a>|
+<a href="#mouse_motion">mouse_motion</a>|
+<a href="#mouse_relative_motion">mouse_relative_motion</a>|
+<a href="#mouse_right_button_down">mouse_right_button_down</a>|
+<a href="#mouse_right_button_up">mouse_right_button_up</a>|</p>
+<h1><a id="user-content-signals" class="anchor" aria-hidden="true" href="#signals"><span aria-hidden="true" class="octicon octicon-link"></span></a>Signals</h1>
+<ul>
+<li>
+<code>idle</code> - Emitted when all events in the input queue have been sent.</li>
+</ul>
+<h1><a id="user-content-usage" class="anchor" aria-hidden="true" href="#usage"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h1>
+<p>The <code>InputSender</code> class operates on one or more receivers.  It will create and send <code>InputEvent</code> instances to all of its receivers.</p>
+<p>There are two ways you could be processing your input.  You could be using the <code>_input</code> events to receive input events and process them.  The other way is to interact with the <code>Input</code> global and detect input in the <code>_process</code> and <code>_physics_process</code> methods.  <code>InputSender</code> works with both approaches, but using <code>InputSender</code> differs for each approach.  Read the sections below to learn the best way to use <code>InputSender</code> with your game.</p>
+<h2><a id="user-content-using-an-object-as-a-receiver" class="anchor" aria-hidden="true" href="#using-an-object-as-a-receiver"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using an Object as a Receiver</h2>
+<p>When you use an instance of an object as a receiver, <code>InputSender</code> will send <code>InputEvent</code> instances to the various <code>input</code> methods.  They will be called in this order:</p>
+<ol>
+<li><code>_input</code></li>
+<li><code>_gui_input</code></li>
+<li><code>_unhandled_input</code></li>
+</ol>
+<p>When there are multipe receivers, each receiver will be called in the order they were added.  All three <code>_input</code> methods will be called on each reciever then the <code>InputSender</code> will move to the next receiver.</p>
+<p>When using objects as recievers it is recommended that each test create its own instance of <code>InputSender</code>.  <code>InputSender</code> retains information about what actions/buttons/etc have been pressed.  By creating a new instance in each test, you don't have to worry about clearing this state between tests.</p>
+<p>If you are processing input by directly interacting with the <code>Input</code> global, then you should follow the instructions in the next section.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_shoot</span>():
+    <span class="pl-k">var</span> player <span class="pl-k">=</span> <span class="pl-c1">Player</span>.<span class="pl-c1">new</span>()
+    <span class="pl-k">var</span> sender <span class="pl-k">=</span> <span class="pl-c1">InputSender</span>.<span class="pl-c1">new</span>(player)
+
+    sender.<span class="pl-c1">action_down</span>(<span class="pl-s">"shoot"</span>)
+    <span class="pl-c1">assert_true</span>(player.<span class="pl-c1">is_shooting</span>())</pre></div>
+<h2><a id="user-content-using-input-as-a-receiver" class="anchor" aria-hidden="true" href="#using-input-as-a-receiver"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using <code>Input</code> as a Receiver</h2>
+<p>!!! <b><code>Input.use_accumualted_input</code> DISCLAIMER <b></b>!!!</b></p>
+<p>In Godot 3.4 <code>Input.use_accumualted_input</code> is disabled by default (even though the documentation indicates otherwise).  In Godot 3.5 it is enabled by default.  This changes the way that <code>Input</code> buffers events that are sent to it.  See the section below about <code>use_accumulated_input</code> before continuing.</p>
+<hr>
+<p>When <code>Input</code> is used as a reciever <code>Input</code> will send all inputs it receives from the <code>InputSender</code> to every object that has been added to the tree.  <code>Input</code> will treat all the events it gets exactly the same as if the events were triggered from hardware.  This means all the <code>is_action_just_pressed</code> and similar functions will work the same.  The <code>InputEvent</code> instances will also be sent to the various <code>_input</code> methods on objects in the tree in whatever order <code>Input</code> desires.</p>
+<p>Using <code>Input</code> makes testing objects that handle input via <code>_process</code> or <code>_process_delta</code> much easier but you have to be a little careful when using it though.  Since the <code>Input</code> instance is global and retains its state for the duration of the test run.</p>
+<ol>
+<li>You should declare your <code>InputSender</code> instance at the class level.  You will need access to it in the <code>after_each</code> method.</li>
+<li>Call <code>release_all</code> on the <code>InputSender</code> in <code>after_each</code>.  This makes sure that <code>Input</code> doesn't think that a button is pressed when you don't expect it to be.  If <code>Input</code> thinks a button is pressed, it will not send any "down" events until it gets an "up" event.</li>
+<li>Call <code>clear</code> on the <code>InputSender</code> in <code>after_each</code>.  This clears out any state the <code>InputSender</code> has.  It tracks inputs so that functions like <code>hold_for</code> can create dyanmic "up" events, as well as various other things.  Calling <code>clear</code> makes sure that <code>InputSender</code> state does not leak from one test to another.</li>
+<li>You must ALWAYS yield before making an assert or your objects will not get a chance to process the frame the <code>Input</code> was sent on (<code>_process</code> and <code>_physics_process</code> will not be called without a yield).</li>
+</ol>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> _sender <span class="pl-k">=</span> <span class="pl-c1">InputSender</span>.<span class="pl-c1">new</span>(<span class="pl-c1">Input</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">after_each</span>():
+    _sender.<span class="pl-c1">release_all</span>()
+    _sender.<span class="pl-c1">clear</span>()
+
+<span class="pl-k">func</span> <span class="pl-en">test_shoot</span>():
+    <span class="pl-k">var</span> player <span class="pl-k">=</span> <span class="pl-c1">Player</span>.<span class="pl-c1">new</span>()
+
+    _sender.<span class="pl-c1">action_down</span>(<span class="pl-s">"shoot"</span>).<span class="pl-c1">wait_frames</span>(<span class="pl-c1">1</span>)
+    <span class="pl-k">yield</span>(_sender, <span class="pl-s">'idle'</span>)
+
+    <span class="pl-c1">assert_true</span>(player.<span class="pl-c1">is_shooting</span>())</pre></div>
+<h2><a id="user-content-chaining-input-events" class="anchor" aria-hidden="true" href="#chaining-input-events"><span aria-hidden="true" class="octicon octicon-link"></span></a>Chaining Input Events</h2>
+<p>The <code>InputSender</code> methods return the instance so you can chain multiple calls together to script out a sequence of inputs.  The sequence is immediately started.  When the sequence finishes the <code>'idle'</code> signal is emitted.</p>
+<pre><code>var player = Player.new()
+var sender = InputSender.new(player)
+
+# press a, then b, then release a, then release b
+sender.key_down("a").wait(.1)\
+    .key_down(KEY_B).wait(.1)\
+    .key_up("a").wait(.1)\
+    .key_up(KEY_B)
+yield(sender, 'idle')
+</code></pre>
+<p>The <code>InputSender</code> will emit the <code>idle</code> signal when all inputs in a sequence have been sent and all <code>waits</code> have expired.</p>
+<p>Any events that do not have a <code>wait</code> or <code>hold_for</code> call in between them will be fired on the same frame.</p>
+<pre><code># checking for is_action_just_pressed for "jump" and "fire" will be true in the same frame.
+sender.action-down("jump").action_down("fire")
+</code></pre>
+<p>You can use a trailing <code>wait</code> to give the result of the input time to play out</p>
+<pre><code># wait an extra .2 seconds at the end so that asserts will be run after the
+# shooting animation finishes.
+sender.action_down("shoot").hold_for(1).wait(.2)
+yield(sender, 'idle')
+</code></pre>
+<h1><a id="user-content-examples" class="anchor" aria-hidden="true" href="#examples"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h1>
+<p>These are examples of scripting out inputs and sending them to <code>Input</code>.  The <code>Player</code> class in these examples would be handling input in <code>_process</code> or <code>_process_physics</code>.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">extends</span><span class="pl-e"> GutTest</span>
+
+<span class="pl-c"><span class="pl-c">#</span> When sending events to Input the InputSender instance should be defined at</span>
+<span class="pl-c"><span class="pl-c">#</span> the class level so that you can easily clear it between tests in after_each.</span>
+<span class="pl-k">var</span> _sender <span class="pl-k">=</span> <span class="pl-c1">InputSender</span>.<span class="pl-c1">new</span>(<span class="pl-c1">Input</span>)
+
+<span class="pl-c"><span class="pl-c">#</span> IMPORTANT:  When using Input as the receiver of events you should always</span>
+<span class="pl-c"><span class="pl-c">#</span>             release_all and clear the InputSender so that any</span>
+<span class="pl-c"><span class="pl-c">#</span>             actions/keys/buttons that are not released in a test are released</span>
+<span class="pl-c"><span class="pl-c">#</span>             before the next test runs.  "down" events will not be sent by</span>
+<span class="pl-c"><span class="pl-c">#</span>             Input if the action/button/etc is currently "down".</span>
+<span class="pl-k">func</span> <span class="pl-en">after_each</span>():
+    _sender.<span class="pl-c1">release_all</span>()
+    _sender.<span class="pl-c1">clear</span>()
+
+
+<span class="pl-c"><span class="pl-c">#</span> In this test we press and hold the jump button for .1 seconds then wait</span>
+<span class="pl-c"><span class="pl-c">#</span> another .3 seconds for the jump to take take place.  We then assert that</span>
+<span class="pl-c"><span class="pl-c">#</span> the character has moved up between 4 and 5 pixels.</span>
+<span class="pl-k">func</span> <span class="pl-en">test_tapping_jump_jumps_certain_height</span>():
+    <span class="pl-k">var</span> player <span class="pl-k">=</span> <span class="pl-c1">add_child_autofree</span>(<span class="pl-c1">Player</span>.<span class="pl-c1">new</span>())
+
+    _sender.<span class="pl-c1">action_down</span>(<span class="pl-s">"jump"</span>).<span class="pl-c1">hold_for</span>(.<span class="pl-c1">1</span>).<span class="pl-c1">wait</span>(.<span class="pl-c1">3</span>)
+    <span class="pl-k">yield</span>(_sender, <span class="pl-s">'idle'</span>)
+
+    <span class="pl-c1">assert_between</span>(player.position.y, <span class="pl-c1">4</span>, <span class="pl-c1">5</span>)
+
+
+<span class="pl-c"><span class="pl-c">#</span> This is similar to the other test but we hold jump for longer and then</span>
+<span class="pl-c"><span class="pl-c">#</span> verify the player jumped higher.</span>
+<span class="pl-k">func</span> <span class="pl-en">test_holding_jump_jumps_higher</span>():
+    <span class="pl-k">var</span> player <span class="pl-k">=</span> <span class="pl-c1">add_child_autofree</span>(<span class="pl-c1">Player</span>.<span class="pl-c1">new</span>())
+
+    _sender.<span class="pl-c1">action_down</span>(<span class="pl-s">"jump"</span>).<span class="pl-c1">hold_for</span>(.<span class="pl-c1">75</span>)
+    <span class="pl-k">yield</span>(_sender, <span class="pl-s">'idle'</span>)
+
+    <span class="pl-c1">assert_between</span>(player.position.y, <span class="pl-c1">7</span>, <span class="pl-c1">8</span>)
+
+
+<span class="pl-c"><span class="pl-c">#</span> This tests throwing a fireball, like with Ryu or Ken from Street Fighter.</span>
+<span class="pl-c"><span class="pl-c">#</span> Note that there is not a hold_for after "forward" and the key_down for</span>
+<span class="pl-c"><span class="pl-c">#</span> fierce punch (FP) immediately after.  This means the "forward" motion AND</span>
+<span class="pl-c"><span class="pl-c">#</span> FP are pressed in the same frame.</span>
+<span class="pl-k">func</span> <span class="pl-en">test_fireball_input</span>():
+    <span class="pl-k">var</span> player <span class="pl-k">=</span> <span class="pl-c1">add_child_autofree</span>(<span class="pl-c1">Player</span>.<span class="pl-c1">new</span>())
+
+    _sender.<span class="pl-c1">action_down</span>(<span class="pl-s">"down"</span>).<span class="pl-c1">hold_for</span>(<span class="pl-s">"2f"</span>)\
+        .<span class="pl-c1">action_down</span>(<span class="pl-s">"down_forward"</span>).<span class="pl-c1">hold_for</span>(<span class="pl-s">"2f"</span>)\
+        .<span class="pl-c1">action_down</span>(<span class="pl-s">"forward"</span>).<span class="pl-c1">key_down</span>(<span class="pl-s">"FP"</span>)
+    <span class="pl-k">yield</span>(_sender, <span class="pl-s">'idle'</span>)
+
+    <span class="pl-c1">assert_true</span>(player.<span class="pl-c1">is_throwing_fireball</span>())
+
+
+<span class="pl-c"><span class="pl-c">#</span> In this example we are testing that two actions in combination cause the</span>
+<span class="pl-c"><span class="pl-c">#</span> player to slide.  Note that there is no release of the actions in this</span>
+<span class="pl-c"><span class="pl-c">#</span> test.  This is a good example of why using release_all in after_each makes</span>
+<span class="pl-c"><span class="pl-c">#</span> the tests simplier to write and prevents leaking of inputs from one test to</span>
+<span class="pl-c"><span class="pl-c">#</span> another.</span>
+<span class="pl-k">func</span> <span class="pl-en">test_holding_down_and_jump_does_slide</span>():
+    <span class="pl-k">var</span> player <span class="pl-k">=</span> <span class="pl-c1">add_child_autofree</span>(<span class="pl-c1">Player</span>.<span class="pl-c1">new</span>())
+
+    _sender.<span class="pl-c1">action_down</span>(<span class="pl-s">"down"</span>).<span class="pl-c1">wait</span>(<span class="pl-s">"1f"</span>)\
+        .<span class="pl-c1">action_down</span>(<span class="pl-s">"jump"</span>).<span class="pl-c1">wait</span>(<span class="pl-s">"2f"</span>)
+    <span class="pl-k">yield</span>(_sender, <span class="pl-s">'idle'</span>)
+
+    <span class="pl-c1">assert_gt</span>(player.velocity.x, <span class="pl-c1">0</span>)</pre></div>
+<h1><a id="user-content-gotchas" class="anchor" aria-hidden="true" href="#gotchas"><span aria-hidden="true" class="octicon octicon-link"></span></a>Gotchas</h1>
+<ul>
+<li>When using <code>Input</code> as a receiver, everything in the tree gets the signals AND any actual inputs from hardware will be sent as well.  It's best not to touch anything when running these tests.</li>
+<li>If you use a class level <code>InputSender</code> and forget to call <code>release_all</code> and <code>clear</code> between tests then things will eventually start behaving weird and your tests will pass/fail in unpredictable ways.</li>
+</ul>
+<h2><a id="user-content-understanding-inputuse_accumulated_input" class="anchor" aria-hidden="true" href="#understanding-inputuse_accumulated_input"><span aria-hidden="true" class="octicon octicon-link"></span></a>Understanding Input.use_accumulated_input</h2>
+<p>When <code>use_accumualted_input</code> is enabled, <code>Input</code> waits to process input until the end of a frame.  This means that if you do not flush the buffer or there are no "waits" or calls to <code>yeild</code> before you test how input was processed then your tests will fail.</p>
+<h3><a id="user-content-testing-with-use_accumulated_input" class="anchor" aria-hidden="true" href="#testing-with-use_accumulated_input"><span aria-hidden="true" class="octicon octicon-link"></span></a>Testing with use_accumulated_input</h3>
+<h4><a id="user-content-recommended-approaches" class="anchor" aria-hidden="true" href="#recommended-approaches"><span aria-hidden="true" class="octicon octicon-link"></span></a>Recommended approaches</h4>
+<ol>
+<li>If you game does not want to have <code>use_accumulated_input</code> enabled, then disable it in a an Autoload.  GUT loads autoloads before running so this will disable it for all tests.</li>
+<li>Always have a trailing <code>wait</code> when sending input <code>_sender.key_down('a').wait('10f')</code>.  In testing, 6 frames wasn't enough but 7 was <em>(for reasons I don't understand but probably should so I made I used 10 frames for good measure)</em>.</li>
+<li>After sending all your input, call <code>Input.flush_buffered_events</code>.  Only use this in the specific cases where you know you want to send inputs immediately since this is NOT how your game will actually receive inputs.</li>
+</ol>
+<h4><a id="user-content-other-ways-that-arent-so-good" class="anchor" aria-hidden="true" href="#other-ways-that-arent-so-good"><span aria-hidden="true" class="octicon octicon-link"></span></a>Other ways that aren't so good.</h4>
+<p>If you use these approaches you should quarantine these tests in their own Inner Class or script so that they do not influence other tests that do not expect the buffer to be constantly flushed or <code>use_accumulated_input</code> to be disabled.</p>
+<ol>
+<li>In GUT 7.4.0 <code>InputSender</code> has an <code>auto_flush_input</code> property which is disabled by default.  When enabled this will call <code>Input.flush_buffered_events</code> after each input sent through an <code>InputSender</code>.  This is a bit dangerous since this can cause some of your tests to not test the way your game will recieve input when playing the game.</li>
+<li>You can disable <code>use_accumulated_input</code> in <code>before_all</code> and re-enable in <code>after_all</code>.  Just like with <code>auto_flush_input</code>, this has the potential to not test all inputs the same way as your game will get them when playing the game.</li>
+</ol>
+<h3><a id="user-content-examples-1" class="anchor" aria-hidden="true" href="#examples-1"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h3>
+<p>The following assume <code>use_accumulated_input</code> is enabled and uses Godot 3.5 syntax.  In 3.4 you have to call <code>set_use_accumulated_input</code>.  There is no way to check the value of this flag in 3.4.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">extends</span><span class="pl-e"> GutTest</span>
+
+<span class="pl-k">var</span> _sender <span class="pl-k">=</span> <span class="pl-c1">InputSender</span>.<span class="pl-c1">new</span>(<span class="pl-c1">Input</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">before_all</span>():
+    <span class="pl-c1">InputMap</span>.<span class="pl-c1">add_action</span>(<span class="pl-s">"jump"</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">after_each</span>():
+    _sender.<span class="pl-c1">release_all</span>()
+    _sender.<span class="pl-c1">clear</span>()
+
+<span class="pl-k">func</span> <span class="pl-en">test_when_uai_enabled_input_not_processed_immediately</span>():
+    _sender.<span class="pl-c1">key_down</span>(<span class="pl-s">'a'</span>)
+    <span class="pl-c1">assert_false</span>(<span class="pl-c1">Input</span>.<span class="pl-c1">is_key_pressed</span>(<span class="pl-c1">KEY_A</span>))
+
+<span class="pl-k">func</span> <span class="pl-en">test_when_uai_enabled_just_pressed_is_not_processed_immediately</span>():
+    _sender.<span class="pl-c1">action_down</span>(<span class="pl-s">'jump'</span>)
+    <span class="pl-c1">assert_false</span>(<span class="pl-c1">Input</span>.<span class="pl-c1">is_action_just_pressed</span>(<span class="pl-s">'jump'</span>))
+
+<span class="pl-k">func</span> <span class="pl-en">test_when_uai_enabled_waiting_makes_button_pressed</span>():
+    <span class="pl-c"><span class="pl-c">#</span> wait 10 frames.  In testing, 6 frames failed, but 7 passed.  Added 3 for</span>
+    <span class="pl-c"><span class="pl-c">#</span> good measure.</span>
+    _sender.<span class="pl-c1">key_down</span>(<span class="pl-c1">KEY_Y</span>).<span class="pl-c1">wait</span>(<span class="pl-s">'10f'</span>)
+    <span class="pl-k">yield</span>(_sender, <span class="pl-s">'idle'</span>)
+    <span class="pl-c1">assert_true</span>(_sender.<span class="pl-c1">is_key_pressed</span>(<span class="pl-c1">KEY_Y</span>))
+    <span class="pl-c1">assert_true</span>(<span class="pl-c1">Input</span>.<span class="pl-c1">is_key_pressed</span>(<span class="pl-c1">KEY_Y</span>))
+
+<span class="pl-k">func</span> <span class="pl-en">test_when_uai_enabled_flushig_buffer_sends_input_immediatly</span>():
+    _sender.<span class="pl-c1">key_down</span>(<span class="pl-s">'a'</span>)
+    <span class="pl-c1">Input</span>.<span class="pl-c1">flush_buffered_events</span>()
+    <span class="pl-c1">assert_true</span>(<span class="pl-c1">Input</span>.<span class="pl-c1">is_key_pressed</span>(<span class="pl-c1">KEY_A</span>))
+
+<span class="pl-k">func</span> <span class="pl-en">test_disabling_uai_sends_input_immediately</span>():
+    <span class="pl-c1">Input</span>.<span class="pl-smi">use_accumulated_input</span> <span class="pl-k">=</span> <span class="pl-c1">false</span>
+    _sender.<span class="pl-c1">key_down</span>(<span class="pl-s">'a'</span>)
+    <span class="pl-c1">assert_true</span>(<span class="pl-c1">Input</span>.<span class="pl-c1">is_key_pressed</span>(<span class="pl-c1">KEY_A</span>))
+    <span class="pl-c"><span class="pl-c">#</span> re-enable so we don't ruin other tests</span>
+    <span class="pl-c1">Input</span>.<span class="pl-smi">use_accumulated_input</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>
+
+<span class="pl-k">func</span> <span class="pl-en">test_when_uai_enabled_flushing_buffer_just_pressed_is_processed_immediately</span>():
+    _sender.<span class="pl-c1">action_down</span>(<span class="pl-s">'jump'</span>)
+    <span class="pl-c1">Input</span>.<span class="pl-c1">flush_buffered_events</span>()
+    <span class="pl-c1">assert_true</span>(<span class="pl-c1">Input</span>.<span class="pl-c1">is_action_just_pressed</span>(<span class="pl-s">'jump'</span>))</pre></div>
+<h1><a id="user-content-functions" class="anchor" aria-hidden="true" href="#functions"><span aria-hidden="true" class="octicon octicon-link"></span></a>Functions</h1>
+<p><strong><a name="user-content-new">new(receiver=null)</a></strong><br>
+The optional receiver will be added to the list of recievers.</p>
+<p><strong><a name="user-content-add_receiver">add_receiver(obj)</a></strong><br>
+Add an object to receive input events.</p>
+<p><strong><a name="user-content-get_receivers">get_receivers()</a></strong><br>
+Returns the receivers that have been added.</p>
+<p><strong><a name="user-content-release_all">release_all()</a></strong><br>
+Releases all <code>InputEventKey</code>, <code>InputEventAction</code>, and <code>InputEventMouseButton</code> events that have passed through the <code>InputSender</code>.  These events could have been generated via the various <code>_down</code> methods or passed to <code>send_event</code>.</p>
+<p>This will send the "release" event (<code>pressed = false</code>) to all receivers.  This should be done between each test when using <code>Input</code> as a receiver.</p>
+<p><strong><a name="user-content-clear">clear()</a></strong><br>
+Clears the input queue and any state such as the last event sent and any pressed actions/buttons.  Does not clear the list of receivers.</p>
+<p>This should be done between each test when the <code>InputSender</code> is a class level variable so that state does not leak between tests.</p>
+<p><strong><a name="user-content-is_idle">is_idle()</a></strong><br>
+Returns true if the input queue has items to be processed, false if not.</p>
+<p><strong><a name="user-content-wait">wait(t)</a></strong><br>
+Adds a delay between the last input queue item added and any queue item added next.  By default this will wait <code>t</code> seconds.  You can specify a number of frames to wait by passing a string composed of a number and "f".  For example <code>wait("5f")</code> will wait 5 frames.</p>
+<p><strong><a name="user-content-wait_frames">wait_frames(num_frames)</a></strong><br>
+Same as <code>wait</code> but only accepts a number of frames to wait.</p>
+<p><strong><a name="user-content-wait_secs">wait_secs(num_secs)</a></strong><br>
+Same as <code>wait</code> but only accepts a number of seconds to wait.</p>
+<p><strong><a name="user-content-hold_for">hold_for(duration)</a></strong><br>
+This is a special <code>wait</code> that will emit the previous input queue item with <code>pressed = false</code> after a delay.  If you pass a number then it will wait that many seconds.  You can also use the <code>"4f"</code> format to wait a specific number of frames.</p>
+<p>For example <code>sender.action_down('jump').hold_for("10f")</code> will cause two <code>InputEventAction</code> instances to be sent.  The "jump-down" event from <code>action_down</code> and then a "jump-up" event after 10 frames.</p>
+<p><strong><a name="user-content-mouse_set_position">mouse_set_position(position, global_position=null)</a></strong><br>
+Sets the mouse's position.  This does not send an event.  This position will be used for the next call to <code>mouse_relative_motion</code>.</p>
+<p><strong><a name="user-content-set_auto_flush_input">set_auto_flush_input(val)</a></strong><br>
+Enable/Disable auto flusing of input.  When enabled the <code>InputSender</code> will call <code>Input.flush_buffered_events</code> after each event is sent.  See the <code>use_accumulated_input</code> section for more information.</p>
+<p><strong><a name="user-content-get_auto_flush_input">get_auto_flush_input()</a></strong><br>
+Get it.</p>
+<h1><a id="user-content-sending-inputevents-1" class="anchor" aria-hidden="true" href="#sending-inputevents-1"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sending InputEvents</h1>
+<p><strong><a name="user-content-send_event">send_event(event)</a></strong><br>
+Create your own event and use this to send it to all receivers.</p>
+<p><strong><a name="user-content-key_down">key_down(which)</a></strong><br>
+Sends a <code>InputEventKey</code> event with <code>pressed</code> = <code>true</code>.  <code>which</code> can be a character or a <code>KEY_*</code> constant.</p>
+<p><strong><a name="user-content-key_up">key_up(which)</a></strong><br>
+Sends a <code>InputEventKey</code> event with <code>pressed</code> = <code>false</code>.  <code>which</code> can be a character or a <code>KEY_*</code> constant.</p>
+<p><strong><a name="user-content-key_echo">key_echo()</a></strong><br>
+Sends an echo <code>InputEventKey</code> event of the last key event.</p>
+<p><strong><a name="user-content-action_down">action_down(which, strength=1.0)</a></strong><br>
+Sends a "action down" <code>InputEventAction</code> instance.  <code>which</code> is the name of the action defined in the Key Map.</p>
+<p><strong><a name="user-content-action_up">action_up(which, strength=1.0)</a></strong><br>
+Sends a "action up" <code>InputEventAction</code> instance.  <code>which</code> is the name of the action defined in the Key Map.</p>
+<p><strong><a name="user-content-mouse_left_button_down">mouse_left_button_down(position, global_position=null)</a></strong><br>
+Sends a "button down" <code>InputEventMouseButton</code> for the left mouse button.</p>
+<p><strong><a name="user-content-mouse_left_button_up">mouse_left_button_up(position, global_position=null)</a></strong><br>
+Sends a "button up" <code>InputEventMouseButton</code> for the left mouse button.</p>
+<p><strong><a name="user-content-mouse_double_click">mouse_double_click(position, global_position=null)</a></strong><br>
+Sends a "double click" <code>InputEventMouseButton</code> for the left mouse button.</p>
+<p><strong><a name="user-content-mouse_right_button_down">mouse_right_button_down(position, global_position=null)</a></strong><br>
+Sends a "button down" <code>InputEventMouseButton</code> for the right mouse button.</p>
+<p><strong><a name="user-content-mouse_right_button_up">mouse_right_button_up(position, global_position=null)</a></strong><br>
+Sends a "button up" <code>InputEventMouseButton</code> for the right mouse button.</p>
+<p><strong><a name="user-content-mouse_motion(">mouse_motion(position, global_position=null)</a></strong><br>
+Sends a "InputEventMouseMotion" to move the mouse the specified postions.</p>
+<p><strong><a name="user-content-mouse_relative_motion">mouse_relative_motion(offset, speed=Vector2(0, 0))</a></strong><br>
+Sends a "InputEventMouseMotion" that moves the mouse <code>offset</code> from the last <code>mouse_motion</code> or <code>mouse_set_position</code> call.</p>
+</article></body>
