@@ -1,0 +1,88 @@
+
+        <html><head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+
+            @media (max-width: 767px) {
+                .markdown-body {
+                    padding: 15px;
+                }
+            }
+        </style>
+        <link rel="stylesheet" href="github-markdown.css"/>
+</head><body><article class="markdown-body"><h1><a id="user-content-partial-doubles" class="anchor" aria-hidden="true" href="#partial-doubles"><span aria-hidden="true" class="octicon octicon-link"></span></a>Partial-Doubles</h1>
+<p>A partial double is basically the inverse of a doubled object.  It creates an object that acts exactly the same way as its source but has hooks that allows us to stub or spy on any method.</p>
+<p>The <code>partial_double</code> method will create a partial double "class" which you can instance.  You can partially double scripts, packed scenes, and inner classes.  It works the same way as <code>double</code> works, so read up on that and then apply all that new knowledge to <code>partial_double</code>.</p>
+<p>Under the covers, whether you call <code>double</code> or <code>partial_double</code>, GUT makes the same thing.  If you call <code>partial_double</code> though, it will setup the object's methods to be stubbed <code>to_call_super</code> instead of not being stubbed at all.</p>
+<p>After you have your partial double, you can stub methods to return values instead of doing what they normally do.  You can also spy on any of the methods.</p>
+<p><strong>NOTE</strong> As of 7.0.0, in an attempt to help tests create less orphans, all Doubles and Partial Doubles are freed when a test finishes.  This means you do not have to free them manually and you should not use them in <code>before_all</code>.</p>
+<h2><a id="user-content-script-example" class="anchor" aria-hidden="true" href="#script-example"><span aria-hidden="true" class="octicon octicon-link"></span></a>Script Example</h2>
+<p>Given</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-c"><span class="pl-c">#</span> res://script.gd</span>
+<span class="pl-k">extends</span><span class="pl-e"> Node2D</span>
+
+<span class="pl-k">var</span> _value <span class="pl-k">=</span> <span class="pl-c1">10</span>
+
+<span class="pl-k">func</span> <span class="pl-en">set_value</span>(<span class="pl-smi">val</span>):
+  _value <span class="pl-k">=</span> val
+
+<span class="pl-k">func</span> <span class="pl-en">get_value</span>():
+  <span class="pl-k">return</span> _value</pre></div>
+<p>Then</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_things</span>():
+  <span class="pl-k">var</span> partial <span class="pl-k">=</span> <span class="pl-c1">partial_double</span>(<span class="pl-s">'res://script.gd'</span>).<span class="pl-c1">new</span>()
+  <span class="pl-c1">stub</span>(partial, <span class="pl-s">'set_value'</span>).<span class="pl-c1">to_do_nothing</span>()
+  partial.<span class="pl-c1">set_value</span>(<span class="pl-c1">20</span>) <span class="pl-c"><span class="pl-c">#</span> stubbed so implementation bypassed.</span>
+
+  <span class="pl-c"><span class="pl-c">#</span> since set_value was stubbed, and get_value was not, and since</span>
+  <span class="pl-c"><span class="pl-c">#</span> this is a partial stub, then the original functionality of</span>
+  <span class="pl-c"><span class="pl-c">#</span> get_value will be executed and _value is returned.</span>
+  <span class="pl-c1">assert_eq</span>(partial.<span class="pl-c1">get_value</span>(), <span class="pl-c1">10</span>)
+  <span class="pl-c"><span class="pl-c">#</span> unstubbed partial methods can be spied on.</span>
+  <span class="pl-c1">assert_called</span>(partial, <span class="pl-s">'get_value'</span>)
+  <span class="pl-c"><span class="pl-c">#</span> stubbed methods can be spied on as well</span>
+  <span class="pl-c1">assert_called</span>(partial, <span class="pl-s">'set_value'</span>, [<span class="pl-c1">20</span>])</pre></div>
+<h2><a id="user-content-packed-scene-example" class="anchor" aria-hidden="true" href="#packed-scene-example"><span aria-hidden="true" class="octicon octicon-link"></span></a>Packed Scene Example</h2>
+<p>Given you have a scene <code>res://scene.tscn</code> that has the following script:</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-c"><span class="pl-c">#</span> res://script.gd</span>
+<span class="pl-k">extends</span><span class="pl-e"> Node2D</span>
+
+<span class="pl-k">var</span> _value <span class="pl-k">=</span> <span class="pl-c1">10</span>
+
+<span class="pl-k">func</span> <span class="pl-en">set_value</span>(<span class="pl-smi">val</span>):
+  _value <span class="pl-k">=</span> val
+
+<span class="pl-k">func</span> <span class="pl-en">get_value</span>():
+  <span class="pl-k">return</span> _value</pre></div>
+<p>Then</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> partial <span class="pl-k">=</span> <span class="pl-c1">partial_double</span>(<span class="pl-s">'res://scene.tscn'</span>).<span class="pl-c1">instance</span>()
+<span class="pl-c"><span class="pl-c">#</span> or</span>
+<span class="pl-k">var</span> <span class="pl-c1">Scene</span> <span class="pl-k">=</span> <span class="pl-c1">load</span>(<span class="pl-s">'res://scene.tscn'</span>)
+<span class="pl-k">var</span> partial <span class="pl-k">=</span> <span class="pl-c1">partial_double</span>(<span class="pl-c1">Scene</span>).<span class="pl-c1">instance</span>()</pre></div>
+<h2><a id="user-content-inner-class-example" class="anchor" aria-hidden="true" href="#inner-class-example"><span aria-hidden="true" class="octicon octicon-link"></span></a>Inner Class Example</h2>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-c"><span class="pl-c">#</span> res://script.gd</span>
+<span class="pl-k">extends</span><span class="pl-e"> Node2D</span>
+
+<span class="pl-k">class</span> <span class="pl-en">InnerClass</span>:
+  <span class="pl-k">var</span> _value <span class="pl-k">=</span> <span class="pl-c1">10</span>
+
+  <span class="pl-k">func</span> <span class="pl-en">set_value</span>(<span class="pl-smi">val</span>):
+    _value <span class="pl-k">=</span> val
+
+  <span class="pl-k">func</span> <span class="pl-en">get_value</span>():
+    <span class="pl-k">return</span> _value</pre></div>
+<p>Then</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> partial <span class="pl-k">=</span> <span class="pl-c1">partial_double</span>(<span class="pl-s">'res://script.gd'</span>, <span class="pl-s">'InnerClass'</span>).<span class="pl-c1">new</span>()
+<span class="pl-c"><span class="pl-c">#</span> or</span>
+<span class="pl-k">var</span> <span class="pl-c1">Script</span> <span class="pl-k">=</span> <span class="pl-c1">load</span>(<span class="pl-s">'res://script.gd'</span>)
+<span class="pl-k">var</span> partial <span class="pl-k">=</span> <span class="pl-c1">partial_double</span>(<span class="pl-c1">Script</span>, <span class="pl-s">'InnerClass'</span>).<span class="pl-c1">new</span>()</pre></div>
+<h2><a id="user-content-overriding-doubling-strategy" class="anchor" aria-hidden="true" href="#overriding-doubling-strategy"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overriding Doubling Strategy</h2>
+<p>Partial doubles also support overriding the set Experimental Doubling Strategy.  Pass in the strategy as an optional last parameter in any of the cases above.  It will override the strategy used when creating just this one partial double Class.</p>
+</article></body>

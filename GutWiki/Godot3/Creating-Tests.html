@@ -1,0 +1,111 @@
+
+        <html><head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+
+            @media (max-width: 767px) {
+                .markdown-body {
+                    padding: 15px;
+                }
+            }
+        </style>
+        <link rel="stylesheet" href="github-markdown.css"/>
+</head><body><article class="markdown-body"><h1><a id="user-content-creating-tests" class="anchor" aria-hidden="true" href="#creating-tests"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating-Tests</h1>
+<h1><a id="user-content--making-tests" class="anchor" aria-hidden="true" href="#-making-tests"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-creating_tests"> Making Tests</a></h1>
+<h1><a id="user-content-sample-for-setup" class="anchor" aria-hidden="true" href="#sample-for-setup"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sample for Setup</h1>
+<p>Here's a sample test script.  Copy the contents into the file <code>res://test/unit/test_example.gd</code> then run your scene.  If everything is setup correctly then you'll see some passing and failing tests.  If you don't have "Run on Load" checked in the editor, you'll have to hit the "&gt;" button on the dialog window.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">extends</span><span class="pl-e"> GutTest</span>
+<span class="pl-k">func</span> <span class="pl-en">before_each</span>():
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">"ran setup"</span>, <span class="pl-c1">2</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">after_each</span>():
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">"ran teardown"</span>, <span class="pl-c1">2</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">before_all</span>():
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">"ran run setup"</span>, <span class="pl-c1">2</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">after_all</span>():
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">"ran run teardown"</span>, <span class="pl-c1">2</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_eq_number_not_equal</span>():
+	<span class="pl-c1">assert_eq</span>(<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-s">"Should fail.  1 != 2"</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_eq_number_equal</span>():
+	<span class="pl-c1">assert_eq</span>(<span class="pl-s">'asdf'</span>, <span class="pl-s">'asdf'</span>, <span class="pl-s">"Should pass"</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_true_with_true</span>():
+	<span class="pl-c1">assert_true</span>(<span class="pl-c1">true</span>, <span class="pl-s">"Should pass, true is true"</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_true_with_false</span>():
+	<span class="pl-c1">assert_true</span>(<span class="pl-c1">false</span>, <span class="pl-s">"Should fail"</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_something_else</span>():
+	<span class="pl-c1">assert_true</span>(<span class="pl-c1">false</span>, <span class="pl-s">"didn't work"</span>)</pre></div>
+<h1><a id="user-content-creating-tests-1" class="anchor" aria-hidden="true" href="#creating-tests-1"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating tests</h1>
+<p>All test scripts must extend the test class.</p>
+<ul>
+<li><code>extends GutTest</code></li>
+</ul>
+<p>Each test script has optional setup and teardown methods that you can provide an implementation for.  These are called by Gut at various stages of execution.  They take no parameters.</p>
+<ul>
+<li>
+<code>before_each()</code>:  Runs before each test.</li>
+<li>
+<code>after_each()</code>:  Runs after each test.</li>
+<li>
+<code>before_all()</code>:  Runs once before any test starts running.</li>
+<li>
+<code>after_all()</code>:  Runs once after all tests finish running.</li>
+</ul>
+<p>All tests in the test script must start with the prefix <code>test_</code> in order for them to be run.  The methods must not have any parameters.</p>
+<ul>
+<li><code>func test_this_is_only_a_test():</code></li>
+</ul>
+<p>Each test should perform at least one assert or call <code>pending</code> to indicate the test hasn't been implemented yet.</p>
+<p>A list of all <code>asserts</code> and other helper functions available in your test script can be found in <a href="https://github.com/bitwes/Gut/wiki/Methods">Methods</a>.  There's also some helpful methods in the Gut object itself.  They are listed in <a href="https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods">Gut Settings and Methods</a></p>
+<h1><a id="user-content-inner-test-classes" class="anchor" aria-hidden="true" href="#inner-test-classes"><span aria-hidden="true" class="octicon octicon-link"></span></a>Inner Test Classes</h1>
+<p>You can group tests together using Inner Classes. These classes must start with the prefix <code>'Test'</code> (this is configurable) and they must also extend <code>GutTest</code>.  You cannot create Inner Test Classes inside Inner Test Classes.  More info can be found at <a href="https://github.com/bitwes/Gut/wiki/Inner-Test-Classes">Inner Test Classes</a>.</p>
+<h2><a id="user-content-simple-example" class="anchor" aria-hidden="true" href="#simple-example"><span aria-hidden="true" class="octicon octicon-link"></span></a>Simple Example</h2>
+<pre><code>extends GutTest
+
+class TestFeatureA:
+	extends GutTest
+
+	var Obj = load('res://scripts/object.gd')
+	var _obj = null
+
+	func before_each():
+		_obj = Obj.new()
+
+	func test_something():
+		assert_true(_obj.is_something_cool(), 'Should be cool.')
+
+class TestFeatureB:
+	extends GutTest
+
+	var Obj = load('res://scripts/object.gd')
+	var _obj = null
+
+	func before_each():
+		_obj = Obj.new()
+
+	func test_foobar():
+		assert_eq(_obj.foo(), 'bar', 'Foo should return bar')
+</code></pre>
+<h1><a id="user-content-where-to-next" class="anchor" aria-hidden="true" href="#where-to-next"><span aria-hidden="true" class="octicon octicon-link"></span></a>Where to next?</h1>
+<ul>
+<li><a href="https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods">Gut Settings and Methods</a></li>
+<li><a href="https://github.com/bitwes/Gut/wiki/Inner-Test-Classes">Inner Test Classes</a></li>
+<li><a href="https://github.com/bitwes/Gut/wiki/Methods">Methods</a></li>
+<li><a href="https://github.com/bitwes/Gut/wiki/Command-Line">Command Line</a></li>
+<li><a href="https://github.com/bitwes/Gut/wiki/Simulate">Simulate</a></li>
+<li><a href="https://github.com/bitwes/Gut/wiki/Yielding">Yielding during tests</a></li>
+</ul>
+</article></body>

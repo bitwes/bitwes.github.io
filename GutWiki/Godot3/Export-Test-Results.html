@@ -1,0 +1,120 @@
+
+        <html><head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+
+            @media (max-width: 767px) {
+                .markdown-body {
+                    padding: 15px;
+                }
+            }
+        </style>
+        <link rel="stylesheet" href="github-markdown.css"/>
+</head><body><article class="markdown-body"><h1><a id="user-content-export-test-results" class="anchor" aria-hidden="true" href="#export-test-results"><span aria-hidden="true" class="octicon octicon-link"></span></a>Export-Test-Results</h1>
+<p>You can export test results in the JUnit XML format specified <a href="https://llg.cubic.org/docs/junit/" rel="nofollow">here</a>.  You can specify a file name to export to, or kick off an export in a <a href="Hooks.html">post-run hook</a>.</p>
+<h1><a id="user-content-setting-the-export-file" class="anchor" aria-hidden="true" href="#setting-the-export-file"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setting the export file</h1>
+<p>There are two settings, the file name and a flag to include an epoch timestamp in the filename.  The epoch timestamp will prevent runs from overwritting the last run's file.</p>
+<ul>
+<li>Gut Panel
+<ul>
+<li>Set <code>Output Path</code> in the XML Output section in the Gut Panel</li>
+<li>Check <code>Include Timestamp</code> if you want the timestamp to be included.</li>
+</ul>
+</li>
+<li>Command Line
+<ul>
+<li>Set <code>-gjunit_xml_file</code> to the path.</li>
+<li>Add option <code>-gjunit_xml_timestamp</code> to include the timestamp.</li>
+</ul>
+</li>
+<li>
+<code>.gutconfig.json</code> File
+<ul>
+<li><code>"junit_xml_file":"user://resutls.xml"</code></li>
+<li><code>"junit_xml_timestamp":false</code></li>
+</ul>
+</li>
+<li>Inspector
+<ul>
+<li>Set <code>Junit Xml File</code> to the path.</li>
+<li>Check <code>Junit Xml Timestamp</code> if you want the timestamp to be included.</li>
+</ul>
+</li>
+</ul>
+<h1><a id="user-content-exporting-results-in-post-run-hook" class="anchor" aria-hidden="true" href="#exporting-results-in-post-run-hook"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exporting results in post-run Hook</h1>
+<p>Here is sample code to export results in a post-run hook script.  See <a href="Hooks.html">Hooks</a> for more information about setting up a post-run script.</p>
+<p>Note that <code>JunitXmlExport</code> and <code>gut</code> are defined by the parent script <code>res://addons/gut/hook_script.gd</code></p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">extends</span><span class="pl-e"> GutHookScript</span>
+
+<span class="pl-k">func</span> <span class="pl-en">run</span>() <span class="pl-c"><span class="pl-c">#</span> called automatically by Gut</span>
+	<span class="pl-k">var</span> exporter <span class="pl-k">=</span> <span class="pl-c1">JunitXmlExport</span>.<span class="pl-c1">new</span>()
+    <span class="pl-k">var</span> filename <span class="pl-k">=</span> <span class="pl-s">'user://my_post_hook_results.xml'</span>
+	<span class="pl-k">var</span> f_result <span class="pl-k">=</span> exporter.<span class="pl-c1">write_file</span>(gut, filename)
+	<span class="pl-k">if</span>(f_result <span class="pl-k">==</span> <span class="pl-c1">OK</span>):
+		gut.<span class="pl-c1">p</span>(<span class="pl-c1">str</span>(<span class="pl-s">"Results saved to "</span>, filename))</pre></div>
+<h1><a id="user-content-example-output" class="anchor" aria-hidden="true" href="#example-output"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example Output</h1>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">testsuites</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>GutTests<span class="pl-pds">"</span></span> <span class="pl-e">failures</span>=<span class="pl-s"><span class="pl-pds">"</span>7<span class="pl-pds">"</span></span> <span class="pl-e">tests</span>=<span class="pl-s"><span class="pl-pds">"</span>17<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">testsuite</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_simple_2.gd<span class="pl-pds">"</span></span> <span class="pl-e">tests</span>=<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span> <span class="pl-e">failures</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">skipped</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_pass<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>pass<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_simple_2.gd<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">testcase</span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_fail<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>fail<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_simple_2.gd<span class="pl-pds">"</span></span>&gt;
+                  &lt;<span class="pl-ent">failure</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>failed<span class="pl-pds">"</span></span>&gt;Cannot compare Int[1] to String["two"].
+            at line 7&lt;/<span class="pl-ent">failure</span>&gt;
+            &lt;/<span class="pl-ent">testcase</span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_pending<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>pending<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_simple_2.gd<span class="pl-pds">"</span></span>&gt;
+                  &lt;<span class="pl-ent">skipped</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>pending<span class="pl-pds">"</span></span>&gt;this has text&lt;/<span class="pl-ent">skipped</span>&gt;
+            &lt;/<span class="pl-ent">testcase</span>&gt;
+      &lt;/<span class="pl-ent">testsuite</span>&gt;
+      &lt;<span class="pl-ent">testsuite</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_simple.gd<span class="pl-pds">"</span></span> <span class="pl-e">tests</span>=<span class="pl-s"><span class="pl-pds">"</span>8<span class="pl-pds">"</span></span> <span class="pl-e">failures</span>=<span class="pl-s"><span class="pl-pds">"</span>4<span class="pl-pds">"</span></span> <span class="pl-e">skipped</span>=<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_pending_with_text<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>pending<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_simple.gd<span class="pl-pds">"</span></span>&gt;
+                  &lt;<span class="pl-ent">skipped</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>pending<span class="pl-pds">"</span></span>&gt;this has text&lt;/<span class="pl-ent">skipped</span>&gt;
+            &lt;/<span class="pl-ent">testcase</span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_parameterized_passing<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>4<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>pass<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_simple.gd<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">testcase</span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_parameterized_failing<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>fail<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_simple.gd<span class="pl-pds">"</span></span>&gt;
+                  &lt;<span class="pl-ent">failure</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>failed<span class="pl-pds">"</span></span>&gt;(call #1) [1] expected to equal [2]:
+            at line 25&lt;/<span class="pl-ent">failure</span>&gt;
+            &lt;/<span class="pl-ent">testcase</span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_fail_2<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>fail<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_simple.gd<span class="pl-pds">"</span></span>&gt;
+                  &lt;<span class="pl-ent">failure</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>failed<span class="pl-pds">"</span></span>&gt;Cannot compare String["two"] to Int[2].
+            at line 13&lt;/<span class="pl-ent">failure</span>&gt;
+            &lt;/<span class="pl-ent">testcase</span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_pending_no_text<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>pending<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_simple.gd<span class="pl-pds">"</span></span>&gt;
+                  &lt;<span class="pl-ent">skipped</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>pending<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">skipped</span>&gt;
+            &lt;/<span class="pl-ent">testcase</span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_pass_1<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>pass<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_simple.gd<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">testcase</span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_pass_2<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>pass<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_simple.gd<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">testcase</span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_fail_1<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>fail<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_simple.gd<span class="pl-pds">"</span></span>&gt;
+                  &lt;<span class="pl-ent">failure</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>failed<span class="pl-pds">"</span></span>&gt;Cannot compare Int[1] to String["two"].
+            at line 10&lt;/<span class="pl-ent">failure</span>&gt;
+            &lt;/<span class="pl-ent">testcase</span>&gt;
+      &lt;/<span class="pl-ent">testsuite</span>&gt;
+      &lt;<span class="pl-ent">testsuite</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_with_inner_classes.gd<span class="pl-pds">"</span></span> <span class="pl-e">tests</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">failures</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">skipped</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">testsuite</span>&gt;
+      &lt;<span class="pl-ent">testsuite</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_with_inner_classes.gd.TestClassOne<span class="pl-pds">"</span></span> <span class="pl-e">tests</span>=<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span> <span class="pl-e">failures</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">skipped</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_pending_with_text<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>pending<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_with_inner_classes.gd.TestClassOne<span class="pl-pds">"</span></span>&gt;
+                  &lt;<span class="pl-ent">skipped</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>pending<span class="pl-pds">"</span></span>&gt;this has text&lt;/<span class="pl-ent">skipped</span>&gt;
+            &lt;/<span class="pl-ent">testcase</span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_fail_1<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>fail<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_with_inner_classes.gd.TestClassOne<span class="pl-pds">"</span></span>&gt;
+                  &lt;<span class="pl-ent">failure</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>failed<span class="pl-pds">"</span></span>&gt;Cannot compare Int[1] to String["two"].
+            at line 11&lt;/<span class="pl-ent">failure</span>&gt;
+            &lt;/<span class="pl-ent">testcase</span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_pass_1<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>pass<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_with_inner_classes.gd.TestClassOne<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">testcase</span>&gt;
+      &lt;/<span class="pl-ent">testsuite</span>&gt;
+      &lt;<span class="pl-ent">testsuite</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_with_inner_classes.gd.TestClassTwo<span class="pl-pds">"</span></span> <span class="pl-e">tests</span>=<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span> <span class="pl-e">failures</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">skipped</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_pending_with_text<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>pending<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_with_inner_classes.gd.TestClassTwo<span class="pl-pds">"</span></span>&gt;
+                  &lt;<span class="pl-ent">skipped</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>pending<span class="pl-pds">"</span></span>&gt;this has text&lt;/<span class="pl-ent">skipped</span>&gt;
+            &lt;/<span class="pl-ent">testcase</span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_fail_1<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>fail<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_with_inner_classes.gd.TestClassTwo<span class="pl-pds">"</span></span>&gt;
+                  &lt;<span class="pl-ent">failure</span> <span class="pl-e">message</span>=<span class="pl-s"><span class="pl-pds">"</span>failed<span class="pl-pds">"</span></span>&gt;Cannot compare Int[1] to String["two"].
+            at line 26&lt;/<span class="pl-ent">failure</span>&gt;
+            &lt;/<span class="pl-ent">testcase</span>&gt;
+            &lt;<span class="pl-ent">testcase</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>test_pass_1<span class="pl-pds">"</span></span> <span class="pl-e">assertions</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">status</span>=<span class="pl-s"><span class="pl-pds">"</span>pass<span class="pl-pds">"</span></span> <span class="pl-e">classname</span>=<span class="pl-s"><span class="pl-pds">"</span>res://test/resources/exporter_test_files/test_with_inner_classes.gd.TestClassTwo<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">testcase</span>&gt;
+      &lt;/<span class="pl-ent">testsuite</span>&gt;
+&lt;/<span class="pl-ent">testsuites</span>&gt;</pre></div>
+</article></body>

@@ -1,0 +1,1255 @@
+
+        <html><head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+
+            @media (max-width: 767px) {
+                .markdown-body {
+                    padding: 15px;
+                }
+            }
+        </style>
+        <link rel="stylesheet" href="github-markdown.css"/>
+</head><body><article class="markdown-body"><h1><a id="user-content-asserts-and-methods" class="anchor" aria-hidden="true" href="#asserts-and-methods"><span aria-hidden="true" class="octicon octicon-link"></span></a>Asserts-and-Methods</h1>
+<p>These are all the methods, bells, whistles and blinky lights you get when you extend the Gut Test Class (<code>extends GutTest</code>).</p>
+<p>All sample code listed for the methods can be found here in <a href="https://github.com/bitwes/Gut/blob/master/test/samples/test_readme_examples.gd">test_readme_examples.gd</a></p>
+<h1><a id="user-content-utilities" class="anchor" aria-hidden="true" href="#utilities"><span aria-hidden="true" class="octicon octicon-link"></span></a>Utilities</h1>
+<p>|
+<a href="#add_child_autofree">add_child_autofree</a>|
+<a href="#add_child_autoqfree">add_child_autoqfree</a>|
+<a href="#autofree">autofree</a>|
+<a href="#autoqfree">autoqfree</a>|
+<a href="#compare_deep">compare_deep</a> |
+<a href="#compare_shallow">compare_shallow</a> |
+<a href="#double">double</a> |
+<a href="#get_call_count">get_call_count</a> |
+<a href="#get_call_parameters">get_call_parameters</a> |
+<a href="#get_non_matching_array_indexes">get_non_matching_array_indexes</a> |
+<a href="#get_signal_emit_count">get_signal_emit_count</a> |
+<a href="#get_signal_parameters">get_signal_parameters</a> |
+<a href="#ignore_method_when_doubling">ignore_method_when_doubling</a> |
+<a href="#is_failing">is_failing</a> |
+<a href="#is_passing">is_passing</a> |
+<a href="#pause_before_teardown">pause_before_teardown</a> |
+<a href="#pending">pending</a> |
+<a href="#replace_node">replace_node</a> |
+<a href="#simulate">simulate</a> |
+<a href="#stub">stub</a> |
+<a href="#watch_signals">watch_signals</a> |
+<a href="#yield_for">yield_for</a> |
+<a href="#yield_frames">yield_frames</a> |
+<a href="#yield_to">yield_to</a> |</p>
+<h1><a id="user-content-gut-utilities" class="anchor" aria-hidden="true" href="#gut-utilities"><span aria-hidden="true" class="octicon octicon-link"></span></a>Gut Utilities</h1>
+<p>These methods exist on the GUT instance, and not in <code>test.gd</code>.  They must all be prefixed with <code>gut</code>.</p>
+<p>|
+<a href="">gut.directory_delete_files</a>|
+<a href="">gut.file_delete</a>|
+<a href="">gut.file_touch</a>|
+<a href="">gut.is_file_empty</a>|
+<a href="#gut_p">gut.p</a> |</p>
+<h1><a id="user-content-assertions" class="anchor" aria-hidden="true" href="#assertions"><span aria-hidden="true" class="octicon octicon-link"></span></a>Assertions</h1>
+
+
+<p>|
+<a href="#assert_accessors">assert_accessors</a> |
+<a href="#assert_almost_eq">assert_almost_eq</a> | <a href="#assert_almost_ne">assert_almost_ne</a> |
+<a href="#assert_between">assert_between</a> | <a href="#assert_not_between">assert_not_between</a> |
+<a href="#assert_call_count">assert_call_count</a> |
+<a href="#assert_called">assert_called</a> | <a href="#assert_not_called">assert_not_called</a> |
+<a href="#assert_connected">assert_connected</a> |
+<a href="#assert_eq">assert_eq (equal)</a> | <a href="#assert_ne">assert_ne (not equal)</a> |
+<a href="#assert_eq_deep">assert_eq_deep</a> | <a href="#assert_ne_deep">assert_ne_deep</a> |
+<a href="#assert_eq_shallow">assert_eq_shallow</a> | <a href="#assert_ne_shallow">assert_ne_shallow</a> |
+<a href="#assert_exports">assert_exports</a> |
+<a href="#assert_false">assert_false</a> |
+<a href="#assert_file_does_not_exist">assert_file_does_not_exist</a> |
+<a href="#assert_file_empty">assert_file_empty</a> |
+<a href="#assert_file_exists">assert_file_exists</a> |
+<a href="#assert_file_not_empty">assert_file_not_empty</a> |
+<a href="#assert_freed">assert_freed</a> | <a href="#assert_not_freed">assert_not_freed</a> |
+<a href="#assert_gt">assert_gt (greater than)</a> |
+<a href="#assert_has_method">assert_has_method</a> |
+<a href="#assert_has_signal">assert_has_signal</a> |
+<a href="#assert_has">assert_has</a> | <a href="#assert_does_not_have">assert_does_not_have</a> |
+<a href="#assert_is">assert_is</a> |
+<a href="#assert_lt">assert_lt (less than)</a> |
+<a href="#assert_no_new_orphans">assert_no_new_orpahns</a>|
+<a href="#assert_not_connected">assert_not_connected</a> |
+<a href="#assert_null">assert_null</a> | <a href="#assert_not_null">assert_not_null</a> |
+<a href="#assert_property">assert_property</a> |
+<a href="#assert_setget_called">assert_setget_called</a> |
+<a href="#assert_setget">assert_setget</a> |
+<a href="#assert_signal_emit_count">assert_signal_emit_count</a> |
+<a href="#assert_signal_emitted_with_parameters">assert_signal_emitted_with_parameters</a> |
+<a href="#assert_signal_emitted">assert_signal_emitted</a> |
+<a href="#assert_signal_not_emitted">assert_signal_not_emitted</a> |
+<a href="#assert_string_contains">assert_string_contains</a> |
+<a href="#assert_string_ends_with">assert_string_ends_with</a> |
+<a href="#assert_string_starts_with">assert_string_starts_with</a> |
+<a href="#assert_true">assert_true</a> |
+<a href="#assert_typeof">assert_typeof</a> | <a href="#assert_not_typeof">assert_not_typeof</a>|
+<a href="#fail_test">fail_test</a> |
+<a href="#pass_test">pass_test</a> |</p>
+<h4><a id="user-content-pass_testtext-" class="anchor" aria-hidden="true" href="#pass_testtext-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-pass_test">pass_test(text) </a></h4>
+<p>Useful when you don't have anything meaningful to assert.  Any failing asserts within the test will override this.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_nothing</span>():
+  <span class="pl-c1">pass_test</span>(<span class="pl-s">'nothing tested, passing'</span>)</pre></div>
+<h4><a id="user-content-fail_testtext-" class="anchor" aria-hidden="true" href="#fail_testtext-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-fail_test">fail_test(text) </a></h4>
+<p>Useful when you need to fail a test but don't have a meaningful way to assert the condition you are testing.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_this_test_just_fails</span>():
+  <span class="pl-c1">fail_test</span>(<span class="pl-s">'total unbridled failure'</span>)</pre></div>
+<h4><a id="user-content--pendingtext-" class="anchor" aria-hidden="true" href="#-pendingtext-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-pending"> pending(text="") </a></h4>
+<p>flag a test as pending, the optional message is printed in the GUI</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-c1">pending</span>(<span class="pl-s">'This test is not implemented yet'</span>)
+<span class="pl-c1">pending</span>()</pre></div>
+<h4><a id="user-content--assert_eqgot-expected-text-" class="anchor" aria-hidden="true" href="#-assert_eqgot-expected-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_eq"> assert_eq(got, expected, text="") </a></h4>
+<p>assert got == expected and prints optional text.  There are some caveats due to how  Godot compares things.  Arrays are compared by value (with some additional caveats) and dictionaries are compared by reference.  See also <a href="#assert_eq_deep">assert_eq_deep</a> and <a href="Comparing-Things.html">Comparing Things</a></p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_equals</span>():
+	<span class="pl-k">var</span> one <span class="pl-k">=</span> <span class="pl-c1">1</span>
+	<span class="pl-k">var</span> node1 <span class="pl-k">=</span> <span class="pl-c1">Node</span>.<span class="pl-c1">new</span>()
+	<span class="pl-k">var</span> node2 <span class="pl-k">=</span> node1
+
+	<span class="pl-c1">assert_eq</span>(one, <span class="pl-c1">1</span>, <span class="pl-s">'one should equal one'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+	<span class="pl-c1">assert_eq</span>(<span class="pl-s">'racecar'</span>, <span class="pl-s">'racecar'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+	<span class="pl-c1">assert_eq</span>(node2, node1) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+	<span class="pl-c1">assert_eq</span>([<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>], [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>]) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+	<span class="pl-k">var</span> d1_pass <span class="pl-k">=</span> {<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}
+	<span class="pl-k">var</span> d2_pass <span class="pl-k">=</span> d1_pass
+	<span class="pl-c1">assert_eq</span>(d1_pass, d2_pass) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_eq</span>(<span class="pl-c1">1</span>, <span class="pl-c1">2</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+	<span class="pl-c1">assert_eq</span>(<span class="pl-s">'hello'</span>, <span class="pl-s">'world'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+	<span class="pl-c1">assert_eq</span>(<span class="pl-c1">self</span>, node1) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+	<span class="pl-c1">assert_eq</span>([<span class="pl-c1">1</span>, <span class="pl-s">'two'</span>, <span class="pl-c1">3</span>], [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>]) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+	<span class="pl-c1">assert_eq</span>({<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}, {<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}) <span class="pl-c"><span class="pl-c">#</span> FAIL</span></pre></div>
+<h4><a id="user-content--assert_negot-not_expected-text-" class="anchor" aria-hidden="true" href="#-assert_negot-not_expected-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_ne"> assert_ne(got, not_expected, text="") </a></h4>
+<p>asserts got != expected and prints optional text.  Read <a href="Comparing-Things.html">Comparing Things</a> for array and dictionary caveats.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> two <span class="pl-k">=</span> <span class="pl-c1">2</span>
+<span class="pl-k">var</span> node1 <span class="pl-k">=</span> <span class="pl-c1">Node</span>.<span class="pl-c1">new</span>()
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+<span class="pl-c1">assert_ne</span>(two, <span class="pl-c1">1</span>, <span class="pl-s">'Two should not equal one.'</span>)  <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_ne</span>(<span class="pl-s">'hello'</span>, <span class="pl-s">'world'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_ne</span>(<span class="pl-c1">self</span>, node1) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+<span class="pl-c1">assert_ne</span>(two, <span class="pl-c1">2</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_ne</span>(<span class="pl-s">'one'</span>, <span class="pl-s">'one'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_ne</span>(<span class="pl-s">'2'</span>, <span class="pl-c1">2</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span></pre></div>
+<h4><a id="user-content--assert_gtgot-expected-text-" class="anchor" aria-hidden="true" href="#-assert_gtgot-expected-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_gt"> assert_gt(got, expected, text="") </a></h4>
+<p>assserts got &gt; expected</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> bigger <span class="pl-k">=</span> <span class="pl-c1">5</span>
+<span class="pl-k">var</span> smaller <span class="pl-k">=</span> <span class="pl-c1">0</span>
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+<span class="pl-c1">assert_gt</span>(bigger, smaller, <span class="pl-s">'Bigger should be greater than smaller'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_gt</span>(<span class="pl-s">'b'</span>, <span class="pl-s">'a'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_gt</span>(<span class="pl-s">'a'</span>, <span class="pl-s">'A'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_gt</span>(<span class="pl-c1">1.1</span>, <span class="pl-c1">1</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+<span class="pl-c1">assert_gt</span>(<span class="pl-s">'a'</span>, <span class="pl-s">'a'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_gt</span>(<span class="pl-c1">1.0</span>, <span class="pl-c1">1</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_gt</span>(smaller, bigger) <span class="pl-c"><span class="pl-c">#</span> FAIL</span></pre></div>
+<h4><a id="user-content--assert_ltgot-expected-text-" class="anchor" aria-hidden="true" href="#-assert_ltgot-expected-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_lt"> assert_lt(got, expected, text="") </a></h4>
+<p>asserts got &lt; expected</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> bigger <span class="pl-k">=</span> <span class="pl-c1">5</span>
+<span class="pl-k">var</span> smaller <span class="pl-k">=</span> <span class="pl-c1">0</span>
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+<span class="pl-c1">assert_lt</span>(smaller, bigger, <span class="pl-s">'Smaller should be less than bigger'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_lt</span>(<span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+<span class="pl-c1">assert_lt</span>(<span class="pl-s">'z'</span>, <span class="pl-s">'x'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_lt</span>(-<span class="pl-c1">5</span>, -<span class="pl-c1">5</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span></pre></div>
+<h4><a id="user-content--assert_truegot-text-" class="anchor" aria-hidden="true" href="#-assert_truegot-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_true"> assert_true(got, text="") </a></h4>
+<p>asserts got == true.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_true</span>():
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_true</span>(<span class="pl-c1">true</span>, <span class="pl-s">'True should be true'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+	<span class="pl-c1">assert_true</span>(<span class="pl-c1">5</span> =<span class="pl-k">=</span> <span class="pl-c1">5</span>, <span class="pl-s">'That expressions should be true'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_true</span>(<span class="pl-c1">false</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+	<span class="pl-c1">assert_true</span>(<span class="pl-s">'a'</span> =<span class="pl-k">=</span> <span class="pl-s">'b'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+	<span class="pl-c1">assert_true</span>(<span class="pl-s">'b'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+	<span class="pl-c1">assert_true</span>(<span class="pl-c1">1</span>)</pre></div>
+<h4><a id="user-content--assert_falsegot-text-" class="anchor" aria-hidden="true" href="#-assert_falsegot-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_false"> assert_false(got, text="") </a></h4>
+<p>asserts got == false</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_false</span>():
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_false</span>(<span class="pl-c1">false</span>, <span class="pl-s">'False is false'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+	<span class="pl-c1">assert_false</span>(<span class="pl-c1">1</span> =<span class="pl-k">=</span> <span class="pl-c1">2</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+	<span class="pl-c1">assert_false</span>(<span class="pl-s">'a'</span> =<span class="pl-k">=</span> <span class="pl-s">'z'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+	<span class="pl-c1">assert_false</span>(<span class="pl-c1">self</span>.<span class="pl-c1">has_user_signal</span>(<span class="pl-s">'nope'</span>)) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_false</span>(<span class="pl-c1">true</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+	<span class="pl-c1">assert_false</span>(<span class="pl-s">'ABC'</span> =<span class="pl-k">=</span> <span class="pl-s">'ABC'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+	<span class="pl-c1">assert_false</span>(<span class="pl-c1">null</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+	<span class="pl-c1">assert_false</span>(<span class="pl-c1">0</span>)</pre></div>
+<h4><a id="user-content--assert_nullgot-" class="anchor" aria-hidden="true" href="#-assert_nullgot-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_null"> assert_null(got) </a></h4>
+<p>asserts the passed in value is null</p>
+<div class="highlight highlight-source-gdscript"><pre>gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+<span class="pl-c1">assert_null</span>(<span class="pl-c1">null</span>)
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+<span class="pl-c1">assert_null</span>(<span class="pl-s">'a'</span>)
+<span class="pl-c1">assert_null</span>(<span class="pl-c1">1</span>)</pre></div>
+<h4><a id="user-content--assert_not_nullgot-" class="anchor" aria-hidden="true" href="#-assert_not_nullgot-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_not_null"> assert_not_null(got) </a></h4>
+<p>asserts the passed in value is not null</p>
+<div class="highlight highlight-source-gdscript"><pre>gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+<span class="pl-c1">assert_not_null</span>(<span class="pl-s">'a'</span>)
+<span class="pl-c1">assert_not_null</span>(<span class="pl-c1">1</span>)
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+<span class="pl-c1">assert_not_null</span>(<span class="pl-c1">null</span>)</pre></div>
+<h4><a id="user-content--assert_betweengot-expect_low-expect_high-text-" class="anchor" aria-hidden="true" href="#-assert_betweengot-expect_low-expect_high-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_between"> assert_between(got, expect_low, expect_high, text="") </a></h4>
+<p>asserts got &gt; expect_low and &lt;= expect_high</p>
+<div class="highlight highlight-source-gdscript"><pre>gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+<span class="pl-c1">assert_between</span>(<span class="pl-c1">5</span>, <span class="pl-c1">0</span>, <span class="pl-c1">10</span>, <span class="pl-s">'Five should be between 0 and 10'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_between</span>(<span class="pl-c1">10</span>, <span class="pl-c1">0</span>, <span class="pl-c1">10</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_between</span>(<span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">10</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_between</span>(<span class="pl-c1">2.25</span>, <span class="pl-c1">2</span>, <span class="pl-c1">4.0</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+<span class="pl-c1">assert_between</span>(<span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>, <span class="pl-s">'c'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_between</span>(<span class="pl-c1">1</span>, <span class="pl-c1">5</span>, <span class="pl-c1">10</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span></pre></div>
+<h4><a id="user-content--assert_not_betweengot-expect_low-expect_high-text-" class="anchor" aria-hidden="true" href="#-assert_not_betweengot-expect_low-expect_high-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_not_between"> assert_not_between(got, expect_low, expect_high, text="") </a></h4>
+<p>asserts that got &lt;= expect_low or got &gt;=  expect_high.</p>
+<div class="highlight highlight-source-gdscript"><pre>gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+<span class="pl-c1">assert_not_between</span>(<span class="pl-c1">1</span>, <span class="pl-c1">5</span>, <span class="pl-c1">10</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_not_between</span>(<span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>, <span class="pl-s">'d'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_not_between</span>(<span class="pl-s">'d'</span>, <span class="pl-s">'b'</span>, <span class="pl-s">'d'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_not_between</span>(<span class="pl-c1">10</span>, <span class="pl-c1">0</span>, <span class="pl-c1">10</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_not_between</span>(-<span class="pl-c1">2</span>, -<span class="pl-c1">2</span>, <span class="pl-c1">10</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+<span class="pl-c1">assert_not_between</span>(<span class="pl-c1">5</span>, <span class="pl-c1">0</span>, <span class="pl-c1">10</span>, <span class="pl-s">'Five shouldnt be between 0 and 10'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_not_between</span>(<span class="pl-c1">0.25</span>, -<span class="pl-c1">2.0</span>, <span class="pl-c1">4.0</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+</pre></div>
+<h4><a id="user-content--assert_almost_eqgot-expected-error_interval-text-" class="anchor" aria-hidden="true" href="#-assert_almost_eqgot-expected-error_interval-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_almost_eq"> assert_almost_eq(got, expected, error_interval, text='') </a></h4>
+<p>Asserts that <code>got</code> is within the range of <code>expected</code> +/- <code>error_interval</code>.  The upper and lower bounds are included in the check.  Verified to work with integers, floats, and Vector2.  Should work with anything that can be added/subtracted.</p>
+<div class="highlight highlight-source-gdscript"><pre>gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+<span class="pl-c1">assert_almost_eq</span>(<span class="pl-c1">0</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>, <span class="pl-s">'0 within range of 1 +/- 1'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_almost_eq</span>(<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>, <span class="pl-s">'2 within range of 1 +/- 1'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+<span class="pl-c1">assert_almost_eq</span>(<span class="pl-c1">1.2</span>, <span class="pl-c1">1.0</span>, .<span class="pl-c1">5</span>, <span class="pl-s">'1.2 within range of 1 +/- .5'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_almost_eq</span>(.<span class="pl-c1">5</span>, <span class="pl-c1">1.0</span>, .<span class="pl-c1">5</span>, <span class="pl-s">'.5 within range of 1 +/- .5'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+<span class="pl-c1">assert_almost_eq</span>(<span class="pl-c1">Vector2</span>(.<span class="pl-c1">5</span>, <span class="pl-c1">1.5</span>), <span class="pl-c1">Vector2</span>(<span class="pl-c1">1.0</span>, <span class="pl-c1">1.0</span>), <span class="pl-c1">Vector2</span>(.<span class="pl-c1">5</span>, .<span class="pl-c1">5</span>))  <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+<span class="pl-c1">assert_almost_eq</span>(<span class="pl-c1">1</span>, <span class="pl-c1">3</span>, <span class="pl-c1">1</span>, <span class="pl-s">'1 outside range of 3 +/- 1'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_almost_eq</span>(<span class="pl-c1">2.6</span>, <span class="pl-c1">3.0</span>, .<span class="pl-c1">2</span>, <span class="pl-s">'2.6 outside range of 3 +/- .2'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+
+<span class="pl-c1">assert_almost_eq</span>(<span class="pl-c1">Vector2</span>(.<span class="pl-c1">5</span>, <span class="pl-c1">1.5</span>), <span class="pl-c1">Vector2</span>(<span class="pl-c1">1.0</span>, <span class="pl-c1">1.0</span>), <span class="pl-c1">Vector2</span>(.<span class="pl-c1">25</span>, .<span class="pl-c1">25</span>))  <span class="pl-c"><span class="pl-c">#</span> PASS</span></pre></div>
+<h4><a id="user-content--assert_almost_negot-expected-error_interval-text-" class="anchor" aria-hidden="true" href="#-assert_almost_negot-expected-error_interval-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_almost_ne"> assert_almost_ne(got, expected, error_interval, text='') </a></h4>
+<p>This is the inverse of <code>assert_almost_eq</code>.  This will pass if <code>got</code> is outside the range of <code>expected</code> +/- <code>error_interval</code>.</p>
+<div class="highlight highlight-source-gdscript"><pre>gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+<span class="pl-c1">assert_almost_ne</span>(<span class="pl-c1">1</span>, <span class="pl-c1">3</span>, <span class="pl-c1">1</span>, <span class="pl-s">'1 outside range of 3 +/- 1'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_almost_ne</span>(<span class="pl-c1">2.6</span>, <span class="pl-c1">3.0</span>, .<span class="pl-c1">2</span>, <span class="pl-s">'2.6 outside range of 3 +/- .2'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+<span class="pl-c1">assert_almost_ne</span>(<span class="pl-c1">Vector2</span>(.<span class="pl-c1">5</span>, <span class="pl-c1">1.5</span>), <span class="pl-c1">Vector2</span>(<span class="pl-c1">1.0</span>, <span class="pl-c1">1.0</span>), <span class="pl-c1">Vector2</span>(.<span class="pl-c1">25</span>, .<span class="pl-c1">25</span>))  <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+<span class="pl-c1">assert_almost_ne</span>(<span class="pl-c1">0</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>, <span class="pl-s">'0 within range of 1 +/- 1'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_almost_ne</span>(<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>, <span class="pl-s">'2 within range of 1 +/- 1'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+
+<span class="pl-c1">assert_almost_ne</span>(<span class="pl-c1">1.2</span>, <span class="pl-c1">1.0</span>, .<span class="pl-c1">5</span>, <span class="pl-s">'1.2 within range of 1 +/- .5'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_almost_ne</span>(.<span class="pl-c1">5</span>, <span class="pl-c1">1.0</span>, .<span class="pl-c1">5</span>, <span class="pl-s">'.5 within range of 1 +/- .5'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+
+<span class="pl-c1">assert_almost_ne</span>(<span class="pl-c1">Vector2</span>(.<span class="pl-c1">5</span>, <span class="pl-c1">1.5</span>), <span class="pl-c1">Vector2</span>(<span class="pl-c1">1.0</span>, <span class="pl-c1">1.0</span>), <span class="pl-c1">Vector2</span>(.<span class="pl-c1">5</span>, .<span class="pl-c1">5</span>))  <span class="pl-c"><span class="pl-c">#</span> FAIL</span></pre></div>
+<h4><a id="user-content--assert_hasobj-element-text-" class="anchor" aria-hidden="true" href="#-assert_hasobj-element-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_has"> assert_has(obj, element, text='') </a></h4>
+<p>Asserts that the object passed in "has" the element.  This works with any object that has a <code>has</code> method.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> an_array <span class="pl-k">=</span> [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-s">'four'</span>, <span class="pl-s">'five'</span>]
+<span class="pl-k">var</span> a_hash <span class="pl-k">=</span> { <span class="pl-s">'one'</span>:<span class="pl-c1">1</span>, <span class="pl-s">'two'</span>:<span class="pl-c1">2</span>, <span class="pl-s">'3'</span>:<span class="pl-s">'three'</span>}
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+<span class="pl-c1">assert_has</span>(an_array, <span class="pl-s">'four'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_has</span>(an_array, <span class="pl-c1">2</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c"><span class="pl-c">#</span> the hash's has method checks indexes not values</span>
+<span class="pl-c1">assert_has</span>(a_hash, <span class="pl-s">'one'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_has</span>(a_hash, <span class="pl-s">'3'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+<span class="pl-c1">assert_has</span>(an_array, <span class="pl-c1">5</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_has</span>(an_array, <span class="pl-c1">self</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_has</span>(a_hash, <span class="pl-c1">3</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_has</span>(a_hash, <span class="pl-s">'three'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span></pre></div>
+<h4><a id="user-content--assert_does_not_haveobj-element-text-" class="anchor" aria-hidden="true" href="#-assert_does_not_haveobj-element-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_does_not_have"> assert_does_not_have(obj, element, text='') </a></h4>
+<p>The inverse of <code>assert_has</code></p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> an_array <span class="pl-k">=</span> [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-s">'four'</span>, <span class="pl-s">'five'</span>]
+<span class="pl-k">var</span> a_hash <span class="pl-k">=</span> { <span class="pl-s">'one'</span>:<span class="pl-c1">1</span>, <span class="pl-s">'two'</span>:<span class="pl-c1">2</span>, <span class="pl-s">'3'</span>:<span class="pl-s">'three'</span>}
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+<span class="pl-c1">assert_does_not_have</span>(an_array, <span class="pl-c1">5</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_does_not_have</span>(an_array, <span class="pl-c1">self</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_does_not_have</span>(a_hash, <span class="pl-c1">3</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_does_not_have</span>(a_hash, <span class="pl-s">'three'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+<span class="pl-c1">assert_does_not_have</span>(an_array, <span class="pl-s">'four'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_does_not_have</span>(an_array, <span class="pl-c1">2</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c"><span class="pl-c">#</span> the hash's has method checkes indexes not values</span>
+<span class="pl-c1">assert_does_not_have</span>(a_hash, <span class="pl-s">'one'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_does_not_have</span>(a_hash, <span class="pl-s">'3'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span></pre></div>
+<h4><a id="user-content--assert_string_containstext-search-match_casetrue-" class="anchor" aria-hidden="true" href="#-assert_string_containstext-search-match_casetrue-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_string_contains"> assert_string_contains(text, search, match_case=true) </a></h4>
+<p>Assert that <code>text</code> contains <code>search</code>.  Can perform case insensitive search by passing false for <code>match_case</code>.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_string_contains</span>():
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_string_contains</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'a'</span>)
+	<span class="pl-c1">assert_string_contains</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'BC'</span>, <span class="pl-c1">false</span>)
+	<span class="pl-c1">assert_string_contains</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'3'</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_string_contains</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'A'</span>)
+	<span class="pl-c1">assert_string_contains</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'BC'</span>)
+	<span class="pl-c1">assert_string_contains</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'012'</span>)</pre></div>
+<h4><a id="user-content--assert_string_starts_withtext-search-match_casetrue-" class="anchor" aria-hidden="true" href="#-assert_string_starts_withtext-search-match_casetrue-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_string_starts_with"> assert_string_starts_with(text, search, match_case=true) </a></h4>
+<p>Assert that <code>text</code> starts with <code>search</code>.  Can perform case insensitive check by passing false for <code>match_case</code></p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_string_starts_with</span>():
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_string_starts_with</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'a'</span>)
+	<span class="pl-c1">assert_string_starts_with</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'ABC'</span>, <span class="pl-c1">false</span>)
+	<span class="pl-c1">assert_string_starts_with</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'abc 123'</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_string_starts_with</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'z'</span>)
+	<span class="pl-c1">assert_string_starts_with</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'ABC'</span>)
+	<span class="pl-c1">assert_string_starts_with</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'abc 1234'</span>)</pre></div>
+<h4><a id="user-content--assert_string_ends_withtext-search-match_casetrue-" class="anchor" aria-hidden="true" href="#-assert_string_ends_withtext-search-match_casetrue-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_string_ends_with"> assert_string_ends_with(text, search, match_case=true) </a></h4>
+<p>Assert that <code>text</code> ends with <code>search</code>.  Can perform case insensitive check by passing false for <code>match_case</code></p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_string_ends_with</span>():
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_string_ends_with</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'123'</span>)
+	<span class="pl-c1">assert_string_ends_with</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'C 123'</span>, <span class="pl-c1">false</span>)
+	<span class="pl-c1">assert_string_ends_with</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'abc 123'</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_string_ends_with</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'1234'</span>)
+	<span class="pl-c1">assert_string_ends_with</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'C 123'</span>)
+	<span class="pl-c1">assert_string_ends_with</span>(<span class="pl-s">'abc 123'</span>, <span class="pl-s">'nope'</span>)</pre></div>
+<h4><a id="user-content--assert_has_signalobject-signal_name-" class="anchor" aria-hidden="true" href="#-assert_has_signalobject-signal_name-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_has_signal"> assert_has_signal(object, signal_name) </a></h4>
+<p>Asserts the passed in object has a signal with the specified name.  It should be noted that all the asserts that verfy a signal was/wasn't emitted will first check that the object has the signal being asserted against.  If it does not, a specific failure message will be given.  This means you can usually skip the step of specifically verifying that the object has a signal and move on to making sure it emits the signal correctly.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">class</span> <span class="pl-en">SignalObject</span>:
+	<span class="pl-k">func</span> <span class="pl-en">_init</span>():
+		<span class="pl-c1">add_user_signal</span>(<span class="pl-s">'some_signal'</span>)
+		<span class="pl-c1">add_user_signal</span>(<span class="pl-s">'other_signal'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_has_signal</span>():
+	<span class="pl-k">var</span> obj <span class="pl-k">=</span> <span class="pl-c1">SignalObject</span>.<span class="pl-c1">new</span>()
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_has_signal</span>(obj, <span class="pl-s">'some_signal'</span>)
+	<span class="pl-c1">assert_has_signal</span>(obj, <span class="pl-s">'other_signal'</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_has_signal</span>(obj, <span class="pl-s">'not_a real SIGNAL'</span>)
+	<span class="pl-c1">assert_has_signal</span>(obj, <span class="pl-s">'yea, this one doesnt exist either'</span>)
+	<span class="pl-c"><span class="pl-c">#</span> Fails because the signal is not a user signal.  Node2D does have the</span>
+	<span class="pl-c"><span class="pl-c">#</span> specified signal but it can't be checked this way.  It could be watched</span>
+	<span class="pl-c"><span class="pl-c">#</span> and asserted that it fired though.</span>
+	<span class="pl-c1">assert_has_signal</span>(<span class="pl-c1">Node2D</span>.<span class="pl-c1">new</span>(), <span class="pl-s">'exit_tree'</span>)
+</pre></div>
+<h4><a id="user-content--assert_connectedsignaler_obj-connect_to_obj-signal_name-method_name-" class="anchor" aria-hidden="true" href="#-assert_connectedsignaler_obj-connect_to_obj-signal_name-method_name-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_connected"> assert_connected(signaler_obj, connect_to_obj, signal_name, method_name="") </a></h4>
+<p>Asserts that <code>signaler_obj</code> is connected to <code>connect_to_obj</code> on signal <code>signal_name</code>.  The method that is connected is optional.  If <code>method_name</code> is supplied then this will pass only if the signal is connected to the  method.  If it is not provided then any connection to the signal will cause a pass.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">class</span> <span class="pl-en">Signaler</span>:
+	<span class="pl-k">signal</span> <span class="pl-en">the_signal</span>
+
+<span class="pl-k">class</span> <span class="pl-en">Connector</span>:
+	<span class="pl-k">func</span> <span class="pl-en">connect_this</span>():
+		<span class="pl-k">pass</span>
+	<span class="pl-k">func</span>  <span class="pl-en">other_method</span>():
+		<span class="pl-k">pass</span>
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_connected</span>():
+	<span class="pl-k">var</span> signaler <span class="pl-k">=</span> <span class="pl-c1">Signaler</span>.<span class="pl-c1">new</span>()
+	<span class="pl-k">var</span> connector  <span class="pl-k">=</span> <span class="pl-c1">Connector</span>.<span class="pl-c1">new</span>()
+	signaler.<span class="pl-c1">connect</span>(<span class="pl-s">'the_signal'</span>, connector, <span class="pl-s">'connect_this'</span>)
+
+	<span class="pl-c"><span class="pl-c">#</span> Passing</span>
+	<span class="pl-c1">assert_connected</span>(signaler, connector, <span class="pl-s">'the_signal'</span>)
+	<span class="pl-c1">assert_connected</span>(signaler, connector, <span class="pl-s">'the_signal'</span>, <span class="pl-s">'connect_this'</span>)
+
+	<span class="pl-c"><span class="pl-c">#</span> Failing</span>
+	<span class="pl-k">var</span> foo <span class="pl-k">=</span> <span class="pl-c1">Connector</span>.<span class="pl-c1">new</span>()
+	<span class="pl-c1">assert_connected</span>(signaler,  connector, <span class="pl-s">'the_signal'</span>, <span class="pl-s">'other_method'</span>)
+	<span class="pl-c1">assert_connected</span>(signaler, connector, <span class="pl-s">'other_signal'</span>)
+	<span class="pl-c1">assert_connected</span>(signaler, foo, <span class="pl-s">'the_signal'</span>)</pre></div>
+<h4><a id="user-content--assert_not_connectedsignaler_obj-connect_to_obj-signal_name-method_name-" class="anchor" aria-hidden="true" href="#-assert_not_connectedsignaler_obj-connect_to_obj-signal_name-method_name-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_not_connected"> assert_not_connected(signaler_obj, connect_to_obj, signal_name, method_name="") </a></h4>
+<p>The inverse of <code>assert_connected</code>.</p>
+<h4><a id="user-content--watch_signalsobject-" class="anchor" aria-hidden="true" href="#-watch_signalsobject-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-watch_signals"> watch_signals(object) </a></h4>
+<p>This must be called in order to make assertions based on signals being emitted.  <strong>Right now, this only supports signals that are emitted with 9 or less parameters.</strong>  This can be extended but nine seemed like enough for now.  The Godot documentation suggests that the limit is four but in my testing I found you can pass more.</p>
+<p>This must be called in each test in which you want to make signal based assertions in.  You can call it multiple times with different objects.   You should not call it multiple times with the same object in the same test.  The objects that are watched are cleared after each test (specifically right before <code>teardown</code> is called).  Under the covers, Gut will connect to all the signals an object has and it will track each time they fire.  You can then use the following asserts and methods to verify things are acting correct.</p>
+<h4><a id="user-content--assert_signal_emittedobject-signal_name-" class="anchor" aria-hidden="true" href="#-assert_signal_emittedobject-signal_name-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_signal_emitted"> assert_signal_emitted(object, signal_name) </a></h4>
+<p>Assert that the specified object emitted the named signal.  You must call <code>watch_signals</code> and pass it the object that you are making assertions about.  This will fail if the object is not being watched or if the object does not have the specified signal.  Since this will fail if the signal does not exist, you can often skip using <code>assert_has_signal</code>.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">class</span> <span class="pl-en">SignalObject</span>:
+	<span class="pl-k">func</span> <span class="pl-en">_init</span>():
+		<span class="pl-c1">add_user_signal</span>(<span class="pl-s">'some_signal'</span>)
+		<span class="pl-c1">add_user_signal</span>(<span class="pl-s">'other_signal'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_signal_emitted</span>():
+	<span class="pl-k">var</span> obj <span class="pl-k">=</span> <span class="pl-c1">SignalObject</span>.<span class="pl-c1">new</span>()
+
+	<span class="pl-c1">watch_signals</span>(obj)
+	obj.<span class="pl-c1">emit_signal</span>(<span class="pl-s">'some_signal'</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_signal_emitted</span>(obj, <span class="pl-s">'some_signal'</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c"><span class="pl-c">#</span> Fails with specific message that the object does not have the signal</span>
+	<span class="pl-c1">assert_signal_emitted</span>(obj, <span class="pl-s">'signal_does_not_exist'</span>)
+	<span class="pl-c"><span class="pl-c">#</span> Fails because the object passed is not being watched</span>
+	<span class="pl-c1">assert_signal_emitted</span>(<span class="pl-c1">SignalObject</span>.<span class="pl-c1">new</span>(), <span class="pl-s">'some_signal'</span>)
+	<span class="pl-c"><span class="pl-c">#</span> Fails because the signal was not emitted</span>
+	<span class="pl-c1">assert_signal_emitted</span>(obj, <span class="pl-s">'other_signal'</span>)</pre></div>
+<h4><a id="user-content--assert_signal_not_emittedobject-signal_name-" class="anchor" aria-hidden="true" href="#-assert_signal_not_emittedobject-signal_name-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_signal_not_emitted"> assert_signal_not_emitted(object, signal_name) </a></h4>
+<p>This works opposite of <code>assert_signal_emitted</code>.  This will fail if the object is not being watched or if the object does not have the signal.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">class</span> <span class="pl-en">SignalObject</span>:
+	<span class="pl-k">func</span> <span class="pl-en">_init</span>():
+		<span class="pl-c1">add_user_signal</span>(<span class="pl-s">'some_signal'</span>)
+		<span class="pl-c1">add_user_signal</span>(<span class="pl-s">'other_signal'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_signal_not_emitted</span>():
+	<span class="pl-k">var</span> obj <span class="pl-k">=</span> <span class="pl-c1">SignalObject</span>.<span class="pl-c1">new</span>()
+
+	<span class="pl-c1">watch_signals</span>(obj)
+	obj.<span class="pl-c1">emit_signal</span>(<span class="pl-s">'some_signal'</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_signal_not_emitted</span>(obj, <span class="pl-s">'other_signal'</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c"><span class="pl-c">#</span> Fails with specific message that the object does not have the signal</span>
+	<span class="pl-c1">assert_signal_not_emitted</span>(obj, <span class="pl-s">'signal_does_not_exist'</span>)
+	<span class="pl-c"><span class="pl-c">#</span> Fails because the object passed is not being watched</span>
+	<span class="pl-c1">assert_signal_not_emitted</span>(<span class="pl-c1">SignalObject</span>.<span class="pl-c1">new</span>(), <span class="pl-s">'some_signal'</span>)
+	<span class="pl-c"><span class="pl-c">#</span> Fails because the signal was emitted</span>
+	<span class="pl-c1">assert_signal_not_emitted</span>(obj, <span class="pl-s">'some_signal'</span>)</pre></div>
+<h4><a id="user-content--assert_signal_emitted_with_parametersobject-signal_name-parameters-index-1-" class="anchor" aria-hidden="true" href="#-assert_signal_emitted_with_parametersobject-signal_name-parameters-index-1-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_signal_emitted_with_parameters"> assert_signal_emitted_with_parameters(object, signal_name, parameters, index=-1) </a></h4>
+<p>Asserts that a signal was fired with the specified parameters.  The expected parameters should be passed in as an array.  An optional index can be passed when a signal has fired more than once.  The default is to retrieve the most recent emission of the signal.</p>
+<p>This will fail with specific messages if the object is not being watched or the object does not have the specified signal</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">class</span> <span class="pl-en">SignalObject</span>:
+	<span class="pl-k">func</span> <span class="pl-en">_init</span>():
+		<span class="pl-c1">add_user_signal</span>(<span class="pl-s">'some_signal'</span>)
+		<span class="pl-c1">add_user_signal</span>(<span class="pl-s">'other_signal'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_signal_emitted_with_parameters</span>():
+	<span class="pl-k">var</span> obj <span class="pl-k">=</span> <span class="pl-c1">SignalObject</span>.<span class="pl-c1">new</span>()
+
+	<span class="pl-c1">watch_signals</span>(obj)
+	<span class="pl-c"><span class="pl-c">#</span> emit the signal 3 times to illustrate how the index works in</span>
+	<span class="pl-c"><span class="pl-c">#</span> assert_signal_emitted_with_parameters</span>
+	obj.<span class="pl-c1">emit_signal</span>(<span class="pl-s">'some_signal'</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>)
+	obj.<span class="pl-c1">emit_signal</span>(<span class="pl-s">'some_signal'</span>, <span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>, <span class="pl-s">'c'</span>)
+	obj.<span class="pl-c1">emit_signal</span>(<span class="pl-s">'some_signal'</span>, <span class="pl-s">'one'</span>, <span class="pl-s">'two'</span>, <span class="pl-s">'three'</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c"><span class="pl-c">#</span> Passes b/c the default parameters to check are the last emission of</span>
+	<span class="pl-c"><span class="pl-c">#</span> the signal</span>
+	<span class="pl-c1">assert_signal_emitted_with_parameters</span>(obj, <span class="pl-s">'some_signal'</span>, [<span class="pl-s">'one'</span>, <span class="pl-s">'two'</span>, <span class="pl-s">'three'</span>])
+	<span class="pl-c"><span class="pl-c">#</span> Passes because the parameters match the specified emission based on index.</span>
+	<span class="pl-c1">assert_signal_emitted_with_parameters</span>(obj, <span class="pl-s">'some_signal'</span>, [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>], <span class="pl-c1">0</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c"><span class="pl-c">#</span> Fails with specific message that the object does not have the signal</span>
+	<span class="pl-c1">assert_signal_emitted_with_parameters</span>(obj, <span class="pl-s">'signal_does_not_exist'</span>, [])
+	<span class="pl-c"><span class="pl-c">#</span> Fails because the object passed is not being watched</span>
+	<span class="pl-c1">assert_signal_emitted_with_parameters</span>(<span class="pl-c1">SignalObject</span>.<span class="pl-c1">new</span>(), <span class="pl-s">'some_signal'</span>, [])
+	<span class="pl-c"><span class="pl-c">#</span> Fails because parameters do not match latest emission</span>
+	<span class="pl-c1">assert_signal_emitted_with_parameters</span>(obj, <span class="pl-s">'some_signal'</span>, [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>])
+	<span class="pl-c"><span class="pl-c">#</span> Fails because the parameters for the specified index do not match</span>
+	<span class="pl-c1">assert_signal_emitted_with_parameters</span>(obj, <span class="pl-s">'some_signal'</span>, [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>], <span class="pl-c1">1</span>)</pre></div>
+<h4><a id="user-content--assert_signal_emit_countobject-signal_name-" class="anchor" aria-hidden="true" href="#-assert_signal_emit_countobject-signal_name-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_signal_emit_count"> assert_signal_emit_count(object, signal_name) </a></h4>
+<p>Asserts that a signal fired a specific number of times.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">class</span> <span class="pl-en">SignalObject</span>:
+	<span class="pl-k">func</span> <span class="pl-en">_init</span>():
+		<span class="pl-c1">add_user_signal</span>(<span class="pl-s">'some_signal'</span>)
+		<span class="pl-c1">add_user_signal</span>(<span class="pl-s">'other_signal'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_signal_emit_count</span>():
+	<span class="pl-k">var</span> obj_a <span class="pl-k">=</span> <span class="pl-c1">SignalObject</span>.<span class="pl-c1">new</span>()
+	<span class="pl-k">var</span> obj_b <span class="pl-k">=</span> <span class="pl-c1">SignalObject</span>.<span class="pl-c1">new</span>()
+
+	<span class="pl-c1">watch_signals</span>(obj_a)
+	<span class="pl-c1">watch_signals</span>(obj_b)
+	obj_a.<span class="pl-c1">emit_signal</span>(<span class="pl-s">'some_signal'</span>)
+	obj_a.<span class="pl-c1">emit_signal</span>(<span class="pl-s">'some_signal'</span>)
+
+	obj_b.<span class="pl-c1">emit_signal</span>(<span class="pl-s">'some_signal'</span>)
+	obj_b.<span class="pl-c1">emit_signal</span>(<span class="pl-s">'other_signal'</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_signal_emit_count</span>(obj_a, <span class="pl-s">'some_signal'</span>, <span class="pl-c1">2</span>)
+	<span class="pl-c1">assert_signal_emit_count</span>(obj_a, <span class="pl-s">'other_signal'</span>, <span class="pl-c1">0</span>)
+
+	<span class="pl-c1">assert_signal_emit_count</span>(obj_b, <span class="pl-s">'other_signal'</span>, <span class="pl-c1">1</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c"><span class="pl-c">#</span> Fails with specific message that the object does not have the signal</span>
+	<span class="pl-c1">assert_signal_emit_count</span>(obj_a, <span class="pl-s">'signal_does_not_exist'</span>, <span class="pl-c1">99</span>)
+	<span class="pl-c"><span class="pl-c">#</span> Fails because the object passed is not being watched</span>
+	<span class="pl-c1">assert_signal_emit_count</span>(<span class="pl-c1">SignalObject</span>.<span class="pl-c1">new</span>(), <span class="pl-s">'some_signal'</span>, <span class="pl-c1">99</span>)
+	<span class="pl-c"><span class="pl-c">#</span> The following fail for obvious reasons</span>
+	<span class="pl-c1">assert_signal_emit_count</span>(obj_a, <span class="pl-s">'some_signal'</span>, <span class="pl-c1">0</span>)
+	<span class="pl-c1">assert_signal_emit_count</span>(obj_b, <span class="pl-s">'other_signal'</span>, <span class="pl-c1">283</span>)</pre></div>
+<h4><a id="user-content--get_signal_emit_countobject-signal_name-" class="anchor" aria-hidden="true" href="#-get_signal_emit_countobject-signal_name-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-get_signal_emit_count"> get_signal_emit_count(object, signal_name) </a></h4>
+<p>This will return the number of times a signal was fired.  This gives you the freedom to make more complicated assertions if the spirit moves you.  This will return -1 if the signal was not fired or the object was not being watched, or if the object does not have the signal.</p>
+<h4><a id="user-content--get_signal_parametersobject-signal_name-index-1-" class="anchor" aria-hidden="true" href="#-get_signal_parametersobject-signal_name-index-1-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-get_signal_parameters"> get_signal_parameters(object, signal_name, index=-1) </a></h4>
+<p>If you need to inspect the parameters in order to make more complicate assertions, then this will give you access to the parameters of any watched signal.  This works the same way that <code>assert_signal_emitted_with_parameters</code> does.  It takes an object, signal name, and an optional index.  If the index is not specified then the parameters from the most recent emission will be returned.  If the object is not being watched, the signal was not fired, or the object does not have the signal then <code>null</code> will be returned.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">class</span> <span class="pl-en">SignalObject</span>:
+	<span class="pl-k">func</span> <span class="pl-en">_init</span>():
+		<span class="pl-c1">add_user_signal</span>(<span class="pl-s">'some_signal'</span>)
+		<span class="pl-c1">add_user_signal</span>(<span class="pl-s">'other_signal'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_get_signal_parameters</span>():
+	<span class="pl-k">var</span> obj <span class="pl-k">=</span> <span class="pl-c1">SignalObject</span>.<span class="pl-c1">new</span>()
+	<span class="pl-c1">watch_signals</span>(obj)
+	obj.<span class="pl-c1">emit_signal</span>(<span class="pl-s">'some_signal'</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>)
+	obj.<span class="pl-c1">emit_signal</span>(<span class="pl-s">'some_signal'</span>, <span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>, <span class="pl-s">'c'</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c"><span class="pl-c">#</span> passes because get_signal_parameters returns the most recent emission</span>
+	<span class="pl-c"><span class="pl-c">#</span> by default</span>
+	<span class="pl-c1">assert_eq</span>(<span class="pl-c1">get_signal_parameters</span>(obj, <span class="pl-s">'some_signal'</span>), [<span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>, <span class="pl-s">'c'</span>])
+	<span class="pl-c1">assert_eq</span>(<span class="pl-c1">get_signal_parameters</span>(obj, <span class="pl-s">'some_signal'</span>, <span class="pl-c1">0</span>), [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>])
+	<span class="pl-c"><span class="pl-c">#</span> if the signal was not fired null is returned</span>
+	<span class="pl-c1">assert_eq</span>(<span class="pl-c1">get_signal_parameters</span>(obj, <span class="pl-s">'other_signal'</span>), <span class="pl-c1">null</span>)
+	<span class="pl-c"><span class="pl-c">#</span> if the signal does not exist or isn't being watched null is returned</span>
+	<span class="pl-c1">assert_eq</span>(<span class="pl-c1">get_signal_parameters</span>(obj, <span class="pl-s">'signal_dne'</span>), <span class="pl-c1">null</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_eq</span>(<span class="pl-c1">get_signal_parameters</span>(obj, <span class="pl-s">'some_signal'</span>), [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>])
+	<span class="pl-c1">assert_eq</span>(<span class="pl-c1">get_signal_parameters</span>(obj, <span class="pl-s">'some_signal'</span>, <span class="pl-c1">0</span>), [<span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>, <span class="pl-s">'c'</span>])</pre></div>
+<h4><a id="user-content--assert_file_existsfile_path-" class="anchor" aria-hidden="true" href="#-assert_file_existsfile_path-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_file_exists"> assert_file_exists(file_path) </a></h4>
+<p>asserts a file exists at the specified path</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">before_each</span>():
+	gut.<span class="pl-c1">file_touch</span>(<span class="pl-s">'user://some_test_file'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">after_each</span>():
+	gut.<span class="pl-c1">file_delete</span>(<span class="pl-s">'user://some_test_file'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_file_exists</span>():
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_file_exists</span>(<span class="pl-s">'res://addons/gut/gut.gd'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+	<span class="pl-c1">assert_file_exists</span>(<span class="pl-s">'user://some_test_file'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_file_exists</span>(<span class="pl-s">'user://file_does_not.exist'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+	<span class="pl-c1">assert_file_exists</span>(<span class="pl-s">'res://some_dir/another_dir/file_does_not.exist'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span></pre></div>
+<h4><a id="user-content--assert_file_does_not_existfile_path-" class="anchor" aria-hidden="true" href="#-assert_file_does_not_existfile_path-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_file_does_not_exist"> assert_file_does_not_exist(file_path) </a></h4>
+<p>asserts a file does not exist at the specified path</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">before_each</span>():
+	gut.<span class="pl-c1">file_touch</span>(<span class="pl-s">'user://some_test_file'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">after_each</span>():
+	gut.<span class="pl-c1">file_delete</span>(<span class="pl-s">'user://some_test_file'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_file_does_not_exist</span>():
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_file_does_not_exist</span>(<span class="pl-s">'user://file_does_not.exist'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+	<span class="pl-c1">assert_file_does_not_exist</span>(<span class="pl-s">'res://some_dir/another_dir/file_does_not.exist'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_file_does_not_exist</span>(<span class="pl-s">'res://addons/gut/gut.gd'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span></pre></div>
+<h4><a id="user-content--assert_file_emptyfile_path-" class="anchor" aria-hidden="true" href="#-assert_file_emptyfile_path-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_file_empty"> assert_file_empty(file_path) </a></h4>
+<p>asserts the specified file is empty</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">before_each</span>():
+	gut.<span class="pl-c1">file_touch</span>(<span class="pl-s">'user://some_test_file'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">after_each</span>():
+	gut.<span class="pl-c1">file_delete</span>(<span class="pl-s">'user://some_test_file'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_file_empty</span>():
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_file_empty</span>(<span class="pl-s">'user://some_test_file'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_file_empty</span>(<span class="pl-s">'res://addons/gut/gut.gd'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span></pre></div>
+<h4><a id="user-content--assert_file_not_emptyfile_path-" class="anchor" aria-hidden="true" href="#-assert_file_not_emptyfile_path-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_file_not_empty"> assert_file_not_empty(file_path) </a></h4>
+<p>asserts the specified file is not empty</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">before_each</span>():
+	gut.<span class="pl-c1">file_touch</span>(<span class="pl-s">'user://some_test_file'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">after_each</span>():
+	gut.<span class="pl-c1">file_delete</span>(<span class="pl-s">'user://some_test_file'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_file_not_empty</span>():
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_file_not_empty</span>(<span class="pl-s">'res://addons/gut/gut.gd'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_file_not_empty</span>(<span class="pl-s">'user://some_test_file'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span></pre></div>
+<h4><a id="user-content--assert_isobject-a_class-text-" class="anchor" aria-hidden="true" href="#-assert_isobject-a_class-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_is"> assert_is(object, a_class, text) </a></h4>
+<p>Asserts that "object" extends "a_class".  object must be an instance of an object.  It cannot be any of the built in classes like Array or Int or Float.  a_class must be a class, it can be loaded via load, a GDNative class such as Node or Label or anything else.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_assert_is</span>():
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_is</span>(<span class="pl-c1">Node2D</span>.<span class="pl-c1">new</span>(), <span class="pl-c1">Node2D</span>)
+	<span class="pl-c1">assert_is</span>(<span class="pl-c1">Label</span>.<span class="pl-c1">new</span>(), <span class="pl-c1">CanvasItem</span>)
+	<span class="pl-c1">assert_is</span>(<span class="pl-c1">SubClass</span>.<span class="pl-c1">new</span>(), <span class="pl-c1">BaseClass</span>)
+	<span class="pl-c"><span class="pl-c">#</span> Since this is a test script that inherits from test.gd, so</span>
+	<span class="pl-c"><span class="pl-c">#</span> this passes.  It's not obvious w/o seeing the whole script</span>
+	<span class="pl-c"><span class="pl-c">#</span> so I'm telling you.  You'll just have to trust me.</span>
+	<span class="pl-c1">assert_is</span>(<span class="pl-c1">self</span>, <span class="pl-c1">load</span>(<span class="pl-s">'res://addons/gut/test.gd'</span>))
+
+	<span class="pl-k">var</span> <span class="pl-c1">Gut</span> <span class="pl-k">=</span> <span class="pl-c1">load</span>(<span class="pl-s">'res://addons/gut/gut.gd'</span>)
+	<span class="pl-k">var</span> a_gut <span class="pl-k">=</span> <span class="pl-c1">Gut</span>.<span class="pl-c1">new</span>()
+	<span class="pl-c1">assert_is</span>(a_gut, <span class="pl-c1">Gut</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_is</span>(<span class="pl-c1">Node2D</span>.<span class="pl-c1">new</span>(), <span class="pl-c1">Node2D</span>.<span class="pl-c1">new</span>())
+	<span class="pl-c1">assert_is</span>(<span class="pl-c1">BaseClass</span>.<span class="pl-c1">new</span>(), <span class="pl-c1">SubClass</span>)
+	<span class="pl-c1">assert_is</span>(<span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>)
+	<span class="pl-c1">assert_is</span>([], <span class="pl-c1">Node</span>)</pre></div>
+<h4><a id="user-content-assert_typeofobject-type-text-" class="anchor" aria-hidden="true" href="#assert_typeofobject-type-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_typeof">assert_typeof(object, type, text='') </a></h4>
+<p>Asserts that <code>object</code> is the the <code>type</code> specified.  <code>type</code> should be one of the Godot <code>TYPE_</code> constants.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_assert_typeof</span>():
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-k">var</span> c <span class="pl-k">=</span> <span class="pl-c1">Color</span>(<span class="pl-c1">1</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>)
+	gr.<span class="pl-smi">test</span>.<span class="pl-c1">assert_typeof</span>(c, <span class="pl-c1">TYPE_COLOR</span>)
+	<span class="pl-c1">assert_pass</span>(gr.test)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	gr.<span class="pl-smi">test</span>.<span class="pl-c1">assert_typeof</span>(<span class="pl-s">'some string'</span>, <span class="pl-c1">TYPE_INT</span>)
+	<span class="pl-c1">assert_fail</span>(gr.test)</pre></div>
+<h4><a id="user-content-assert_not_typeofobject-type-text-" class="anchor" aria-hidden="true" href="#assert_not_typeofobject-type-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_not_typeof">assert_not_typeof(object, type, text='') </a></h4>
+<p>The inverse of <code>assert_typeof</code></p>
+<h4><a id="user-content-assert_freedobj-text-" class="anchor" aria-hidden="true" href="#assert_freedobj-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_freed">assert_freed(obj, text) </a></h4>
+<p>Asserts that the passed in object has been freed.  This assertion requires that  you pass in some text in the form of a title since, if the object is freed, we won't have anything to convert to a string to put in the output statement.</p>
+<p>Note that this currently does not detect if a node has been queued free.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_object_is_freed_should_pass</span>():
+	<span class="pl-k">var</span> obj <span class="pl-k">=</span> <span class="pl-c1">Node</span>.<span class="pl-c1">new</span>()
+	obj.<span class="pl-c1">free</span>()
+	test.<span class="pl-c1">assert_freed</span>(obj, <span class="pl-s">"New Node"</span>)</pre></div>
+<h4><a id="user-content-assert_not_freedobj-text-" class="anchor" aria-hidden="true" href="#assert_not_freedobj-text-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_not_freed">assert_not_freed(obj, text) </a></h4>
+<p>The inverse of <code>assert_freed</code></p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_object_is_not_freed_should_pass</span>():
+	<span class="pl-k">var</span> obj <span class="pl-k">=</span> <span class="pl-c1">Node</span>.<span class="pl-c1">new</span>()
+	<span class="pl-c1">assert_not_freed</span>(obj, <span class="pl-s">"New Node"</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_queued_free_is_not_freed</span>():
+	<span class="pl-k">var</span> obj <span class="pl-k">=</span> <span class="pl-c1">Node</span>.<span class="pl-c1">new</span>()
+	<span class="pl-c1">add_child</span>(obj)
+	obj.<span class="pl-c1">queue_free</span>()
+	<span class="pl-c1">assert_not_freed</span>(obj, <span class="pl-s">"New Node"</span>)</pre></div>
+<h4><a id="user-content-assert_exportsobj-property_name-type-" class="anchor" aria-hidden="true" href="#assert_exportsobj-property_name-type-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_exports">assert_exports(obj, property_name, type) </a></h4>
+<p>Asserts that <code>obj</code> exports a property with the name <code>property_name</code> and a type of <code>type</code>.  The <code>type</code> must be one of the various Godot built-in <code>TYPE_</code> constants.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">class</span> <span class="pl-en">ExportClass</span>:
+	<span class="pl-k">export</span> <span class="pl-k">var</span> some_number <span class="pl-k">=</span> <span class="pl-c1">5</span>
+	<span class="pl-k">export</span>(<span class="pl-c1">PackedScene</span>) <span class="pl-k">var</span> some_scene
+	<span class="pl-k">var</span> some_variable <span class="pl-k">=</span> <span class="pl-c1">1</span>
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_exports</span>():
+	<span class="pl-k">var</span> obj <span class="pl-k">=</span> <span class="pl-c1">ExportClass</span>.<span class="pl-c1">new</span>()
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_exports</span>(obj, <span class="pl-s">"some_number"</span>, <span class="pl-c1">TYPE_INT</span>)
+	<span class="pl-c1">assert_exports</span>(obj, <span class="pl-s">"some_scene"</span>, <span class="pl-c1">TYPE_OBJECT</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_exports</span>(obj, <span class="pl-s">'some_number'</span>, <span class="pl-c1">TYPE_VECTOR2</span>)
+	<span class="pl-c1">assert_exports</span>(obj, <span class="pl-s">'some_scene'</span>, <span class="pl-c1">TYPE_AABB</span>)
+	<span class="pl-c1">assert_exports</span>(obj, <span class="pl-s">'some_variable'</span>, <span class="pl-c1">TYPE_INT</span>)</pre></div>
+<h4><a id="user-content-assert_calledinst-method_name-parametersnull-" class="anchor" aria-hidden="true" href="#assert_calledinst-method_name-parametersnull-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_called">assert_called(inst, method_name, parameters=null) </a></h4>
+<p>This assertion is is one of the ways Gut implements Spies.  It requires that you pass it an instance of a "doubled" object.  An instance created with <code>double</code> will record when a method it has is called.  You can then make assertions based on this.</p>
+<p>This assert will check the object to see if a call to the specified method (optionally with parameters) was called over the course of the test.  If it finds a match this test will <code>pass</code>, if not it will <code>fail</code>.</p>
+<p>The <code>parameters</code> parameter is an array of values that you expect to have been passed to <code>method_name</code>.  If you do not specify any parameters then any call to <code>method_name</code> will match and the assert will <code>pass</code>.  If you specify parameters then all the parameter values must match.  You must specify all parameters the method takes, even if they have defaults.  Gut is not able (yet?) to fill in default values.</p>
+<p><strong>Methods that are inherited from built-in parent classes are not yet recorded.  For example, you cannot make "called" assertions on methods like <code>set_position</code> unless your sub-class specifically implements it.  But since those methods retain their built-in functionality, you can just make normal assertions on them.</strong></p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-c"><span class="pl-c">#</span> Given the following class located at 'res://test/doubler_test_objects/double_extends_node2d.gd'</span>
+<span class="pl-c"><span class="pl-c">#</span> --------------------</span>
+	<span class="pl-k">extends</span><span class="pl-e"> Node2D</span>
+	<span class="pl-k">var</span> _value <span class="pl-k">=</span> <span class="pl-c1">0</span>
+
+	<span class="pl-k">func</span> <span class="pl-en">get_value</span>():
+	    <span class="pl-k">return</span> _value
+	<span class="pl-k">func</span> <span class="pl-en">set_value</span>(<span class="pl-smi">val</span>):
+	    _value <span class="pl-k">=</span> val
+	<span class="pl-k">func</span> <span class="pl-en">has_one_param</span>(<span class="pl-smi">one</span>):
+	    <span class="pl-k">pass</span>
+	<span class="pl-k">func</span> <span class="pl-en">has_two_params_one_default</span>(<span class="pl-smi">one</span>, <span class="pl-smi">two</span><span class="pl-k">=</span><span class="pl-c1">null</span>):
+	    <span class="pl-k">pass</span>
+	<span class="pl-k">func</span> <span class="pl-en">get_position</span>():
+	    <span class="pl-k">return</span> .<span class="pl-c1">get_position</span>()
+<span class="pl-c"><span class="pl-c">#</span> --------------------</span>
+
+<span class="pl-c"><span class="pl-c">#</span> This is how assert_called behaves</span>
+<span class="pl-k">func</span> <span class="pl-en">test_assert_called</span>():
+	<span class="pl-k">var</span> <span class="pl-c1">DOUBLE_ME_PATH</span> <span class="pl-k">=</span> <span class="pl-s">'res://test/doubler_test_objects/double_extends_node2d.gd'</span>
+
+	<span class="pl-k">var</span> doubled <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">DOUBLE_ME_PATH</span>).<span class="pl-c1">new</span>()
+	doubled.<span class="pl-c1">set_value</span>(<span class="pl-c1">4</span>)
+	doubled.<span class="pl-c1">set_value</span>(<span class="pl-c1">5</span>)
+	doubled.<span class="pl-c1">has_two_params_one_default</span>(<span class="pl-s">'a'</span>)
+	doubled.<span class="pl-c1">has_two_params_one_default</span>(<span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_called</span>(doubled, <span class="pl-s">'set_value'</span>)
+	<span class="pl-c1">assert_called</span>(doubled, <span class="pl-s">'set_value'</span>, [<span class="pl-c1">5</span>])
+	<span class="pl-c"><span class="pl-c">#</span> note the passing of `null` here.  Default parameters must be supplied.</span>
+	<span class="pl-c1">assert_called</span>(doubled, <span class="pl-s">'has_two_params_one_default'</span>, [<span class="pl-s">'a'</span>, <span class="pl-c1">null</span>])
+	<span class="pl-c1">assert_called</span>(doubled, <span class="pl-s">'has_two_params_one_default'</span>, [<span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>])
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_called</span>(doubled, <span class="pl-s">'get_value'</span>)
+	<span class="pl-c1">assert_called</span>(doubled, <span class="pl-s">'set_value'</span>, [<span class="pl-s">'nope'</span>])
+	<span class="pl-c"><span class="pl-c">#</span> This fails b/c Gut isn't smart enough to fill in default values for you...</span>
+	<span class="pl-c"><span class="pl-c">#</span> ast least not yet.</span>
+	<span class="pl-c1">assert_called</span>(doubled, <span class="pl-s">'has_two_params_one_default'</span>, [<span class="pl-s">'a'</span>])
+	<span class="pl-c"><span class="pl-c">#</span> This fails with a specific message indicating that you have to pass an</span>
+	<span class="pl-c"><span class="pl-c">#</span> instance of a doubled class.</span>
+	<span class="pl-c1">assert_called</span>(<span class="pl-c1">GDScript</span>.<span class="pl-c1">new</span>(), <span class="pl-s">'some_method'</span>)</pre></div>
+<h4><a id="user-content-assert_not_calledinst-method_name-parametersnull-" class="anchor" aria-hidden="true" href="#assert_not_calledinst-method_name-parametersnull-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-asssert_not_called">assert_not_called(inst, method_name, parameters=null) </a></h4>
+<p>This is the inverse of <code>assert_called</code> and works the same way except, you know, inversely.  Matches are found based on parameters in the same fashion.  If a matching call is found then this assert will <code>fail</code>, if not it will <code>pass</code>.</p>
+<h4><a id="user-content-assert_call_countinst-method_name-expected_count-parametersnull-" class="anchor" aria-hidden="true" href="#assert_call_countinst-method_name-expected_count-parametersnull-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_call_count">assert_call_count(inst, method_name, expected_count, parameters=null) </a></h4>
+<p>This assertion is is one of the ways Gut implements Spies.  It requires that you pass it an instance of a "doubled" object.  An instance created with <code>double</code> will record when a method it has is called.  You can then make assertions based on this.</p>
+<p>This asserts that a method on a doubled instance has been called a number of times.  If you do not specify any parameters then all calls to the method will be counted.  If you specify parameters, then only those calls that were passed matching values will be counted.</p>
+<p>The <code>parameters</code> parameter is an array of values that you expect to have been passed to <code>method_name</code>.  If you do not specify any parameters then any call to <code>method_name</code> will match and the assert will <code>pass</code>.  If you specify parameters then all the parameter values must match.  You must specify all parameters the method takes, even if they have defaults.  Gut is not able (yet?) to fill in default values.</p>
+<p><strong>Methods that are inherited from built-in parent classes are not yet recorded.  For example, you cannot make "call" assertions on methods like <code>set_position</code> unless your sub-class specifically implements it (you can, they will just always return 0).  Since those methods retain their built-in functionality, you can just make normal assertions on them.</strong></p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-c"><span class="pl-c">#</span> Given the following class located at 'res://test/doubler_test_objects/double_extends_node2d.gd'</span>
+<span class="pl-c"><span class="pl-c">#</span> --------------------</span>
+	<span class="pl-k">extends</span><span class="pl-e"> Node2D</span>
+	<span class="pl-k">var</span> _value <span class="pl-k">=</span> <span class="pl-c1">0</span>
+
+	<span class="pl-k">func</span> <span class="pl-en">get_value</span>():
+	    <span class="pl-k">return</span> _value
+	<span class="pl-k">func</span> <span class="pl-en">set_value</span>(<span class="pl-smi">val</span>):
+	    _value <span class="pl-k">=</span> val
+	<span class="pl-k">func</span> <span class="pl-en">has_one_param</span>(<span class="pl-smi">one</span>):
+	    <span class="pl-k">pass</span>
+	<span class="pl-k">func</span> <span class="pl-en">has_two_params_one_default</span>(<span class="pl-smi">one</span>, <span class="pl-smi">two</span><span class="pl-k">=</span><span class="pl-c1">null</span>):
+	    <span class="pl-k">pass</span>
+	<span class="pl-k">func</span> <span class="pl-en">get_position</span>():
+	    <span class="pl-k">return</span> .<span class="pl-c1">get_position</span>()
+<span class="pl-c"><span class="pl-c">#</span> --------------------</span>
+
+<span class="pl-c"><span class="pl-c">#</span> This is how assert_call_count behaves</span>
+<span class="pl-k">func</span> <span class="pl-en">test_assert_call_count</span>():
+	<span class="pl-k">var</span> <span class="pl-c1">DOUBLE_ME_PATH</span> <span class="pl-k">=</span> <span class="pl-s">'res://test/doubler_test_objects/double_extends_node2d.gd'</span>
+
+	<span class="pl-k">var</span> doubled <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">DOUBLE_ME_PATH</span>).<span class="pl-c1">new</span>()
+	doubled.<span class="pl-c1">set_value</span>(<span class="pl-c1">4</span>)
+	doubled.<span class="pl-c1">set_value</span>(<span class="pl-c1">5</span>)
+	doubled.<span class="pl-c1">has_two_params_one_default</span>(<span class="pl-s">'a'</span>)
+	doubled.<span class="pl-c1">has_two_params_one_default</span>(<span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>)
+	doubled.<span class="pl-c1">set_position</span>(<span class="pl-c1">Vector2</span>(<span class="pl-c1">100</span>, <span class="pl-c1">100</span>))
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_call_count</span>(doubled, <span class="pl-s">'set_value'</span>, <span class="pl-c1">2</span>)
+	<span class="pl-c1">assert_call_count</span>(doubled, <span class="pl-s">'set_value'</span>, <span class="pl-c1">1</span>, [<span class="pl-c1">4</span>])
+	<span class="pl-c"><span class="pl-c">#</span> note the passing of `null` here.  Default parameters must be supplied.</span>
+	<span class="pl-c1">assert_call_count</span>(doubled, <span class="pl-s">'has_two_params_one_default'</span>, <span class="pl-c1">1</span>, [<span class="pl-s">'a'</span>, <span class="pl-c1">null</span>])
+	<span class="pl-c1">assert_call_count</span>(doubled, <span class="pl-s">'get_value'</span>, <span class="pl-c1">0</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_call_count</span>(doubled, <span class="pl-s">'set_value'</span>, <span class="pl-c1">5</span>)
+	<span class="pl-c1">assert_call_count</span>(doubled, <span class="pl-s">'set_value'</span>, <span class="pl-c1">2</span>, [<span class="pl-c1">4</span>])
+	<span class="pl-c1">assert_call_count</span>(doubled, <span class="pl-s">'get_value'</span>, <span class="pl-c1">1</span>)
+	<span class="pl-c"><span class="pl-c">#</span> This fails with a specific message indicating that you have to pass an</span>
+	<span class="pl-c"><span class="pl-c">#</span> instance of a doubled class even though technically the method was called.</span>
+	<span class="pl-c1">assert_call_count</span>(<span class="pl-c1">GDScript</span>.<span class="pl-c1">new</span>(), <span class="pl-s">'some_method'</span>, <span class="pl-c1">0</span>)
+	<span class="pl-c"><span class="pl-c">#</span> This fails b/c double_extends_node2d does not have it's own implementation</span>
+	<span class="pl-c"><span class="pl-c">#</span> of set_position.  The function is supplied by the parent class and these</span>
+	<span class="pl-c"><span class="pl-c">#</span> methods are not yet being recorded.</span>
+	<span class="pl-c1">assert_call_count</span>(doubled, <span class="pl-s">'set_position'</span>, <span class="pl-c1">1</span>)
+</pre></div>
+<h4><a id="user-content-get_call_parametersobj-method_name-index-1-" class="anchor" aria-hidden="true" href="#get_call_parametersobj-method_name-index-1-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-get_call_parameters">get_call_parameters(obj, method_name, index=-1) </a></h4>
+<p>This method allows you to get the parameters that were sent to a call to a doubled object's method.  You must pass it an object created with/from <code>double</code>.  It will return and array containing the parameters from the most recent call by default.  You can optionally specify an index to get where the first call to the method is at position <code>0</code>.  If no calls were made to the method or you pass in a object this is not a double then <code>null</code> is returned.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_get_call_parameters</span>():
+	<span class="pl-k">var</span> <span class="pl-c1">DOUBLE_ME_PATH</span> <span class="pl-k">=</span> <span class="pl-s">'res://test/resources/doubler_test_objects/double_extends_node2d.gd'</span>
+
+	<span class="pl-k">var</span> doubled <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">DOUBLE_ME_PATH</span>).<span class="pl-c1">new</span>()
+	doubled.<span class="pl-c1">set_value</span>(<span class="pl-c1">5</span>)
+	doubled.<span class="pl-c1">has_two_params_one_default</span>(<span class="pl-s">'a'</span>)
+	doubled.<span class="pl-c1">has_two_params_one_default</span>(<span class="pl-s">'x'</span>, <span class="pl-s">'y'</span>)
+
+	<span class="pl-c"><span class="pl-c">#</span> prints [5]</span>
+	<span class="pl-c1">print</span>(<span class="pl-c1">get_call_parameters</span>(doubled, <span class="pl-s">'set_value'</span>))
+	<span class="pl-c"><span class="pl-c">#</span> prints [x, y]</span>
+	<span class="pl-c1">print</span>(<span class="pl-c1">get_call_parameters</span>(doubled, <span class="pl-s">'has_two_params_one_default'</span>))
+	<span class="pl-c"><span class="pl-c">#</span> prints [a, Null]</span>
+	<span class="pl-c1">print</span>(<span class="pl-c1">get_call_parameters</span>(doubled, <span class="pl-s">'has_two_params_one_default'</span>, <span class="pl-c1">0</span>))
+</pre></div>
+<h4><a id="user-content-get_call_countobj-method_name-parametersnull-" class="anchor" aria-hidden="true" href="#get_call_countobj-method_name-parametersnull-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-get_call_count">get_call_count(obj, method_name, parameters=null) </a></h4>
+<p>Get the number of times a method was called on a double.  Include the optional parameters array to only get the count for calls with matching parameters.  This is essentailly <code>assert_call_count</code> without the assert, in case you need to do something else with the count.</p>
+<pre><code>	func test_called_10_times():
+		var doubled = partial_double(DOUBLE_ME_PATH).new()
+		for i in range(10):
+			doubled.set_value(5)
+		var count = get_call_count(doubled, 'set_value') # 10
+
+	func test_it_works_with_parameters():
+		var doubled = double(DOUBLE_ME_PATH).new()
+		for i in range(3):
+			doubled.set_value(3)
+
+		for i in range(5):
+			doubled.set_value(5)
+		var count = get_call_count(doubled, 'set_value', [3]) # 3
+</code></pre>
+<h4><a id="user-content-assert_has_methodobj-method-" class="anchor" aria-hidden="true" href="#assert_has_methodobj-method-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_has_method">assert_has_method(obj, method) </a></h4>
+<p>Asserts that the passed in object has a method named <code>method</code>.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">class</span> <span class="pl-en">SomeClass</span>:
+	<span class="pl-k">var</span> _count <span class="pl-k">=</span> <span class="pl-c1">0</span>
+
+	<span class="pl-k">func</span> <span class="pl-en">get_count</span>():
+		<span class="pl-k">return</span> _count
+	<span class="pl-k">func</span> <span class="pl-en">set_count</span>(<span class="pl-smi">number</span>):
+		_count <span class="pl-k">=</span> number
+
+	<span class="pl-k">func</span> <span class="pl-en">get_nothing</span>():
+		<span class="pl-k">pass</span>
+	<span class="pl-k">func</span> <span class="pl-en">set_nothing</span>(<span class="pl-smi">val</span>):
+		<span class="pl-k">pass</span>
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_has_method</span>():
+	<span class="pl-k">var</span> some_class <span class="pl-k">=</span> <span class="pl-c1">SomeClass</span>.<span class="pl-c1">new</span>()
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+	<span class="pl-c1">assert_has_method</span>(some_class, <span class="pl-s">'get_nothing'</span>)
+	<span class="pl-c1">assert_has_method</span>(some_class, <span class="pl-s">'set_count'</span>)
+
+	gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+	<span class="pl-c1">assert_has_method</span>(some_class, <span class="pl-s">'method_does_not_exist'</span>)</pre></div>
+<h4><a id="user-content--assert_accessorsobj-property-default-set_to-" class="anchor" aria-hidden="true" href="#-assert_accessorsobj-property-default-set_to-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_accessors"> assert_accessors(obj, property, default, set_to) </a></h4>
+<p>I found that making tests for most getters and setters was repetitious and annoying.  Enter <code>assert_accessors</code>.  This assertion handles 80% of your getter and setter testing needs.  Given an object and a property name it will verify:</p>
+<ul>
+<li>The object has a method called <code>get_&lt;PROPERTY_NAME&gt;</code>
+</li>
+<li>The object has a method called <code>set_&lt;PROPERTY_NAME&gt;</code>
+</li>
+<li>The method <code>get_&lt;PROPERTY_NAME&gt;</code> returns the expected default value when first called.</li>
+<li>Once you set the property, the <code>get_&lt;PROPERTY_NAME&gt;</code>will return the value passed in.</li>
+</ul>
+<p>On the inside Gut actually performs up to 4 assertions.  So if everything goes right you will have four passing asserts each time you call <code>assert_accessors</code>.  I say "up to 4 assertions" because there are 2 assertions to make sure the object has the methods and then 2 to verify they act correctly.  If the object does not have the methods, it does not bother running the tests for the methods.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">class</span> <span class="pl-en">SomeClass</span>:
+	<span class="pl-k">var</span> _count <span class="pl-k">=</span> <span class="pl-c1">0</span>
+
+	<span class="pl-k">func</span> <span class="pl-en">get_count</span>():
+		<span class="pl-k">return</span> _count
+	<span class="pl-k">func</span> <span class="pl-en">set_count</span>(<span class="pl-smi">number</span>):
+		_count <span class="pl-k">=</span> number
+
+	<span class="pl-k">func</span> <span class="pl-en">get_nothing</span>():
+		<span class="pl-k">pass</span>
+	<span class="pl-k">func</span> <span class="pl-en">set_nothing</span>(<span class="pl-smi">val</span>):
+		<span class="pl-k">pass</span>
+
+<span class="pl-k">func</span> <span class="pl-en">test_assert_accessors</span>():
+  <span class="pl-k">var</span> some_class <span class="pl-k">=</span> <span class="pl-c1">SomeClass</span>.<span class="pl-c1">new</span>()
+  gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+  <span class="pl-c1">assert_accessors</span>(some_class, <span class="pl-s">'count'</span>, <span class="pl-c1">0</span>, <span class="pl-c1">20</span>) <span class="pl-c"><span class="pl-c">#</span> 4 PASSING</span>
+
+  gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+  <span class="pl-c"><span class="pl-c">#</span> 1 FAILING, 3 PASSING</span>
+  <span class="pl-c1">assert_accessors</span>(some_class, <span class="pl-s">'count'</span>, <span class="pl-s">'not_default'</span>, <span class="pl-c1">20</span>)
+  <span class="pl-c"><span class="pl-c">#</span> 2 FAILING, 2 PASSING</span>
+  <span class="pl-c1">assert_accessors</span>(some_class, <span class="pl-s">'nothing'</span>, <span class="pl-s">'hello'</span>, <span class="pl-c1">22</span>)
+  <span class="pl-c"><span class="pl-c">#</span> 2 FAILING</span>
+  <span class="pl-c1">assert_accessors</span>(some_class, <span class="pl-s">'does_not_exist'</span>, <span class="pl-s">'does_not'</span>, <span class="pl-s">'matter'</span>)</pre></div>
+<h4><a id="user-content-is_passing-" class="anchor" aria-hidden="true" href="#is_passing-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-is_passing">is_passing() </a></h4>
+<p>Returns true if the test is passing as of the time of calling it.  This will return false if there haven't been any asserts or if any of the asserts are failing.  Usable in <code>after_each</code> but not <code>after_all</code>.</p>
+<h4><a id="user-content-is_failing-" class="anchor" aria-hidden="true" href="#is_failing-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-is_failing">is_failing() </a></h4>
+<p>Returns true if any failing asserts have occurred as of the time of calling it.  Usable in <code>after_each</code> but not <code>after_all</code>.</p>
+<h4><a id="user-content--add_child_autofreeobject-" class="anchor" aria-hidden="true" href="#-add_child_autofreeobject-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-add_child_autofree"> add_child_autofree(object) </a></h4>
+<p>Calls <code>add_child</code> and <code>autofree</code> with the passed in object and returns it.  See <a href="Memory-Management.html">Memory Management</a> page for more details.</p>
+<h4><a id="user-content-add_child_autoqfreeobject-" class="anchor" aria-hidden="true" href="#add_child_autoqfreeobject-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-add_child_autoqfree">add_child_autoqfree(object) </a></h4>
+<p>Calls <code>add_child</code> and <code>autoqfree</code> with the passed in object and returns it.  See <a href="Memory-Management.html">Memory Management</a> page for more details.</p>
+<h4><a id="user-content-autofreeobject-" class="anchor" aria-hidden="true" href="#autofreeobject-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-autofree">autofree(object) </a></h4>
+<p>Marks an object so that <code>free</code> will be called on it after the test finishes.  Returns the object passed in.  See <a href="Memory-Management.html">Memory Management</a> page for more details.</p>
+<h4><a id="user-content-autoqfreeobject-" class="anchor" aria-hidden="true" href="#autoqfreeobject-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-autoqfree">autoqfree(object) </a></h4>
+<p>Marks an object so that <code>queue_free</code> will be called on it after the test finishes.  Returns the object passed in.  See <a href="Memory-Management.html">Memory Management</a> page for more details.</p>
+<h4><a id="user-content-assert_no_new_orphanstext-" class="anchor" aria-hidden="true" href="#assert_no_new_orphanstext-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_no_new_orphans">assert_no_new_orphans(text='') </a></h4>
+<p>This method will assert that no orphaned nodes have been introduced by the test when the assert is executed.  See the <a href="Memory-Management#testing_for_leaks">Memory Management</a> page for more infomration.</p>
+<h4><a id="user-content--gutptext-level0-" class="anchor" aria-hidden="true" href="#-gutptext-level0-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-gut_p"> gut.p(text, level=0) </a></h4>
+<p>Print info to the GUI and console (if enabled).  You can see examples if this in the sample code above.  In order to be able to spot check the sample code, I print out a divider between the passing and failing tests.</p>
+<h4><a id="user-content--pause_before_teardown-" class="anchor" aria-hidden="true" href="#-pause_before_teardown-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-pause_before_teardown"> pause_before_teardown() </a></h4>
+<p>This method will cause Gut to pause before it moves on to the next test.  This is useful for debugging, for instance if you want to investigate the screen or anything else after a test has finished executing.  See also <code>set_ignore_pause_before_teardown</code></p>
+<h4><a id="user-content--yield_fortime_in_seconds-" class="anchor" aria-hidden="true" href="#-yield_fortime_in_seconds-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-yield_for"> yield_for(time_in_seconds) </a></h4>
+<p>This simplifies the code needed to pause the test execution for a number of seconds so the thing that you are testing can run its course in real time.  There are more details in the Yielding section.  It is designed to be used with the <code>yield</code> built in.  The following example will pause your test execution (and only the test execution) for 2 seconds before continuing.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">class</span> <span class="pl-en">MovingNode</span>:
+	<span class="pl-k">extends</span><span class="pl-e"> Node2D</span>
+	<span class="pl-k">var</span> _speed <span class="pl-k">=</span> <span class="pl-c1">2</span>
+
+	<span class="pl-k">func</span> <span class="pl-en">_ready</span>():
+		<span class="pl-c1">set_process</span>(<span class="pl-c1">true</span>)
+
+	<span class="pl-k">func</span> <span class="pl-en">_process</span>(<span class="pl-smi">delta</span>):
+		<span class="pl-c1">set_pos</span>(<span class="pl-c1">get_pos</span>() + <span class="pl-c1">Vector2</span>(_speed * delta, <span class="pl-c1">0</span>))
+
+<span class="pl-k">func</span> <span class="pl-en">test_illustrate_yield</span>():
+	<span class="pl-k">var</span> moving_node <span class="pl-k">=</span> <span class="pl-c1">MovingNode</span>.<span class="pl-c1">new</span>()
+	<span class="pl-c1">add_child_autofree</span>(moving_node)
+	moving_node.<span class="pl-c1">set_pos</span>(<span class="pl-c1">Vector2</span>(<span class="pl-c1">0</span>, <span class="pl-c1">0</span>))
+
+	<span class="pl-c"><span class="pl-c">#</span> While the yield happens, the node should move</span>
+	<span class="pl-k">yield</span>(<span class="pl-c1">yield_for</span>(<span class="pl-c1">2</span>), <span class="pl-k">YIELD</span>)
+	<span class="pl-c1">assert_gt</span>(moving_node.<span class="pl-c1">get_pos</span>().x, <span class="pl-c1">0</span>)
+	<span class="pl-c1">assert_between</span>(moving_node.<span class="pl-c1">get_pos</span>().x, <span class="pl-c1">3.9</span>, <span class="pl-c1">4</span>, <span class="pl-s">'it should move almost 4 whatevers at speed 2'</span>)</pre></div>
+<h4><a id="user-content--yield_fornum_frames-" class="anchor" aria-hidden="true" href="#-yield_fornum_frames-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-yield_frames"> yield_for(num_frames) </a></h4>
+<p>This works similar to <code>yield_for</code> except that it will wait for a number of frames to elapse instead of a set amount of time.  The frames are counted down by Gut's <code>_process</code> method.  When the count reaches 0 the <code>YIELD</code> signal is emitted.</p>
+<h4><a id="user-content--yield_toobject-signal_name-max_time-" class="anchor" aria-hidden="true" href="#-yield_toobject-signal_name-max_time-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-yield_to"> yield_to(object, signal_name, max_time) </a></h4>
+<p><code>yield_to</code> allows you to yield to a signal just like <code>yield</code> but for a maximum amount of time.  This keeps tests moving along when signals are not emitted.</p>
+<p>As a bonus, <code>yield_to</code> does an implicit call to <code>watch_signals</code> so you can easily make signal based assertions afterwards.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">class</span> <span class="pl-en">TimedSignaler</span>:
+	<span class="pl-k">extends</span><span class="pl-e"> Node2D</span>
+	<span class="pl-k">var</span> _time <span class="pl-k">=</span> <span class="pl-c1">0</span>
+
+	<span class="pl-k">signal</span> <span class="pl-en">the_signal</span>
+	<span class="pl-k">func</span> <span class="pl-en">_init</span>(<span class="pl-smi">time</span>):
+		_time <span class="pl-k">=</span> time
+
+	<span class="pl-k">func</span> <span class="pl-en">start</span>():
+		<span class="pl-k">var</span> t <span class="pl-k">=</span> <span class="pl-c1">Timer</span>.<span class="pl-c1">new</span>()
+		<span class="pl-c1">add_child</span>(t)
+		t.<span class="pl-c1">set_wait_time</span>(_time)
+		t.<span class="pl-c1">connect</span>(<span class="pl-s">'timeout'</span>, <span class="pl-c1">self</span>, <span class="pl-s">'_on_timer_timeout'</span>)
+		t.<span class="pl-c1">set_one_shot</span>(<span class="pl-c1">true</span>)
+		t.<span class="pl-c1">start</span>()
+
+	<span class="pl-k">func</span> <span class="pl-en">_on_timer_timeout</span>():
+		<span class="pl-c1">emit_signal</span>(<span class="pl-s">'the_signal'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_illustrate_yield_to_with_less_time</span>():
+	<span class="pl-k">var</span> t <span class="pl-k">=</span> <span class="pl-c1">TimedSignaler</span>.<span class="pl-c1">new</span>(<span class="pl-c1">5</span>)
+	<span class="pl-c1">add_child_autofree</span>(t)
+	t.<span class="pl-c1">start</span>()
+	<span class="pl-k">yield</span>(<span class="pl-c1">yield_to</span>(t, <span class="pl-s">'the_signal'</span>, <span class="pl-c1">1</span>), <span class="pl-k">YIELD</span>)
+	<span class="pl-c"><span class="pl-c">#</span> since we setup t to emit after 5 seconds, this will fail because we</span>
+	<span class="pl-c"><span class="pl-c">#</span> only yielded for 1 second via yield_to</span>
+	<span class="pl-c1">assert_signal_emitted</span>(t, <span class="pl-s">'the_signal'</span>, <span class="pl-s">'This will fail'</span>)
+
+<span class="pl-k">func</span> <span class="pl-en">test_illustrate_yield_to_with_more_time</span>():
+	<span class="pl-k">var</span> t <span class="pl-k">=</span> <span class="pl-c1">TimedSignaler</span>.<span class="pl-c1">new</span>(<span class="pl-c1">1</span>)
+	<span class="pl-c1">add_child_autofree</span>(t)
+	t.<span class="pl-c1">start</span>()
+	<span class="pl-k">yield</span>(<span class="pl-c1">yield_to</span>(t, <span class="pl-s">'the_signal'</span>, <span class="pl-c1">5</span>), <span class="pl-k">YIELD</span>)
+	<span class="pl-c"><span class="pl-c">#</span> since we wait longer than it will take to emit the signal, this assert</span>
+	<span class="pl-c"><span class="pl-c">#</span> will pass</span>
+	<span class="pl-c1">assert_signal_emitted</span>(t, <span class="pl-s">'the_signal'</span>, <span class="pl-s">'This will pass'</span>)</pre></div>
+<h4><a id="user-content--doublepath_or_class-inner_class_pathnull-" class="anchor" aria-hidden="true" href="#-doublepath_or_class-inner_class_pathnull-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-double"> double(path_or_class, inner_class_path=null) </a></h4>
+<p>This will return a double of a class.  See <a href="Doubles.html">Doubles</a> for more information.</p>
+<h4><a id="user-content--simulateobj-times-delta-" class="anchor" aria-hidden="true" href="#-simulateobj-times-delta-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-simulate"> simulate(obj, times, delta) </a></h4>
+<p>This will call <code>_process</code> or <code>_physics_process</code> on the passed in object and all children of the object.  It will call them <code>times</code> times and pass in <code>delta</code> to each call.  See <a href="Simulate.html">Simulate</a> for more information.</p>
+<h4><a id="user-content--stub-" class="anchor" aria-hidden="true" href="#-stub-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-stub"> stub(...) </a></h4>
+<p>Allows you to stub a <a href="Doubles.html">doubled</a> instance of a script or scene to return a value.  See <a href="Stubbing.html">Stubbing</a> for a list of parameters and instructions on Stubbing.</p>
+<h4><a id="user-content--ignore_method_when_doublingpath_or_class-method_name-" class="anchor" aria-hidden="true" href="#-ignore_method_when_doublingpath_or_class-method_name-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-ignore_method_when_doubling"> ignore_method_when_doubling(path_or_class, method_name) </a></h4>
+<p>This was implemented to allow the doubling of classes with static methods.  There might be other valid use cases for this method, but you should always try stubbing before using this method.  Using <code>stub(my_double, 'method').to_call_super()</code> or  creating a <code>partial_double</code> works for any other known scenario.  You cannot stub or spy on methods passed to <code>ignore_method_when_doubling</code>.</p>
+<p>This method will add a method for a script to an ignore list.  This means the method will not be included in the double.  This is required if you are attempting to double a class that has static methods.  Each of the static methods must be added to the ignore list or you will get a parser error similar to:</p>
+<pre><code>Parser Error: Function signature doesn't match the parent. Parent signature is: 'Variant foo()'.
+</code></pre>
+<p><code>ignore_method_when_doubling</code> takes two parameters.  The first parameter can be a path to a script, a path to a scene, a loaded script, or a loaded scene.  The second is the name of the method to ignore.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-c"><span class="pl-c">#</span> -----------------------------------------------</span>
+<span class="pl-c"><span class="pl-c">#</span> Given this as res://scripts/has_statics.gd</span>
+<span class="pl-c"><span class="pl-c">#</span> -----------------------------------------------</span>
+<span class="pl-k">static</span> <span class="pl-k">func</span> <span class="pl-en">this_is_static</span>():
+  <span class="pl-k">pass</span>
+
+<span class="pl-k">func</span> <span class="pl-en">not_static</span>():
+  <span class="pl-k">return</span> <span class="pl-s">'foo'</span>
+
+<span class="pl-c"><span class="pl-c">#</span> -----------------------------------------------</span>
+<span class="pl-c"><span class="pl-c">#</span> You can double this script like this:</span>
+<span class="pl-c"><span class="pl-c">#</span> -----------------------------------------------</span>
+<span class="pl-k">func</span> <span class="pl-en">test_can_double_classes_with_statics_if_ignored</span>():
+  <span class="pl-c1">ignore_method_when_doubling</span>(<span class="pl-s">'res://scripts/has_statics.gd'</span>, <span class="pl-s">'this_is_static'</span>)
+  <span class="pl-k">var</span> d_has_statics <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-s">'res://scripts/has_statics.gd'</span>).<span class="pl-c1">new</span>()
+  <span class="pl-c1">assert_not_null</span>(d_has_statics)
+
+<span class="pl-k">func</span> <span class="pl-en">test_can_use_loaded_scripts_to_ignore_statics</span>():
+  <span class="pl-k">var</span> <span class="pl-c1">HasStatics</span> <span class="pl-k">=</span> <span class="pl-c1">load</span>(<span class="pl-s">'res://scripts/has_statics.gd'</span>)
+  <span class="pl-c1">ignore_method_when_doubling</span>(<span class="pl-c1">HasStatics</span>, <span class="pl-s">'this_is_static'</span>)
+  <span class="pl-k">var</span> d_has_statics <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">HasStatics</span>).<span class="pl-c1">new</span>()
+  <span class="pl-c1">assert_not_null</span>(d_has_statics)
+
+<span class="pl-k">func</span> <span class="pl-en">test_cannot_spy_or_stub_ignored_methods</span>():
+  <span class="pl-k">var</span> <span class="pl-c1">HasStatics</span> <span class="pl-k">=</span> <span class="pl-c1">load</span>(<span class="pl-s">'res://scripts/has_statics.gd'</span>)
+  <span class="pl-c1">ignore_method_when_doubling</span>(<span class="pl-c1">HasStatics</span>, <span class="pl-s">'this_is_static'</span>)
+  <span class="pl-c1">ignore_method_when_doubling</span>(<span class="pl-c1">HasStatics</span>, <span class="pl-s">'not_static'</span>)
+
+  <span class="pl-k">var</span> d_has_statics <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">HasStatics</span>).<span class="pl-c1">new</span>()
+  <span class="pl-c"><span class="pl-c">#</span> This stub will not be used since the method was ignored</span>
+  <span class="pl-c1">stub</span>(d_has_statics, <span class="pl-s">'not_static'</span>).<span class="pl-c1">to_return</span>(<span class="pl-s">'bar'</span>)
+  <span class="pl-k">var</span> result <span class="pl-k">=</span> d_has_statics.<span class="pl-c1">not_static</span>()
+
+  <span class="pl-c1">assert_eq</span>(result, <span class="pl-s">'foo'</span>, <span class="pl-s">'not stubbed so "foo" will be returned'</span>)
+  <span class="pl-c"><span class="pl-c">#</span> this will pass, even though the method was called,</span>
+  <span class="pl-c"><span class="pl-c">#</span> because you cannot spy on ignored methods.</span>
+  <span class="pl-c1">assert_not_called</span>(d_has_statics, <span class="pl-s">'not_static'</span>)</pre></div>
+<h4><a id="user-content--replace_nodebase_node-path_or_node-with_this-" class="anchor" aria-hidden="true" href="#-replace_nodebase_node-path_or_node-with_this-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-replace_node"> replace_node(base_node, path_or_node, with_this) </a></h4>
+<p>Replaces the child node of base_node with <code>with_this</code>.  You can pass a path to a node or a child node of base_node.  <code>with_this</code> will get all groups that the replaced node had.  <code>with_this</code> also gets the same "name" that the replaced node had so that any references to it via <code>$</code> will work.  The replaced node is freed via <code>queue_free</code>.</p>
+<p>This is useful when you want to double a node in another node.  Your code might be referencing the node via a call to <code>get_node</code> or might be using the <code>$</code> syntax to get to the object.  <code>replace_node</code> allows you to replace a node in another node and retain all of your <code>get_node</code> and <code>$</code> references.</p>
+<p>This will only work for references to the node are made <strong>after</strong> <code>replace_node</code> has been called.  If your object has a local variable that points to the node that gets replaced and:</p>
+<ul>
+<li>it was set on <code>_init</code>
+</li>
+<li>or it was set in <code>_ready</code> or via an <code>onready</code> variable, and the base object has already been added to the tree</li>
+</ul>
+<p>then these variables will point to the old object (which gets freed after the call to <code>repalce_node</code>).</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_replace_node</span>():
+	<span class="pl-c"><span class="pl-c">#</span> This scene has:</span>
+	<span class="pl-c"><span class="pl-c">#</span> Node2D</span>
+	<span class="pl-c"><span class="pl-c">#</span>   - Label</span>
+	<span class="pl-c"><span class="pl-c">#</span>   - MyPanel</span>
+	<span class="pl-c"><span class="pl-c">#</span>     - MyButton</span>
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	<span class="pl-c"><span class="pl-c">#</span> And code:</span>
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	<span class="pl-c"><span class="pl-c">#</span> double_me_scene.gd:</span>
+	<span class="pl-c"><span class="pl-c">#</span> extends Node2D</span>
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	<span class="pl-c"><span class="pl-c">#</span> onready var label = get_node('Label')</span>
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	<span class="pl-c"><span class="pl-c">#</span> func return_hello():</span>
+	<span class="pl-c"><span class="pl-c">#</span> 	return 'hello'</span>
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	<span class="pl-c"><span class="pl-c">#</span> func set_label_text(text):</span>
+	<span class="pl-c"><span class="pl-c">#</span> 	$Label.set_text(text)</span>
+	<span class="pl-c"><span class="pl-c">#</span></span>
+	<span class="pl-c"><span class="pl-c">#</span> func get_button():</span>
+	<span class="pl-c"><span class="pl-c">#</span> 	return $MyPanel/MyButton</span>
+	<span class="pl-k">var</span> <span class="pl-c1">DOUBLE_ME_SCENE</span> <span class="pl-k">=</span> <span class="pl-s">'res://test/resources/doubler_test_objects/double_me_scene.tscn'</span>
+
+	<span class="pl-k">var</span> scene <span class="pl-k">=</span> <span class="pl-c1">load</span>(<span class="pl-c1">DOUBLE_ME_SCENE</span>).<span class="pl-c1">instance</span>()
+	<span class="pl-c1">add_child_autofree</span>(scene)
+	<span class="pl-k">var</span> replace_label <span class="pl-k">=</span> <span class="pl-c1">Label</span>.<span class="pl-c1">new</span>()
+	<span class="pl-c1">replace_node</span>(scene, <span class="pl-s">'Label'</span>, replace_label)
+
+	<span class="pl-c"><span class="pl-c">#</span> Passing</span>
+	scene.<span class="pl-c1">set_label_text</span>(<span class="pl-s">'asdf'</span>)
+	<span class="pl-c1">assert_eq</span>(replace_label.<span class="pl-c1">get_text</span>(), <span class="pl-s">'asdf'</span>,
+	  <span class="pl-s">"Since set_label_text references the label using $ this will point to the new one."</span>)
+
+	<span class="pl-k">var</span> replace_button <span class="pl-k">=</span> <span class="pl-c1">Button</span>.<span class="pl-c1">new</span>()
+	<span class="pl-c1">replace_node</span>(scene, <span class="pl-s">'MyPanel/MyButton'</span>, replace_button)
+	<span class="pl-c1">assert_eq</span>(scene.<span class="pl-c1">get_button</span>(), replace_button,
+	  <span class="pl-s">'Get button uses $ so this will work.'</span>)
+
+	<span class="pl-c"><span class="pl-c">#</span> Failing</span>
+	<span class="pl-c1">assert_eq</span>(scene.label, replace_label,
+	  <span class="pl-s">'The variable "label" was set as onready so it will not be updated'</span>)</pre></div>
+<p><a href="Comparing-Things.html">Comparing Things</a></p>
+<h4><a id="user-content--compare_shallowv1-v2-max_differences30-" class="anchor" aria-hidden="true" href="#-compare_shallowv1-v2-max_differences30-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-compare_shallow"> compare_shallow(v1, v2, max_differences=30) </a></h4>
+<p>Performs a shallow comparison between two arrays or dictionaries.  A <code>CompareResult</code> object is returned.   See <a href="Comparing-Things.html">Comparing Things</a> for more information and examples.</p>
+<h4><a id="user-content--compare_deepv1-v2-max_differences30-" class="anchor" aria-hidden="true" href="#-compare_deepv1-v2-max_differences30-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-compare_deep"> compare_deep(v1, v2, max_differences=30) </a></h4>
+<p>Performs a deep comparison between two arrays or dictionaries.  A <code>CompareResult</code> object is returned.   See <a href="Comparing-Things.html">Comparing Things</a> for more information and examples.</p>
+<h4><a id="user-content--assert_eq_deepv1-v2-" class="anchor" aria-hidden="true" href="#-assert_eq_deepv1-v2-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_eq_deep"> assert_eq_deep(v1, v2) </a></h4>
+<p>Performs a deep comparison between two arrays or dictionaries and asserts they are equal.  If they are not equal then a formatted list of differences are displayed.  See <a href="Comparing-Things.html">Comparing Things</a> for more information.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_assert_eq_deep</span>():
+	<span class="pl-k">var</span> complex_example <span class="pl-k">=</span> [
+		<span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>, <span class="pl-s">'c'</span>,
+		[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>],
+		{<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>, <span class="pl-s">'b'</span>:<span class="pl-c1">2</span>, <span class="pl-s">'c'</span>:<span class="pl-c1">3</span>},
+		[{<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}, {<span class="pl-s">'b'</span>:<span class="pl-c1">2</span>}]
+	]
+
+	<span class="pl-c"><span class="pl-c">#</span> Passing</span>
+	<span class="pl-c1">assert_eq_deep</span>([<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, {<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}], [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, {<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}])
+	<span class="pl-c1">assert_eq_deep</span>({<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>, <span class="pl-s">'b'</span>:{<span class="pl-s">'c'</span>:<span class="pl-c1">1</span>}}, {<span class="pl-s">'b'</span>:{<span class="pl-s">'c'</span>:<span class="pl-c1">1</span>}, <span class="pl-s">'a'</span>:<span class="pl-c1">1</span>})
+
+	<span class="pl-k">var</span> shallow_copy  <span class="pl-k">=</span> complex_example.<span class="pl-c1">duplicate</span>(<span class="pl-c1">false</span>)
+	<span class="pl-k">var</span> deep_copy <span class="pl-k">=</span> complex_example.<span class="pl-c1">duplicate</span>(<span class="pl-c1">true</span>)
+	<span class="pl-c1">assert_eq_deep</span>(complex_example, shallow_copy)
+	<span class="pl-c1">assert_eq_deep</span>(complex_example, deep_copy)
+	<span class="pl-c1">assert_eq_deep</span>(shallow_copy, deep_copy)
+
+	<span class="pl-c"><span class="pl-c">#</span> Failing</span>
+	<span class="pl-c1">assert_eq_shallow</span>([<span class="pl-c1">1</span>, <span class="pl-c1">2</span>], [<span class="pl-c1">1</span>, <span class="pl-c1">2</span> ,<span class="pl-c1">3</span>]) <span class="pl-c"><span class="pl-c">#</span> missing index</span>
+	<span class="pl-c1">assert_eq_shallow</span>({<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}, {<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>, <span class="pl-s">'b'</span>:<span class="pl-c1">2</span>}) <span class="pl-c"><span class="pl-c">#</span> missing key</span>
+	<span class="pl-c1">assert_eq_deep</span>([<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, {<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}], [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, {<span class="pl-s">'a'</span>:<span class="pl-c1">1.0</span>}]) <span class="pl-c"><span class="pl-c">#</span> floats != ints</span></pre></div>
+<h4><a id="user-content--assert_ne_deepv1-v2-" class="anchor" aria-hidden="true" href="#-assert_ne_deepv1-v2-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_ne_deep"> assert_ne_deep(v1, v2) </a></h4>
+<p>Performs a deep comparison of two arrays or dictionaries and asserts they are not equal.  See <a href="Comparing-Things.html">Comparing Things</a> for more information.</p>
+<h4><a id="user-content--assert_eq_shallowv1-v2-" class="anchor" aria-hidden="true" href="#-assert_eq_shallowv1-v2-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_eq_shallow"> assert_eq_shallow(v1, v2) </a></h4>
+<p>Performs a shallow comparison between two arrays or dictionaries and asserts they are equal.  If they are not equal then a formatted list of differences are displayed.  See <a href="Comparing-Things.html">Comparing Things</a> for more information.</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_assert_eq_shallow</span>():
+	<span class="pl-k">var</span> complex_example <span class="pl-k">=</span> [
+		<span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>, <span class="pl-s">'c'</span>,
+		[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>],
+		{<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>, <span class="pl-s">'b'</span>:<span class="pl-c1">2</span>, <span class="pl-s">'c'</span>:<span class="pl-c1">3</span>},
+		[{<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}, {<span class="pl-s">'b'</span>:<span class="pl-c1">2</span>}]
+	]
+
+	<span class="pl-c"><span class="pl-c">#</span> Passing</span>
+	<span class="pl-c1">assert_eq_shallow</span>([<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>], [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>])
+	<span class="pl-c1">assert_eq_shallow</span>([<span class="pl-c1">1</span>, [<span class="pl-c1">2</span>, <span class="pl-c1">3</span>], <span class="pl-c1">4</span>], [<span class="pl-c1">1</span>, [<span class="pl-c1">2</span>, <span class="pl-c1">3</span>], <span class="pl-c1">4</span>])
+	<span class="pl-k">var</span> d1 <span class="pl-k">=</span> {<span class="pl-s">'foo'</span>:<span class="pl-s">'bar'</span>}
+	<span class="pl-c1">assert_eq_shallow</span>([<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, d1], [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, d1])
+	<span class="pl-c1">assert_eq_shallow</span>({<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}, {<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>})
+	<span class="pl-c1">assert_eq_shallow</span>({<span class="pl-s">'a'</span>:[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, d1]}, {<span class="pl-s">'a'</span>:[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, d1]})
+
+	<span class="pl-k">var</span> shallow_copy <span class="pl-k">=</span> complex_example.<span class="pl-c1">duplicate</span>(<span class="pl-c1">false</span>)
+	<span class="pl-c1">assert_eq_shallow</span>(complex_example, shallow_copy)
+
+	<span class="pl-c"><span class="pl-c">#</span> Failing</span>
+	<span class="pl-c1">assert_eq_shallow</span>([<span class="pl-c1">1</span>, <span class="pl-c1">2</span>], [<span class="pl-c1">1</span>, <span class="pl-c1">2</span> ,<span class="pl-c1">3</span>]) <span class="pl-c"><span class="pl-c">#</span> missing index</span>
+	<span class="pl-c1">assert_eq_shallow</span>({<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}, {<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>, <span class="pl-s">'b'</span>:<span class="pl-c1">2</span>}) <span class="pl-c"><span class="pl-c">#</span> missing key</span>
+	<span class="pl-c1">assert_eq_shallow</span>([<span class="pl-c1">1</span>, <span class="pl-c1">2</span>], [<span class="pl-c1">1.0</span>, <span class="pl-c1">2.0</span>]) <span class="pl-c"><span class="pl-c">#</span> floats != ints</span>
+	<span class="pl-c1">assert_eq_shallow</span>([<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, {<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}], [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, {<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}]) <span class="pl-c"><span class="pl-c">#</span> compare [2] by ref</span>
+	<span class="pl-c1">assert_eq_shallow</span>({<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}, {<span class="pl-s">'a'</span>:<span class="pl-c1">1.0</span>}) <span class="pl-c"><span class="pl-c">#</span> floats != ints</span>
+	<span class="pl-c1">assert_eq_shallow</span>({<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>, <span class="pl-s">'b'</span>:{<span class="pl-s">'c'</span>:<span class="pl-c1">1</span>}}, {<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>, <span class="pl-s">'b'</span>:{<span class="pl-s">'c'</span>:<span class="pl-c1">1</span>}}) <span class="pl-c"><span class="pl-c">#</span> compare 'b' by ref</span>
+
+	<span class="pl-k">var</span> deep_copy <span class="pl-k">=</span> complex_example.<span class="pl-c1">duplicate</span>(<span class="pl-c1">true</span>)
+	<span class="pl-c1">assert_eq_shallow</span>(complex_example, deep_copy)</pre></div>
+<h4><a id="user-content--assert_ne_shallowv1-v2-" class="anchor" aria-hidden="true" href="#-assert_ne_shallowv1-v2-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_ne_shallow"> assert_ne_shallow(v1, v2) </a></h4>
+<p>Performs a shallow comparison of two arrays or dictionaries and asserts they are not equal.  See <a href="Comparing-Things.html">Comparing Things</a> for more information.</p>
+<h4><a id="user-content--assert_propertyobj-name_property-default_value-set_to_value-" class="anchor" aria-hidden="true" href="#-assert_propertyobj-name_property-default_value-set_to_value-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_property"> assert_property(obj, name_property, default_value, set_to_value) </a></h4>
+<p>This method does a couple of common tests for properties.
+It checks if:</p>
+<ul>
+<li>the named setter and getter functions exist</li>
+<li>the given default value is set_to_value</li>
+<li>the value is set correctly to the given <code>set_to_value</code>
+</li>
+<li>the named setter and getter functions are called when the property is accessed directly</li>
+</ul>
+<p>It fails if at least one of the mentioned sub-checks fails.</p>
+<p>The parameter <code>obj</code> can be any <code>Object</code>. Depending on what you put in the function will try retrieve the underlying class or to instantiate from <code>obj</code>. It is tested for classes extending <code>Script</code> or <code>PackedScene</code> in case you want to put in a class / scene. It is tested for objects extending the <code>Node</code> class. The method may fail if you try to put in something else.</p>
+<p>Under the cover it runs <code>assert_accessors</code> and <code>assert_setget_called</code>. Look into <a href="#assert_accessors">assert_accessors</a> or <a href="#assert_setget_called">assert_setget_called</a> to get further information on how they work.</p>
+<p>In the following script you can see some examples how to use this assert function. The class under test is a "Health" component. It has a <code>max_hap</code> field with no setter or getter assigned. It also has a <code>current_hp</code> property with assigned setter and getter functions.</p>
+<div class="highlight highlight-source-gdscript"><pre>gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- class under test --'</span>)
+<span class="pl-k">class</span> <span class="pl-en">Health</span>:
+  <span class="pl-k">extends</span><span class="pl-e"> Node</span>
+
+
+  <span class="pl-k">export</span>(<span class="pl-c1">int</span>) <span class="pl-k">var</span> max_hp <span class="pl-k">=</span> <span class="pl-c1">0</span>
+  <span class="pl-k">export</span>(<span class="pl-c1">int</span>) <span class="pl-k">var</span> current_hp <span class="pl-k">=</span> <span class="pl-c1">0</span> <span class="pl-k">setget</span> <span class="pl-en">set_current_hp</span>, <span class="pl-en">get_current_hp</span>
+
+
+  <span class="pl-k">func</span> <span class="pl-en">set_max_hp</span>(<span class="pl-smi">value</span>: <span class="pl-c1">int</span>) -&gt; <span class="pl-en">void</span>:
+  	<span class="pl-k">if</span> value <span class="pl-k">&lt;</span> <span class="pl-c1">0</span>:
+  		value <span class="pl-k">=</span> <span class="pl-c1">0</span>
+  	max_hp <span class="pl-k">=</span> value
+
+
+  <span class="pl-k">func</span> <span class="pl-en">get_max_hp</span>() -&gt; <span class="pl-en">int</span>:
+  	<span class="pl-k">return</span> max_hp
+
+
+  <span class="pl-k">func</span> <span class="pl-en">set_current_hp</span>(<span class="pl-smi">value</span>: <span class="pl-c1">int</span>) -&gt; <span class="pl-en">void</span>:
+  	current_hp <span class="pl-k">=</span> <span class="pl-c1">clamp</span>(value, <span class="pl-c1">0</span>, max_hp)
+
+
+  <span class="pl-k">func</span> <span class="pl-en">get_current_hp</span>() -&gt; <span class="pl-en">int</span>:
+  	<span class="pl-k">return</span> current_hp
+
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+<span class="pl-c1">assert_property</span>(<span class="pl-c1">Health</span>, <span class="pl-s">'current_hp'</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-k">var</span> health <span class="pl-k">=</span> <span class="pl-c1">Health</span>.<span class="pl-c1">new</span>()
+health.<span class="pl-smi">max_hp</span> <span class="pl-k">=</span> <span class="pl-c1">10</span>
+<span class="pl-c1">assert_property</span>(health, <span class="pl-s">'current_hp'</span>, <span class="pl-c1">0</span>, <span class="pl-c1">5</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+<span class="pl-c1">assert_property</span>(<span class="pl-c1">Health</span>, <span class="pl-s">'max_hp'</span>, <span class="pl-c1">0</span>, <span class="pl-c1">5</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL =&gt; no setget keyword</span>
+<span class="pl-c1">assert_property</span>(<span class="pl-c1">Health</span>, <span class="pl-s">'current_hp'</span>, <span class="pl-c1">0</span>, <span class="pl-c1">5</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL =&gt; method will clamp current_hp to max_hp which is 0 by default</span>
+<span class="pl-k">var</span> directory <span class="pl-k">=</span> <span class="pl-c1">Directory</span>.<span class="pl-c1">new</span>()
+<span class="pl-c1">assert_property</span>(directory, <span class="pl-s">'current_dir'</span>, <span class="pl-s">''</span>, <span class="pl-s">'new_dir'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL =&gt; directory is not a Resource nor a Node</span>
+</pre></div>
+<h4><a id="user-content--assert_setget_calledtype-name_property-name_setter-name_getter-" class="anchor" aria-hidden="true" href="#-assert_setget_calledtype-name_property-name_setter-name_getter-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_setget_called"> assert_setget_called(type, name_property, name_setter="", name_getter="") </a></h4>
+<p>This method checks if the named setter and getter functions are called when the given property is accessed.</p>
+<p>In GDScript this is realized by using the <code>setget</code> keyword. The keyword requires you to specify a setter or getter function, you can also specify both:</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">class</span> <span class="pl-en">SomeClass</span>:
+  <span class="pl-k">var</span> property_both <span class="pl-k">=</span> <span class="pl-c1">null</span> <span class="pl-k">setget</span> <span class="pl-en">set_property_both</span>, <span class="pl-en">get_property_both</span>
+  <span class="pl-k">var</span> property_setter <span class="pl-k">=</span> <span class="pl-c1">null</span> <span class="pl-k">setget</span> <span class="pl-en">set_property_setter</span>
+  <span class="pl-k">var</span> property_getter <span class="pl-k">=</span> <span class="pl-c1">null</span> setget , get_property_getter
+  <span class="pl-k">var</span> normal_class_attribute <span class="pl-k">=</span> <span class="pl-c1">null</span>
+  <span class="pl-k">var</span> another_property <span class="pl-k">=</span> <span class="pl-c1">null</span> <span class="pl-k">setget</span> <span class="pl-en">some_completely_different_name</span>, <span class="pl-en">another_different_name</span></pre></div>
+<p>With this assert you can test for scenarios equivalent to <code>property_both</code>, <code>property_setter</code> and <code>property_getter</code>. As shown in the example GDScript allows any names for the setter and getter functions. With this assert you can test for this scenario as well. With this assert you cannot test for normal class attributes.</p>
+<p>The parameter <code>type</code> has to be a <code>Resource</code>. Therefore you can put in a <code>Script</code> or a <code>PackedScene</code> but no instances of your class / scene under test.</p>
+<p>The parameters <code>name_setter</code> and <code>name_getter</code> are optional.</p>
+<p>In the following script you can see some examples how to use this assert function. The class under test is a "Health" component. It has a <code>max_hap</code> field with no setter or getter assigned. It also has a <code>current_hp</code> property with assigned setter and getter functions. For slightly more convenient ways to test properties with setget keyword also look into <a href="#assert_setget">assert_setget</a> or <a href="#assert_property">assert_property</a>. They wrap around this assert function and set some common defaults to safe you some time.</p>
+<div class="highlight highlight-source-gdscript"><pre>gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- class under test --'</span>)
+<span class="pl-k">class</span> <span class="pl-en">Health</span>:
+  <span class="pl-k">extends</span><span class="pl-e"> Node</span>
+
+
+  <span class="pl-k">export</span>(<span class="pl-c1">int</span>) <span class="pl-k">var</span> max_hp <span class="pl-k">=</span> <span class="pl-c1">0</span>
+  <span class="pl-k">export</span>(<span class="pl-c1">int</span>) <span class="pl-k">var</span> current_hp <span class="pl-k">=</span> <span class="pl-c1">0</span> <span class="pl-k">setget</span> <span class="pl-en">set_current_hp</span>, <span class="pl-en">get_current_hp</span>
+
+
+  <span class="pl-k">func</span> <span class="pl-en">set_max_hp</span>(<span class="pl-smi">value</span>: <span class="pl-c1">int</span>) -&gt; <span class="pl-en">void</span>:
+  	<span class="pl-k">if</span> value <span class="pl-k">&lt;</span> <span class="pl-c1">0</span>:
+  		value <span class="pl-k">=</span> <span class="pl-c1">0</span>
+  	max_hp <span class="pl-k">=</span> value
+
+
+  <span class="pl-k">func</span> <span class="pl-en">get_max_hp</span>() -&gt; <span class="pl-en">int</span>:
+  	<span class="pl-k">return</span> max_hp
+
+
+  <span class="pl-k">func</span> <span class="pl-en">set_current_hp</span>(<span class="pl-smi">value</span>: <span class="pl-c1">int</span>) -&gt; <span class="pl-en">void</span>:
+  	current_hp <span class="pl-k">=</span> <span class="pl-c1">clamp</span>(value, <span class="pl-c1">0</span>, max_hp)
+
+
+  <span class="pl-k">func</span> <span class="pl-en">get_current_hp</span>() -&gt; <span class="pl-en">int</span>:
+  	<span class="pl-k">return</span> current_hp
+
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+<span class="pl-c1">assert_setget_called</span>(<span class="pl-c1">Health</span>, <span class="pl-s">'current_hp'</span>, <span class="pl-s">'set_current_hp'</span>, <span class="pl-s">'get_current_hp'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_setget_called</span>(<span class="pl-c1">Health</span>, <span class="pl-s">'current_hp'</span>, <span class="pl-s">'set_current_hp'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-c1">assert_setget_called</span>(<span class="pl-c1">Health</span>, <span class="pl-s">'current_hp'</span>, <span class="pl-s">''</span>, <span class="pl-s">'get_current_hp'</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+<span class="pl-c1">assert_setget_called</span>(<span class="pl-c1">Health</span>, <span class="pl-s">'max_hp'</span>, <span class="pl-s">'set_max_hp'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL</span>
+<span class="pl-c1">assert_setget_called</span>(<span class="pl-c1">Health</span>, <span class="pl-s">'max_hp'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL =&gt; out of scope</span>
+<span class="pl-c1">assert_setget_called</span>(<span class="pl-c1">Health</span>, <span class="pl-s">'current_hp'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL =&gt; setter or getter name must be specified</span>
+<span class="pl-c1">assert_setget_called</span>(<span class="pl-c1">Health</span>, <span class="pl-s">'current_hp'</span>, <span class="pl-s">'set_curent_hp'</span>, <span class="pl-s">'get_current_hp'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL =&gt; typo...</span>
+<span class="pl-k">var</span> health <span class="pl-k">=</span> <span class="pl-c1">Health</span>.<span class="pl-c1">new</span>()
+<span class="pl-c1">assert_setget_called</span>(health, <span class="pl-s">'current_hp'</span>, <span class="pl-s">'set_current_hp'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL =&gt; type has to be a Resource</span>
+<span class="pl-c1">assert_setget_called</span>(<span class="pl-c1">Health</span>, max_hp, <span class="pl-c1">null</span>, <span class="pl-c1">null</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL =&gt; methods do not exist</span>
+<span class="pl-c1">assert_setget_called</span>(<span class="pl-c1">Health</span>, max_hp, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>)  <span class="pl-c"><span class="pl-c">#</span> FAIL =&gt; methods do not exist</span>
+<span class="pl-c1">assert_setget_called</span>(<span class="pl-c1">5</span>, <span class="pl-s">'current_hp'</span>, <span class="pl-s">'set_current_hp'</span>)  <span class="pl-c"><span class="pl-c">#</span> FAIL =&gt; type has to be a Resource</span>
+<span class="pl-c1">assert_setget_called</span>(<span class="pl-c1">double</span>(<span class="pl-c1">Health</span>), <span class="pl-s">'current_hp'</span>, <span class="pl-s">'set_current_hp'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL =&gt; type has to be a Resource that can be doubled</span></pre></div>
+<p>Please note the last example. So far an already doubled type cannot be doubled again. Since the class under test will be doubled within the assert procession it is important to only feed in types that can be doubled. For more information about doubling its restrictions see the wiki page about <a href="https://github.com/bitwes/Gut/wiki/Doubles">Doubles</a>.</p>
+<h4><a id="user-content--assert_propertyobj-name_property-has_setterfalse-has_getterfalse-" class="anchor" aria-hidden="true" href="#-assert_propertyobj-name_property-has_setterfalse-has_getterfalse-"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-assert_setget"> assert_property(obj, name_property, has_setter=false, has_getter=false) </a></h4>
+<p>This method checks if the named setter and getter functions are called when the given property is accessed.</p>
+<p>In GDScript this is realized by using the <code>setget</code> keyword. The keyword requires you to specify a setter or getter function, you can also specify both:</p>
+<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">class</span> <span class="pl-en">SomeClass</span>:
+  <span class="pl-k">var</span> property_both <span class="pl-k">=</span> <span class="pl-c1">null</span> <span class="pl-k">setget</span> <span class="pl-en">set_property_both</span>, <span class="pl-en">get_property_both</span>
+  <span class="pl-k">var</span> property_setter <span class="pl-k">=</span> <span class="pl-c1">null</span> <span class="pl-k">setget</span> <span class="pl-en">set_property_setter</span>
+  <span class="pl-k">var</span> property_getter <span class="pl-k">=</span> <span class="pl-c1">null</span> setget , get_property_getter</pre></div>
+<p>The parameter <code>obj</code> can be any <code>Object</code>. Depending on what you put in the function will try retrieve the underlying class or to instantiate from <code>obj</code>. It is tested for classes extending <code>Script</code> or <code>PackedScene</code> in case you want to put in a class / scene. It is tested for objects extending the <code>Node</code> class. The method may fail if you try to put in something else.</p>
+<p>The parameters <code>name_setter</code> and <code>name_getter</code> are optional.</p>
+<p>Under the cover it runs <code>assert_setget_called</code>. Look into <a href="#assert_setget_called">assert_setget_called</a> to get further information on how it works.</p>
+<p>In the following script you can see some examples how to use this assert function. The class under test is a "Health bar" component. It has a <code>health</code> field with a setter but no getter assigned.</p>
+<div class="highlight highlight-source-gdscript"><pre>gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- class under test --'</span>)
+<span class="pl-k">class</span> <span class="pl-en">HealthBar</span>:
+  <span class="pl-k">extends</span><span class="pl-e"> Control</span>
+
+<span class="pl-k">const</span> <span class="pl-c1">Health</span> <span class="pl-k">=</span> <span class="pl-k">preload</span>(<span class="pl-s">"res://some_path/health.gd"</span>)
+<span class="pl-k">var</span> health: <span class="pl-en">Health</span> <span class="pl-k">=</span> <span class="pl-c1">null</span> <span class="pl-k">setget</span> <span class="pl-en">set_health</span>
+
+<span class="pl-k">onready</span> <span class="pl-k">var</span> progress_bar <span class="pl-k">=</span> <span class="pl-c1"><span class="pl-k">$</span><span class="pl-cce">ProgressBar</span></span>
+<span class="pl-k">onready</span> <span class="pl-k">var</span> label <span class="pl-k">=</span> <span class="pl-c1"><span class="pl-k">$</span><span class="pl-cce">Label</span></span>
+
+
+<span class="pl-k">func</span> <span class="pl-en">set_health</span>(<span class="pl-smi">node</span>: <span class="pl-c1">Health</span>) -&gt; <span class="pl-en">void</span>:
+	health <span class="pl-k">=</span> node
+
+
+<span class="pl-k">func</span> <span class="pl-en">_on_Health_updated</span>() -&gt; <span class="pl-en">void</span>:
+	<span class="pl-k">if</span> health <span class="pl-k">!=</span> <span class="pl-c1">null</span>:
+		label.<span class="pl-smi">text</span> <span class="pl-k">=</span> <span class="pl-s">"%s / %s"</span> <span class="pl-k">%</span>[health.<span class="pl-smi">current_hp</span>, health.<span class="pl-smi">max_hp</span>]
+		progress_bar.<span class="pl-smi">max_value</span> <span class="pl-k">=</span> health.<span class="pl-smi">max_hp</span>
+		progress_bar.<span class="pl-smi">value</span> <span class="pl-k">=</span> health.<span class="pl-smi">current_hp</span>
+
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- passing --'</span>)
+<span class="pl-c1">assert_setget</span>(<span class="pl-c1">HealthBar</span>, <span class="pl-s">'health'</span>, <span class="pl-c1">true</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+<span class="pl-k">var</span> health_bar <span class="pl-k">=</span> <span class="pl-c1">load</span>(<span class="pl-s">"res://some_path/HealthBar.tscn"</span>).<span class="pl-c1">instance</span>()
+<span class="pl-c1">assert_setget</span>(health_bar, <span class="pl-s">'health'</span>, <span class="pl-c1">true</span>) <span class="pl-c"><span class="pl-c">#</span> PASS</span>
+
+gut.<span class="pl-c1">p</span>(<span class="pl-s">'-- failing --'</span>)
+<span class="pl-c1">assert_setget</span>(<span class="pl-c1">HealthBar</span>, <span class="pl-s">'label'</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL =&gt; setter or getter has to be specified</span>
+<span class="pl-c1">assert_setget</span>(<span class="pl-c1">HealthBar</span>, <span class="pl-s">'label'</span>, <span class="pl-c1">true</span>) <span class="pl-c"><span class="pl-c">#</span> FAIL =&gt; setter does not exist</span></pre></div>
+</article></body>
