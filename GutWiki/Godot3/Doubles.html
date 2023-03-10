@@ -1,157 +1,428 @@
+<html>
 
-        <html><head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            .markdown-body {
-                box-sizing: border-box;
-                min-width: 200px;
-                max-width: 980px;
-                margin: 0 auto;
-                padding: 45px;
-            }
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="maincss" rel="stylesheet" href="github-markdown.css">
+    <link rel="stylesheet" href="exported_wiki.css">
+</head>
 
-            @media (max-width: 767px) {
-                .markdown-body {
-                    padding: 15px;
-                }
-            }
-        </style>
-        <link rel="stylesheet" href="github-markdown.css"/>
-</head><body><article class="markdown-body"><h1><a id="user-content-doubles" class="anchor" aria-hidden="true" href="#doubles"><span aria-hidden="true" class="octicon octicon-link"></span></a>Doubles</h1>
-<p>The <code>double</code> method works similarly to <code>load</code>.  It will return a loaded class or scene that has empty implementations for all the methods defined in the script you pass it.  It will also include empty implementations for any methods in user-defined super classes.  It does not include implementations for any of the Godot Built-in super classes such as <code>Node2D</code> or <code>WindowDialog</code> (unless you have overloaded them in your script or in one of the user-defined super classes your script inherits from).  Actually, you can if you use the FULL Doubling strategy described at the bottom of this page.</p>
-<h2><a id="user-content-characteristics-of-a-double" class="anchor" aria-hidden="true" href="#characteristics-of-a-double"><span aria-hidden="true" class="octicon octicon-link"></span></a>Characteristics of a Double</h2>
+
+<body>
+
+<!------------------------------------------------------------------------->
+<!-- THE TOC STARTS HERE                                                 -->
+<!------------------------------------------------------------------------->
+
+    <div id="toc" class="w3-sidebar w3-border-right">
+        <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Gut Wiki</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Gut Wiki</h1>
+</header>
+<h3 id="741-godot-3x">7.4.1 (Godot 3.x)</h3>
 <ul>
-<li>You can double Scripts, Inner Classes, and Packed Scenes.  Once you have a double, you can then call <code>new</code> or <code>instance</code> on it to create instances of a doubled object.</li>
-<li>The double inherits (<code>extends</code>) the base object.</li>
-<li>Doubles retain all properties/variables and their default values from the base object.</li>
-<li>
-<code>_init</code> is always called on the base object by Godot.  You cannot <a href="Stubbing.html">stub</a> <code>_init</code> "to do nothing" (you can stub parameters).  In most cases this is not an issue since all the methods of a double do nothing.  If it causes an issue you can check a parameter and then take no action in the base object's <code>_init</code> based on the value.</li>
-<li>If your <code>_init</code> method has required parameters you must <a href="Stubbing.html">stub</a> default values before trying to <code>double</code> the object.</li>
-<li>
-<strong>All</strong> parameters in <strong>all</strong> functions in the double are defaulted to <code>null</code>.  Even if they did not have a default value in the base object.  You can <a href="Stubbing.html">stub</a> default parameter values for any method, including <code>_init</code>.</li>
-<li>All methods in a doubled object will return <code>null</code>.  You can <a href="Stubbing.html">stub</a> a return value for all calls to a function, or calls with specific parameter values.  You can also stub a method <code>to_call_super</code> causing it to retain its original functionality.</li>
-<li>Inner Classes in the source script will retain all of their functionality. They are not doubled in any way. You can create doubles of specific Inner Classes but the Inner Classes in a doubled script are not altered.</li>
-<li>You can create <a href="Partial-Doubles.html">Partial Doubles</a> which will act exactly like its source object but you can <a href="Spies.html">spy on</a> and stub any method.  It's like the inverse of a double.</li>
-<li>All instances of Doubles and Partial Dobules are freed after a test finishes.  This means you do not have to free them manually and you should not use them in <code>before_all</code>.</li>
-<li>You cannot double static methods.  See "Doubling Static Methods" below.</li>
+<li><a href="Asserts-and-Methods.html">Asserts-and-Methods</a></li>
+<li><a href="Command-Line.html">Command-Line</a></li>
+<li><a href="Comparing-Things.html">Comparing-Things</a></li>
+<li><a href="Contributing.html">Contributing</a></li>
+<li><a href="Creating-Tests.html">Creating-Tests</a></li>
+<li><a href="Doubles.html">Doubles</a></li>
+<li><a href="Export-Test-Results.html">Export-Test-Results</a></li>
+<li><a
+href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
+<li><a href="Home.html">Home</a></li>
+<li><a href="Hooks.html">Hooks</a></li>
+<li><a href="Inner-Test-Classes.html">Inner-Test-Classes</a></li>
+<li><a href="Input-Factory.html">Input-Factory</a></li>
+<li><a href="Install.html">Install</a></li>
+<li><a href="Memory-Management.html">Memory-Management</a></li>
+<li><a href="Mock-Input.html">Mock-Input</a></li>
+<li><a href="Orphans.html">Orphans</a></li>
+<li><a href="Parameterized-Tests.html">Parameterized-Tests</a></li>
+<li><a href="Partial-Doubles.html">Partial-Doubles</a></li>
+<li><a href="Quick-Start.html">Quick-Start</a></li>
+<li><a href="Running-On-Devices.html">Running-On-Devices</a></li>
+<li><a href="Simulate.html">Simulate</a></li>
+<li><a href="Spies.html">Spies</a></li>
+<li><a href="Stubbing.html">Stubbing</a></li>
+<li><a href="Tutorials.html">Tutorials</a></li>
+<li><a href="Yielding.html">Yielding</a></li>
 </ul>
-<h3><a id="user-content-doubling-a-script" class="anchor" aria-hidden="true" href="#doubling-a-script"><span aria-hidden="true" class="octicon octicon-link"></span></a>Doubling a Script</h3>
-<p>To double a script just give it a path or an already loaded script.</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">const</span> <span class="pl-c1">MY_SCRIPT_PATH</span> <span class="pl-k">=</span> <span class="pl-s">'res://my_script.gd'</span>
-<span class="pl-k">var</span> <span class="pl-c1">MyScript</span> <span class="pl-k">=</span> <span class="pl-c1">load</span>(<span class="pl-c1">MY_SCRIPT_PATH</span>)
+</body>
+</html>
 
-<span class="pl-c"><span class="pl-c">#</span> Load the doubled object.</span>
-<span class="pl-k">var</span> <span class="pl-c1">DoubledMyScript</span> <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">MY_SCRIPT_PATH</span>)
-<span class="pl-c"><span class="pl-c">#</span> or</span>
-<span class="pl-k">var</span> <span class="pl-c1">DoubledMyScript</span> <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">MyScript</span>)
+        </embed>
+    </div>
 
-<span class="pl-c"><span class="pl-c">#</span> Create an instance of a doubled object</span>
-<span class="pl-k">var</span> doubled_script <span class="pl-k">=</span> <span class="pl-c1">DoubledMyScript</span>.<span class="pl-c1">new</span>()
-<span class="pl-c"><span class="pl-c">#</span> or</span>
-<span class="pl-k">var</span> doubled_script <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">MyScript</span>).<span class="pl-c1">new</span>()</pre></div>
-<h3><a id="user-content-doubling-an-inner-class" class="anchor" aria-hidden="true" href="#doubling-an-inner-class"><span aria-hidden="true" class="octicon octicon-link"></span></a>Doubling an Inner Class</h3>
-<p>When doubling an Inner Class you have to specify the path/script-object where the Inner Class is and then pass a <code>/</code> delimited list of Inner Classes that represents the hierarchy of the Inner Classes.</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-c"><span class="pl-c">#</span> -----------------------------------------------</span>
-<span class="pl-c"><span class="pl-c">#</span> Given this as res://sripts/my_inners.gd</span>
-<span class="pl-c"><span class="pl-c">#</span> -----------------------------------------------</span>
-<span class="pl-k">class</span> <span class="pl-en">InnerA</span>:
-  <span class="pl-k">var</span> something <span class="pl-k">=</span> <span class="pl-c1">null</span>
 
-  <span class="pl-k">class</span> <span class="pl-c1">InnerA2</span>:
-    <span class="pl-k">var</span> something_else <span class="pl-k">=</span> <span class="pl-c1">null</span>
-
-<span class="pl-k">class</span> <span class="pl-en">InnerB</span>:
-  <span class="pl-k">var</span> thing <span class="pl-k">=</span> <span class="pl-c1">null</span>
-
-<span class="pl-c"><span class="pl-c">#</span> -----------------------------------------------</span>
-<span class="pl-c"><span class="pl-c">#</span> You would double the various Inner Classes like this:</span>
-<span class="pl-c"><span class="pl-c">#</span> -----------------------------------------------</span>
-<span class="pl-k">const</span> <span class="pl-c1">SCRIPT_WITH_INNERS_PATH</span> <span class="pl-k">=</span> <span class="pl-s">'res://my_inners.gd'</span>
-<span class="pl-k">var</span> <span class="pl-c1">ScriptWithInners</span> <span class="pl-k">=</span> <span class="pl-c1">load</span>(<span class="pl-c1">SCRIPT_WITH_INNERS_PATH</span>)
-
-<span class="pl-c"><span class="pl-c">#</span> Load the doubled objects</span>
-<span class="pl-k">var</span> <span class="pl-c1">DoubledInnerB</span> <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">SCRIPT_WITH_INNERS_PATH</span>, <span class="pl-s">'InnerB'</span>)
-<span class="pl-c"><span class="pl-c">#</span> or</span>
-<span class="pl-k">var</span> <span class="pl-c1">DoubledInnerA2</span> <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">ScriptWithInners</span>, <span class="pl-s">'InnerA/InnerA2'</span>)
-
-<span class="pl-c"><span class="pl-c">#</span> Create an instance of a doubled inner class</span>
-<span class="pl-k">var</span> doubled_inner_a2 <span class="pl-k">=</span> <span class="pl-c1">DoubledInnerA2</span>.<span class="pl-c1">new</span>()
-<span class="pl-c"><span class="pl-c">#</span> or</span>
-<span class="pl-k">var</span> doubled_inner_b <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">SCRIPT_WITH_INNERS</span>, <span class="pl-s">'InnerB'</span>).<span class="pl-c1">new</span>()</pre></div>
-<p>When doubling Inners and passing a loaded class, you have to pass the class that contains the Inner Class(es).  Given the example above, you <strong>CANNOT</strong> do <code>double(ScriptWithInners.InnerB)</code>.  You <strong>MUST</strong> always pass the path to the inner classes.</p>
-<h3><a id="user-content-doubling-a-scene" class="anchor" aria-hidden="true" href="#doubling-a-scene"><span aria-hidden="true" class="octicon octicon-link"></span></a>Doubling a Scene</h3>
-<p>A doubled version of your scene is created along with a double of its script.  The doubled scene is altered to load the doubled script instead of the original.  A reference to the newly doubled scene is returned.  You can call <code>instance</code> on the returned reference.</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">const</span> <span class="pl-c1">MY_SCENE_PATH</span> <span class="pl-k">=</span> <span class="pl-s">'res://my_scene.tscn'</span>
-<span class="pl-k">var</span> <span class="pl-c1">MyScene</span> <span class="pl-k">=</span> <span class="pl-c1">load</span>(<span class="pl-c1">MY_SCENE_PATH</span>)
-
-<span class="pl-c"><span class="pl-c">#</span> Load up the doubled objects</span>
-<span class="pl-k">var</span> <span class="pl-c1">DoubledScene</span> <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">MY_SCENE_PATH</span>)
-<span class="pl-c"><span class="pl-c">#</span> or</span>
-<span class="pl-k">var</span> <span class="pl-c1">DoubledScene</span> <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">MyScene</span>)
-
-<span class="pl-c"><span class="pl-c">#</span> Create an instance</span>
-<span class="pl-k">var</span> doubled_scene <span class="pl-k">=</span> <span class="pl-c1">DoubledScene</span>.<span class="pl-c1">instance</span>()
-<span class="pl-c"><span class="pl-c">#</span> or</span>
-<span class="pl-k">var</span> doubled_scene <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">MY_SCENE_PATH</span>).<span class="pl-c1">instance</span>()</pre></div>
-<h3><a id="user-content-doubling-static-methods" class="anchor" aria-hidden="true" href="#doubling-static-methods"><span aria-hidden="true" class="octicon octicon-link"></span></a>Doubling Static Methods</h3>
-<p>Currently you cannot double static methods.  In fact if you try to double a class with a static method then you will get an error that looks similar to:</p>
-<pre><code>Parser Error: Function signature doesn't match the parent. Parent signature is: 'Variant foo()'.
-</code></pre>
-<p>As of now, GUT does not have the ability to detect static methods in the code.  As a workaround there is the <code>ignore_method_when_doubling</code> method.  This method takes in a variant as the first parameter and a method name as the second.  The first parameter can be a path to a script, a path to a scene, a loaded script, or a loaded scene.</p>
-<p>Calling this method will prevent GUT from trying to make a stubbed out version of the method in the generated double allowing you to successfully double your classes that contain static methods.</p>
-<p>These ignored methods are cleared after each test is ran to avoid any unexpected results in your tests, so you may want to add this call to your <code>before_each</code>.</p>
-<p>There's more info and examples on this method on the [[Methods|Asserts-and-Methods]] page.</p>
-<h3><a id="user-content-methods-with-varargs-and-nativescript-parameter-mismatches" class="anchor" aria-hidden="true" href="#methods-with-varargs-and-nativescript-parameter-mismatches"><span aria-hidden="true" class="octicon octicon-link"></span></a>Methods with varargs and NativeScript parameter mismatches</h3>
-<p>Some methods provided by Godot can contain and endless list of parameters (varargs).  Trying to call one of these methods on a double can result in runtime errors due to a paramter mismatch.  See the sections in <a href="Stubbing.html">Stubbing</a> that address parameters.</p>
-<p>Sometimes NativeScript parameters aren't found in doubles (maybe always).  This helps there too.</p>
+<!------------------------------------------------------------------------->
+<!-- THE PAGE STARTS HERE                                                -->
+<!------------------------------------------------------------------------->
+    <div class="wiki-page">
+            <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Doubles</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Doubles</h1>
+</header>
+<p>The <code>double</code> method works similarly to <code>load</code>.
+It will return a loaded class or scene that has empty implementations
+for all the methods defined in the script you pass it. It will also
+include empty implementations for any methods in user-defined super
+classes. It does not include implementations for any of the Godot
+Built-in super classes such as <code>Node2D</code> or
+<code>WindowDialog</code> (unless you have overloaded them in your
+script or in one of the user-defined super classes your script inherits
+from). Actually, you can if you use the FULL Doubling strategy described
+at the bottom of this page.</p>
+<h2 id="characteristics-of-a-double">Characteristics of a Double</h2>
+<ul>
+<li>You can double Scripts, Inner Classes, and Packed Scenes. Once you
+have a double, you can then call <code>new</code> or
+<code>instance</code> on it to create instances of a doubled
+object.</li>
+<li>The double inherits (<code>extends</code>) the base object.</li>
+<li>Doubles retain all properties/variables and their default values
+from the base object.</li>
+<li><code>_init</code> is always called on the base object by Godot. You
+cannot <a href="Stubbing.html">stub</a> <code>_init</code> "to do
+nothing" (you can stub parameters). In most cases this is not an issue
+since all the methods of a double do nothing. If it causes an issue you
+can check a parameter and then take no action in the base object's
+<code>_init</code> based on the value.</li>
+<li>If your <code>_init</code> method has required parameters you must
+<a href="Stubbing.html">stub</a> default values before trying to
+<code>double</code> the object.</li>
+<li><strong>All</strong> parameters in <strong>all</strong> functions in
+the double are defaulted to <code>null</code>. Even if they did not have
+a default value in the base object. You can <a
+href="Stubbing.html">stub</a> default parameter values for any method,
+including <code>_init</code>.</li>
+<li>All methods in a doubled object will return <code>null</code>. You
+can <a href="Stubbing.html">stub</a> a return value for all calls to a
+function, or calls with specific parameter values. You can also stub a
+method <code>to_call_super</code> causing it to retain its original
+functionality.</li>
+<li>Inner Classes in the source script will retain all of their
+functionality. They are not doubled in any way. You can create doubles
+of specific Inner Classes but the Inner Classes in a doubled script are
+not altered.</li>
+<li>You can create <a href="Partial-Doubles.html">Partial Doubles</a>
+which will act exactly like its source object but you can <a
+href="Spies.html">spy on</a> and stub any method. It's like the inverse
+of a double.</li>
+<li>All instances of Doubles and Partial Dobules are freed after a test
+finishes. This means you do not have to free them manually and you
+should not use them in <code>before_all</code>.</li>
+<li>You cannot double static methods. See "Doubling Static Methods"
+below.</li>
+</ul>
+<h3 id="doubling-a-script">Doubling a Script</h3>
+<p>To double a script just give it a path or an already loaded
+script.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> MY_SCRIPT_PATH <span class="op">=</span> <span class="st">&#39;res://my_script.gd&#39;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> MyScript <span class="op">=</span> <span class="bu">load</span>(MY_SCRIPT_PATH)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the doubled object.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> DoubledMyScript <span class="op">=</span> <span class="fu">double</span>(MY_SCRIPT_PATH)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> DoubledMyScript <span class="op">=</span> <span class="fu">double</span>(MyScript)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an instance of a doubled object</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> doubled_script <span class="op">=</span> DoubledMyScript.<span class="fu">new</span>()</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> doubled_script <span class="op">=</span> <span class="fu">double</span>(MyScript).<span class="fu">new</span>()</span></code></pre></div>
+<h3 id="doubling-an-inner-class">Doubling an Inner Class</h3>
+<p>When doubling an Inner Class you have to specify the
+path/script-object where the Inner Class is and then pass a
+<code>/</code> delimited list of Inner Classes that represents the
+hierarchy of the Inner Classes.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Given this as res://sripts/my_inners.gd</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> InnerA:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> something <span class="op">=</span> <span class="va">null</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">class</span> InnerA2:</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> something_else <span class="op">=</span> <span class="va">null</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> InnerB:</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> thing <span class="op">=</span> <span class="va">null</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># You would double the various Inner Classes like this:</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> SCRIPT_WITH_INNERS_PATH <span class="op">=</span> <span class="st">&#39;res://my_inners.gd&#39;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ScriptWithInners <span class="op">=</span> <span class="bu">load</span>(SCRIPT_WITH_INNERS_PATH)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the doubled objects</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> DoubledInnerB <span class="op">=</span> <span class="fu">double</span>(SCRIPT_WITH_INNERS_PATH, <span class="st">&#39;InnerB&#39;</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> DoubledInnerA2 <span class="op">=</span> <span class="fu">double</span>(ScriptWithInners, <span class="st">&#39;InnerA/InnerA2&#39;</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an instance of a doubled inner class</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> doubled_inner_a2 <span class="op">=</span> DoubledInnerA2.<span class="fu">new</span>()</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> doubled_inner_b <span class="op">=</span> <span class="fu">double</span>(SCRIPT_WITH_INNERS, <span class="st">&#39;InnerB&#39;</span>).<span class="fu">new</span>()</span></code></pre></div>
+<p>When doubling Inners and passing a loaded class, you have to pass the
+class that contains the Inner Class(es). Given the example above, you
+<strong>CANNOT</strong> do <code>double(ScriptWithInners.InnerB)</code>.
+You <strong>MUST</strong> always pass the path to the inner classes.</p>
+<h3 id="doubling-a-scene">Doubling a Scene</h3>
+<p>A doubled version of your scene is created along with a double of its
+script. The doubled scene is altered to load the doubled script instead
+of the original. A reference to the newly doubled scene is returned. You
+can call <code>instance</code> on the returned reference.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> MY_SCENE_PATH <span class="op">=</span> <span class="st">&#39;res://my_scene.tscn&#39;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> MyScene <span class="op">=</span> <span class="bu">load</span>(MY_SCENE_PATH)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load up the doubled objects</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> DoubledScene <span class="op">=</span> <span class="fu">double</span>(MY_SCENE_PATH)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> DoubledScene <span class="op">=</span> <span class="fu">double</span>(MyScene)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an instance</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> doubled_scene <span class="op">=</span> DoubledScene.<span class="fu">instance</span>()</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> doubled_scene <span class="op">=</span> <span class="fu">double</span>(MY_SCENE_PATH).<span class="fu">instance</span>()</span></code></pre></div>
+<h3 id="doubling-static-methods">Doubling Static Methods</h3>
+<p>Currently you cannot double static methods. In fact if you try to
+double a class with a static method then you will get an error that
+looks similar to:</p>
+<pre><code>Parser Error: Function signature doesn&#39;t match the parent. Parent signature is: &#39;Variant foo()&#39;.</code></pre>
+<p>As of now, GUT does not have the ability to detect static methods in
+the code. As a workaround there is the
+<code>ignore_method_when_doubling</code> method. This method takes in a
+variant as the first parameter and a method name as the second. The
+first parameter can be a path to a script, a path to a scene, a loaded
+script, or a loaded scene.</p>
+<p>Calling this method will prevent GUT from trying to make a stubbed
+out version of the method in the generated double allowing you to
+successfully double your classes that contain static methods.</p>
+<p>These ignored methods are cleared after each test is ran to avoid any
+unexpected results in your tests, so you may want to add this call to
+your <code>before_each</code>.</p>
+<p>There's more info and examples on this method on the
+[[Methods|Asserts-and-Methods]] page.</p>
+<h3
+id="methods-with-varargs-and-nativescript-parameter-mismatches">Methods
+with varargs and NativeScript parameter mismatches</h3>
+<p>Some methods provided by Godot can contain and endless list of
+parameters (varargs). Trying to call one of these methods on a double
+can result in runtime errors due to a paramter mismatch. See the
+sections in <a href="Stubbing.html">Stubbing</a> that address
+parameters.</p>
+<p>Sometimes NativeScript parameters aren't found in doubles (maybe
+always). This helps there too.</p>
 <p>For even more reading see issues #252 and #246.</p>
-<h3><a id="user-content-doubled-method-default-parameters" class="anchor" aria-hidden="true" href="#doubled-method-default-parameters"><span aria-hidden="true" class="octicon octicon-link"></span></a>Doubled method default parameters</h3>
-<p>GUT stubs all parameters in doubled user methods to be <code>null</code>.  This is because Godot only provides defaults for built-in methods.  When using partial-doubles or stubbing a method <code>to_call_super</code> <code>null</code> can get passed around when you wouldn't expect it causing errors such as <code>Invalid operands 'int' and 'Nil'</code>.  See the "Stubbing Method Paramter Defaults" in <a href="Stubbing.html">Stubbing</a> for a way to stub method default values.</p>
-<h3><a id="user-content-doubling-built-ins" class="anchor" aria-hidden="true" href="#doubling-built-ins"><span aria-hidden="true" class="octicon octicon-link"></span></a>Doubling Built-Ins</h3>
-<p>You can <code>double</code> built-in objects that are not inherited by a script such as a <code>Node2D</code> or a <code>Raycast2D</code>.  These doubles are always created using the Doubling Strategy of "FULL" (see below) since there are not any overloaded methods.</p>
-<p>For example you can <code>double</code> or <code>partial_double</code> like this:</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> doubled_node2d <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">Node2D</span>).<span class="pl-c1">new</span>()
-<span class="pl-c1">stub</span>(doubled_node2d, <span class="pl-s">'get_position'</span>).<span class="pl-c1">to_return</span>(-<span class="pl-c1">1</span>)
-
-<span class="pl-k">var</span> partial_doubled_raycast <span class="pl-k">=</span> <span class="pl-c1">partial_double</span>(<span class="pl-c1">Raycast2D</span>).<span class="pl-c1">new</span>()</pre></div>
-<h1><a id="user-content-what-do-i-do-with-my-double" class="anchor" aria-hidden="true" href="#what-do-i-do-with-my-double"><span aria-hidden="true" class="octicon octicon-link"></span></a>What Do I Do With My Double?</h1>
-<p>Doubles are useful when you want to test an object that requires another object but you don't want to be deal with the overhead of other object's implementation.</p>
-<p>Sometimes an empty implementation isn't enough.  Sometimes you need specific values or things to be returned from one of your doubled methods.  For this we have <a href="Stubbing.html">Stubbing</a>.  Stubbing allows you to specify return values in various different scenarios such as "returning a 9 whenever a method is called" or "returning 57 when a method is called with the parameters 'a' and 24".</p>
-<p>You can also <a href="Spies.html">spy on</a> your double.  Once you have a double there are special <code>asserts</code> that can be used with it to verify that a method in the doubled object was called.  You can <code>assert</code> very specific calls too, such as with a specific list of parameters, or make sure it was called a certain number of times.</p>
-<h1><a id="user-content-the-fine-details" class="anchor" aria-hidden="true" href="#the-fine-details"><span aria-hidden="true" class="octicon octicon-link"></span></a>The Fine Details</h1>
-<h2><a id="user-content-example-of-script-vs-built-in-doubling" class="anchor" aria-hidden="true" href="#example-of-script-vs-built-in-doubling"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example of Script vs Built-in doubling</h2>
-<p>Only methods that have been defined in the script you pass in OR methods that have been defined in parent scripts get the empty implementation in the double.  Methods defined in any built-in Godot class do not get overridden <strong>unless</strong> the script (or parent script(s)) have them implemented.</p>
-<p>This is in the process of being changed but it is not fully implemented yet.  See the section on Double Strategies.</p>
-<p>For example, given the following script at location <code>res://example.gd</code></p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">extends</span><span class="pl-e"> Node2D</span>
-
-<span class="pl-k">var</span> _value <span class="pl-k">=</span> <span class="pl-c1">1</span>
-<span class="pl-k">func</span> <span class="pl-en">set_position</span>(<span class="pl-smi">pos</span>):
-  <span class="pl-c1">print</span>(<span class="pl-s">'setting position'</span>)
-  .<span class="pl-c1">set_position</span>(pos)
-
-<span class="pl-k">func</span> <span class="pl-en">get_value</span>():
-  <span class="pl-k">return</span> _value
-
-<span class="pl-k">func</span> <span class="pl-en">set_value</span>(<span class="pl-smi">value</span>):
-  _value <span class="pl-k">=</span> value</pre></div>
+<h3 id="doubled-method-default-parameters">Doubled method default
+parameters</h3>
+<p>GUT stubs all parameters in doubled user methods to be
+<code>null</code>. This is because Godot only provides defaults for
+built-in methods. When using partial-doubles or stubbing a method
+<code>to_call_super</code> <code>null</code> can get passed around when
+you wouldn't expect it causing errors such as
+<code>Invalid operands 'int' and 'Nil'</code>. See the "Stubbing Method
+Paramter Defaults" in <a href="Stubbing.html">Stubbing</a> for a way to
+stub method default values.</p>
+<h3 id="doubling-built-ins">Doubling Built-Ins</h3>
+<p>You can <code>double</code> built-in objects that are not inherited
+by a script such as a <code>Node2D</code> or a <code>Raycast2D</code>.
+These doubles are always created using the Doubling Strategy of "FULL"
+(see below) since there are not any overloaded methods.</p>
+<p>For example you can <code>double</code> or
+<code>partial_double</code> like this:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> doubled_node2d <span class="op">=</span> <span class="fu">double</span>(Node2D).<span class="fu">new</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(doubled_node2d, <span class="st">&#39;get_position&#39;</span>).<span class="fu">to_return</span>(<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> partial_doubled_raycast <span class="op">=</span> <span class="fu">partial_double</span>(Raycast2D).<span class="fu">new</span>()</span></code></pre></div>
+<h1 id="what-do-i-do-with-my-double">What Do I Do With My Double?</h1>
+<p>Doubles are useful when you want to test an object that requires
+another object but you don't want to be deal with the overhead of other
+object's implementation.</p>
+<p>Sometimes an empty implementation isn't enough. Sometimes you need
+specific values or things to be returned from one of your doubled
+methods. For this we have <a href="Stubbing.html">Stubbing</a>. Stubbing
+allows you to specify return values in various different scenarios such
+as "returning a 9 whenever a method is called" or "returning 57 when a
+method is called with the parameters 'a' and 24".</p>
+<p>You can also <a href="Spies.html">spy on</a> your double. Once you
+have a double there are special <code>asserts</code> that can be used
+with it to verify that a method in the doubled object was called. You
+can <code>assert</code> very specific calls too, such as with a specific
+list of parameters, or make sure it was called a certain number of
+times.</p>
+<h1 id="the-fine-details">The Fine Details</h1>
+<h2 id="example-of-script-vs-built-in-doubling">Example of Script vs
+Built-in doubling</h2>
+<p>Only methods that have been defined in the script you pass in OR
+methods that have been defined in parent scripts get the empty
+implementation in the double. Methods defined in any built-in Godot
+class do not get overridden <strong>unless</strong> the script (or
+parent script(s)) have them implemented.</p>
+<p>This is in the process of being changed but it is not fully
+implemented yet. See the section on Double Strategies.</p>
+<p>For example, given the following script at location
+<code>res://example.gd</code></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extends</span> Node2D</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> <span class="co">_value</span> <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">set_position</span>(pos):</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">&#39;setting position&#39;</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  .<span class="fu">set_position</span>(pos)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">get_value</span>():</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="co">_value</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">set_value</span>(value):</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">_value</span> <span class="op">=</span> value</span></code></pre></div>
 <p>And, in a test, you double this class:</p>
-<pre><code>  var Doubled = double('res://example.gd')
-  var doubled = Doubled.new()
-</code></pre>
+<pre><code>  var Doubled = double(&#39;res://example.gd&#39;)
+  var doubled = Doubled.new()</code></pre>
 <p>Then:</p>
 <ul>
-<li>You can stub <code>get_value</code>, <code>set_value</code>, <code>set_position</code>.</li>
-<li>You <strong>cannot</strong> stub <code>get_position</code> since this class does not implement it.  This will result in a runtime error.</li>
-<li>You can use <code>assert_method(doubled, 'get_value')</code>
-</li>
-<li>You <strong>should not</strong> use <code>assert_method(doubled, 'get_position')</code>.  <em>You can but it will always return 0.</em>
-</li>
+<li>You can stub <code>get_value</code>, <code>set_value</code>,
+<code>set_position</code>.</li>
+<li>You <strong>cannot</strong> stub <code>get_position</code> since
+this class does not implement it. This will result in a runtime
+error.</li>
+<li>You can use <code>assert_method(doubled, 'get_value')</code></li>
+<li>You <strong>should not</strong> use
+<code>assert_method(doubled, 'get_position')</code>. <em>You can but it
+will always return 0.</em></li>
 </ul>
-<h1><a id="user-content-doubling-strategy" class="anchor" aria-hidden="true" href="#doubling-strategy"><span aria-hidden="true" class="octicon octicon-link"></span></a>Doubling Strategy</h1>
-<p>Remember all that stuff I said earlier about not being able to double Godot Built-Ins?  Forget about it...or forget half of it, maybe 45% of it.</p>
-<p>You can <a href="Spies.html">spy on</a> and stub most of the Built-Ins in Godot if you enable the <code>FULL</code> Doubling Strategy. I've enabled this feature in my own game and it didn't crash (I currently have 75 test scripts and 3633 asserts).  As reassuring as that was I'm still not sure that it won't blow up for someone so it is off by default.</p>
-<p>The following methods cannot be spied on due to implementation details with either Gut or GDScript.  There might be more.</p>
+<h1 id="doubling-strategy">Doubling Strategy</h1>
+<p>Remember all that stuff I said earlier about not being able to double
+Godot Built-Ins? Forget about it...or forget half of it, maybe 45% of
+it.</p>
+<p>You can <a href="Spies.html">spy on</a> and stub most of the
+Built-Ins in Godot if you enable the <code>FULL</code> Doubling
+Strategy. I've enabled this feature in my own game and it didn't crash
+(I currently have 75 test scripts and 3633 asserts). As reassuring as
+that was I'm still not sure that it won't blow up for someone so it is
+off by default.</p>
+<p>The following methods cannot be spied on due to implementation
+details with either Gut or GDScript. There might be more.</p>
 <pre><code>has_method      _draw
 get_script      _physics_process
 get             _input
@@ -159,35 +430,47 @@ _notification   _unhandled_input
 get_path        _unhandled_key_input
 _enter_tree     _get
 _exit_tree      emit_signal
-_process        _set
-</code></pre>
-<h5><a id="user-content-remember" class="anchor" aria-hidden="true" href="#remember"><span aria-hidden="true" class="octicon octicon-link"></span></a>Remember</h5>
-<p>If you've defined one of these methods in your class then you can double/spy on them just as you normally would.</p>
-<h2><a id="user-content-setting-the-doubling-strategy" class="anchor" aria-hidden="true" href="#setting-the-doubling-strategy"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setting the Doubling Strategy</h2>
-<p>You can set the default strategy from the command line, .gutconfig, or by calling <code>set_double_strategy</code> on your Gut instance.</p>
-<p>You can also override the default strategy at the Test Script level or for a specific call to <code>double</code>.  When set at the script level, it will reset at the end of the script or Inner Test Class.  When passed to <code>double</code> it will only take effect for that one double.</p>
-<h3><a id="user-content-gutconfig" class="anchor" aria-hidden="true" href="#gutconfig"><span aria-hidden="true" class="octicon octicon-link"></span></a>.gutconfig</h3>
-<p>Valid values are <code>partial</code>(default) or <code>full</code></p>
-<pre><code>"double_strategy":"full"
-</code></pre>
-<h3><a id="user-content-command-line" class="anchor" aria-hidden="true" href="#command-line"><span aria-hidden="true" class="octicon octicon-link"></span></a>Command Line</h3>
-<p>Use the <code>-gdouble_strategy</code> option with the values <code>partial</code> or <code>full</code></p>
-<pre><code>-gdouble_strategy=full
-</code></pre>
-<h3><a id="user-content-script-level" class="anchor" aria-hidden="true" href="#script-level"><span aria-hidden="true" class="octicon octicon-link"></span></a>Script Level</h3>
+_process        _set</code></pre>
+<h5 id="remember">Remember</h5>
+<p>If you've defined one of these methods in your class then you can
+double/spy on them just as you normally would.</p>
+<h2 id="setting-the-doubling-strategy">Setting the Doubling
+Strategy</h2>
+<p>You can set the default strategy from the command line, .gutconfig,
+or by calling <code>set_double_strategy</code> on your Gut instance.</p>
+<p>You can also override the default strategy at the Test Script level
+or for a specific call to <code>double</code>. When set at the script
+level, it will reset at the end of the script or Inner Test Class. When
+passed to <code>double</code> it will only take effect for that one
+double.</p>
+<h3 id="gutconfig">.gutconfig</h3>
+<p>Valid values are <code>partial</code>(default) or
+<code>full</code></p>
+<pre><code>&quot;double_strategy&quot;:&quot;full&quot;</code></pre>
+<h3 id="command-line">Command Line</h3>
+<p>Use the <code>-gdouble_strategy</code> option with the values
+<code>partial</code> or <code>full</code></p>
+<pre><code>-gdouble_strategy=full</code></pre>
+<h3 id="script-level">Script Level</h3>
 <pre><code>set_double_strategy(DOUBLE_STRATEGY.FULL)
-set_double_strategy(DOUBLE_STRATEGY.PARTIAL)
-</code></pre>
-<h3><a id="user-content-when-calling-double" class="anchor" aria-hidden="true" href="#when-calling-double"><span aria-hidden="true" class="octicon octicon-link"></span></a>When Calling <code>double</code>
-</h3>
-<p>Just add another parameter to your call to <code>double</code> using the <code>DOUBLE_STRATEGY</code> enum.</p>
-<pre><code>double('res://thing.gd', DOUBLE_STRATEGY.PARTIAL)
-double('res://inners.gd', 'InnerA', DOUBLE_STRATEGY.FULL)
-double('res://my_scene.tscn', DOUBLE_STRATEGY.PARTIAL)
-</code></pre>
-<h1><a id="user-content-where-to-next" class="anchor" aria-hidden="true" href="#where-to-next"><span aria-hidden="true" class="octicon octicon-link"></span></a>Where to next?</h1>
+set_double_strategy(DOUBLE_STRATEGY.PARTIAL)</code></pre>
+<h3 id="when-calling-double">When Calling <code>double</code></h3>
+<p>Just add another parameter to your call to <code>double</code> using
+the <code>DOUBLE_STRATEGY</code> enum.</p>
+<pre><code>double(&#39;res://thing.gd&#39;, DOUBLE_STRATEGY.PARTIAL)
+double(&#39;res://inners.gd&#39;, &#39;InnerA&#39;, DOUBLE_STRATEGY.FULL)
+double(&#39;res://my_scene.tscn&#39;, DOUBLE_STRATEGY.PARTIAL)</code></pre>
+<h1 id="where-to-next">Where to next?</h1>
 <ul>
 <li><a href="Stubbing.html">Stubbing</a></li>
 <li><a href="Spies.html">Spies</a></li>
 </ul>
-</article></body>
+</body>
+</html>
+
+            </embed>
+    </div>
+
+</body>
+
+</html>

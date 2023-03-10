@@ -1,40 +1,161 @@
+<html>
 
-        <html><head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            .markdown-body {
-                box-sizing: border-box;
-                min-width: 200px;
-                max-width: 980px;
-                margin: 0 auto;
-                padding: 45px;
-            }
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="maincss" rel="stylesheet" href="github-markdown.css">
+    <link rel="stylesheet" href="exported_wiki.css">
+</head>
 
-            @media (max-width: 767px) {
-                .markdown-body {
-                    padding: 15px;
-                }
-            }
-        </style>
-        <link rel="stylesheet" href="github-markdown.css"/>
-</head><body><article class="markdown-body"><h1><a id="user-content-tutorials" class="anchor" aria-hidden="true" href="#tutorials"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tutorials</h1>
-<p>Here's a list of known tutorials.</p>
-<h1><a id="user-content-butch-teaches-typing" class="anchor" aria-hidden="true" href="#butch-teaches-typing"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://www.youtube.com/channel/UCkGO6guRt_5fOh3oDHbfg9w" rel="nofollow">Butch Teaches Typing</a></h1>
-<p>All "Butch Teaches Typing" code can be found <a href="https://github.com/bitwes/GutTutorials">here</a></p>
+
+<body>
+
+<!------------------------------------------------------------------------->
+<!-- THE TOC STARTS HERE                                                 -->
+<!------------------------------------------------------------------------->
+
+    <div id="toc" class="w3-sidebar w3-border-right">
+        <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Gut Wiki</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Gut Wiki</h1>
+</header>
+<h3 id="741-godot-3x">7.4.1 (Godot 3.x)</h3>
 <ul>
-<li>
-<a href="https://www.youtube.com/watch?v=DZ7NVJOpemg&amp;t=9s" rel="nofollow">Command Line Setup</a> Starts with an empty project and installs GUT, creates tests, and covers a bunch of command line options all without ever launching the Godot editor.</li>
-<li>
-<a href="https://www.youtube.com/watch?v=nF2gPF69Dc4&amp;t=3s" rel="nofollow">TDD and PONG Episode 1</a> First in a series of videos implementing Pong using a TDD approach.  Starts with an empty project and implements the Ball.</li>
-<li>
-<a href="https://www.youtube.com/watch?v=rNN0Xw1R_1E&amp;t=2s" rel="nofollow">TDD and PONG Episode 2</a> Continues from episode 1.  This episode implements the walls and covers some simple doubling, stubbing, and spying.</li>
-<li>
-<a href="https://www.youtube.com/watch?v=gf8U_XI4BHw&amp;t=10s" rel="nofollow">TDD and PONG Episode 3</a>In this episode we make the paddle and make the ball bounce off the paddle.  We use some spies to verify calls to methods and verify some random output.  Pretty good fun.</li>
-<li>
-<a href="https://www.youtube.com/watch?v=xmS_VfUPOo8&amp;t=47s" rel="nofollow">TDD and PONG Episode IV</a>In this episode we end up with a working, if not simple, game.  Paddles move, scores are kept, and the game ends.</li>
-<li>
-<a href="https://www.youtube.com/watch?v=tWNswMIJHKk&amp;t=2s" rel="nofollow">In-Editor Gut Panle Features</a> Covers some of the In-Editor Gut Panel features as of 7.3.0</li>
-<li>
-<a href="https://www.youtube.com/watch?v=cRKppa9R7ZQ" rel="nofollow">Mocking Input</a> Implements double jump in the Godot 2D Platformer by using the <code>InputSender</code> class in some integration tests.</li>
+<li><a href="Asserts-and-Methods.html">Asserts-and-Methods</a></li>
+<li><a href="Command-Line.html">Command-Line</a></li>
+<li><a href="Comparing-Things.html">Comparing-Things</a></li>
+<li><a href="Contributing.html">Contributing</a></li>
+<li><a href="Creating-Tests.html">Creating-Tests</a></li>
+<li><a href="Doubles.html">Doubles</a></li>
+<li><a href="Export-Test-Results.html">Export-Test-Results</a></li>
+<li><a
+href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
+<li><a href="Home.html">Home</a></li>
+<li><a href="Hooks.html">Hooks</a></li>
+<li><a href="Inner-Test-Classes.html">Inner-Test-Classes</a></li>
+<li><a href="Input-Factory.html">Input-Factory</a></li>
+<li><a href="Install.html">Install</a></li>
+<li><a href="Memory-Management.html">Memory-Management</a></li>
+<li><a href="Mock-Input.html">Mock-Input</a></li>
+<li><a href="Orphans.html">Orphans</a></li>
+<li><a href="Parameterized-Tests.html">Parameterized-Tests</a></li>
+<li><a href="Partial-Doubles.html">Partial-Doubles</a></li>
+<li><a href="Quick-Start.html">Quick-Start</a></li>
+<li><a href="Running-On-Devices.html">Running-On-Devices</a></li>
+<li><a href="Simulate.html">Simulate</a></li>
+<li><a href="Spies.html">Spies</a></li>
+<li><a href="Stubbing.html">Stubbing</a></li>
+<li><a href="Tutorials.html">Tutorials</a></li>
+<li><a href="Yielding.html">Yielding</a></li>
 </ul>
-</article></body>
+</body>
+</html>
+
+        </embed>
+    </div>
+
+
+<!------------------------------------------------------------------------->
+<!-- THE PAGE STARTS HERE                                                -->
+<!------------------------------------------------------------------------->
+    <div class="wiki-page">
+            <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Tutorials</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Tutorials</h1>
+</header>
+<p>Here's a list of known tutorials.</p>
+<h1 id="butch-teaches-typing"><a
+href="https://www.youtube.com/channel/UCkGO6guRt_5fOh3oDHbfg9w">Butch
+Teaches Typing</a></h1>
+<p>All "Butch Teaches Typing" code can be found <a
+href="https://github.com/bitwes/GutTutorials">here</a></p>
+<ul>
+<li><a
+href="https://www.youtube.com/watch?v=DZ7NVJOpemg&amp;t=9s">Command Line
+Setup</a> Starts with an empty project and installs GUT, creates tests,
+and covers a bunch of command line options all without ever launching
+the Godot editor.</li>
+<li><a href="https://www.youtube.com/watch?v=nF2gPF69Dc4&amp;t=3s">TDD
+and PONG Episode 1</a> First in a series of videos implementing Pong
+using a TDD approach. Starts with an empty project and implements the
+Ball.</li>
+<li><a href="https://www.youtube.com/watch?v=rNN0Xw1R_1E&amp;t=2s">TDD
+and PONG Episode 2</a> Continues from episode 1. This episode implements
+the walls and covers some simple doubling, stubbing, and spying.</li>
+<li><a href="https://www.youtube.com/watch?v=gf8U_XI4BHw&amp;t=10s">TDD
+and PONG Episode 3</a>In this episode we make the paddle and make the
+ball bounce off the paddle. We use some spies to verify calls to methods
+and verify some random output. Pretty good fun.</li>
+<li><a href="https://www.youtube.com/watch?v=xmS_VfUPOo8&amp;t=47s">TDD
+and PONG Episode IV</a>In this episode we end up with a working, if not
+simple, game. Paddles move, scores are kept, and the game ends.</li>
+<li><a
+href="https://www.youtube.com/watch?v=tWNswMIJHKk&amp;t=2s">In-Editor
+Gut Panle Features</a> Covers some of the In-Editor Gut Panel features
+as of 7.3.0</li>
+<li><a href="https://www.youtube.com/watch?v=cRKppa9R7ZQ">Mocking
+Input</a> Implements double jump in the Godot 2D Platformer by using the
+<code>InputSender</code> class in some integration tests.</li>
+</ul>
+</body>
+</html>
+
+            </embed>
+    </div>
+
+</body>
+
+</html>

@@ -1,177 +1,267 @@
+<html>
 
-        <html><head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            .markdown-body {
-                box-sizing: border-box;
-                min-width: 200px;
-                max-width: 980px;
-                margin: 0 auto;
-                padding: 45px;
-            }
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="maincss" rel="stylesheet" href="github-markdown.css">
+    <link rel="stylesheet" href="exported_wiki.css">
+</head>
 
-            @media (max-width: 767px) {
-                .markdown-body {
-                    padding: 15px;
-                }
-            }
-        </style>
-        <link rel="stylesheet" href="github-markdown.css"/>
-</head><body><article class="markdown-body"><h1><a id="user-content-gut-settings-and-methods" class="anchor" aria-hidden="true" href="#gut-settings-and-methods"><span aria-hidden="true" class="octicon octicon-link"></span></a>Gut-Settings-And-Methods</h1>
-<h1><a id="user-content--gut-settings" class="anchor" aria-hidden="true" href="#-gut-settings"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-gut_settings"> Gut Settings</a></h1>
-<p>These settings are for the GUT node that can be added to a scene.  The most common scenario for using a scene (now that we have the GutPanel) is to run tests in a depoloyed build.  These are not the settings for the in-editor GutPanel.  Mouse over settings in the GutPanel for description.</p>
-<p>When using a GUT node in a scene, the following settings can be found in the Inspector.</p>
-<table>
-<thead>
-<tr>
-<th>Setting</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Run On Load</td>
-<td>Flag to indicate if Gut should start running tests when loaded.</td>
-</tr>
-<tr>
-<td>Should Maximize</td>
-<td>Flag to maximize the Gut window upon launch.</td>
-</tr>
-<tr>
-<td>Select Script</td>
-<td>Select the named script in the drop down.  When this is set and "Run On Load" is true, only this script will be run.</td>
-</tr>
-<tr>
-<td>Tests Like</td>
-<td>Only tests that contain the set text will be run initially.</td>
-</tr>
-<tr>
-<td>Should Print To Console</td>
-<td>Print output to the console as well as to Gut.</td>
-</tr>
-<tr>
-<td>Log Level</td>
-<td>Set the level of output.</td>
-</tr>
-<tr>
-<td>Yield Between Tests</td>
-<td>A short yield is performed by Gut so that the Gut control has a chance to redraw.  This increases execution time by a tiny bit, but stops Gut from appearing to be hung up while it runs tests.</td>
-</tr>
-<tr>
-<td>Disable Strict Datatype Checks</td>
-<td>All asserts check datatypes before making comparisions to avoid runtime errors.  Disabling this was added for backwards compatability.</td>
-</tr>
-<tr>
-<td>Test Prefix</td>
-<td>The prefix used on all test functions.  This prefixed will be used by Gut to find tests inside your test scripts.</td>
-</tr>
-<tr>
-<td>File Prefix</td>
-<td>The prefix used on all test files.  This is used in conjunction with the Directory settings to find tests.</td>
-</tr>
-<tr>
-<td>File Suffix</td>
-<td>This is the suffix it will use to find test files (must include the ".gd" extension).</td>
-</tr>
-<tr>
-<td>Inner Class Prefix</td>
-<td>This is the prefix that Gut will use to find Inner Classes that are test scripts.</td>
-</tr>
-<tr>
-<td>Inner Class Name</td>
-<td>Only run Inner Classes that have names that contain the specified string.</td>
-</tr>
-<tr>
-<td>Include Subdirectories</td>
-<td>Include subdirectories when looking for tests.  This applies to the 6 "Directory" settings.</td>
-</tr>
-<tr>
-<td>Directory(1-6)</td>
-<td>The path to the directories where your test scripts are located.  If you need more than six directories you can use the <code>add_directory</code> method to add more.</td>
-</tr>
-<tr>
-<td>Color Output</td>
-<td>Unix style escape codes can be used for some color formatting of the ouput to the console.  This doesn't work with the Godot console so it is disabled by default in the editor but is enabled by default when using the command line tool.</td>
-</tr>
-<tr>
-<td>Pre-run script</td>
-<td>Path to a script that will run before all tests are ran.  See <a href="Hooks.html">Hooks</a>
-</td>
-</tr>
-<tr>
-<td>Post-run script</td>
-<td>Path to a script that will run after all tests are ran.  See <a href="Hooks.html">Hooks</a>
-</td>
-</tr>
-<tr>
-<td>Junit Xml File</td>
-<td>Gut will export test results in the JUnit XML format to this file when set.</td>
-</tr>
-<tr>
-<td>Junit Xml Timestamp</td>
-<td>If checked, Gut will insert an epoch timestamp into the "Junit Xml File" filename.</td>
-</tr>
-</tbody>
-</table>
-<h2><a id="user-content--methods-for-configuring-the-execution-of-tests" class="anchor" aria-hidden="true" href="#-methods-for-configuring-the-execution-of-tests"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-gut_methods"> Methods for Configuring the Execution of Tests</a></h2>
-<p><strong>When interacting with the GUT scene you must wait until it has completed initialization.  GUT will emit the <code>gut_ready</code> signal.  Do not interact with GUT until this signal has been emitted.</strong></p>
-<p>These methods would be used inside the scene you created at <code>res://test/tests.tcn</code>.  These methods can be called against the Gut node you created.  Most of these are not necessary anymore since you can configure Gut in the editor but they are here if you want to use them.</p>
-<p><i><strong>**</strong> indicates the option can be set via the editor</i></p>
+
+<body>
+
+<!------------------------------------------------------------------------->
+<!-- THE TOC STARTS HERE                                                 -->
+<!------------------------------------------------------------------------->
+
+    <div id="toc" class="w3-sidebar w3-border-right">
+        <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Gut Wiki</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Gut Wiki</h1>
+</header>
+<h3 id="741-godot-3x">7.4.1 (Godot 3.x)</h3>
 <ul>
-<li>
-<code>add_script(script, select_this_one=false)</code> add a script to be tetsted with test_scripts</li>
-<li>
-<strong>**</strong><code>add_directory(path, prefix='test_', suffix='.gd')</code> add a directory of test scripts that start with prefix and end with suffix.  Subdirectories not included.  This method is useful if you have more than the 6 directories the editor allows you to configure.  You can use this to add others.</li>
-<li>
-<strong>**</strong><code>test_scripts()</code> run all scripts added with add_script or add_directory.  If you leave this out of your script then you can select which script will run, but you must press the "run" button to start the tests.</li>
-<li>
-<code>test_script(script)</code> runs a single script immediately.</li>
-<li>
-<strong>**</strong><code>select_script(script_name)</code> sets a script added with <code>add_script</code> or <code>add_directory</code> to be initially selected.  This allows you to run one script instead of all the scripts.  This will select the first script it finds that contains the specified string.</li>
-<li>
-<code>get_test_count()</code> return the number of tests run</li>
-<li>
-<code>get_assert_count()</code> return the number of assertions that were made</li>
-<li>
-<code>get_pass_count()</code> return the number of tests that passed</li>
-<li>
-<code>get_fail_count()</code> return the number of tests that failed</li>
-<li>
-<code>get_pending_count()</code> return the number of tests that were pending</li>
-<li>
-<strong>**</strong><code>get/set_should_print_to_console(should)</code> accessors for printing to console</li>
-<li>
-<code>get_result_text()</code> returns all the text contained in the GUI</li>
-<li>
-<code>clear_text()</code> clears the text in the GUI</li>
-<li>
-<code>set_ignore_pause_before_teardown(should_ignore)</code> causes GUI to disregard any calls to pause_before_teardown.  This is useful when you want to run in a batch mode.</li>
-<li>
-<strong>**</strong><code>set_yield_between_tests(should)</code> will pause briefly between every 5 tests so that you can see progress in the GUI.  If this is left out, it  can seem like the program has hung when running longer test sets.</li>
-<li>
-<strong>**</strong><code>get/set_log_level(level)</code> see section on log level for list of values.</li>
-<li>
-<strong>**</strong><code>disable_strict_datatype_checks(true)</code> disables strict datatype checks.  See section on "Strict type checking" before disabling.</li>
-<li>
-<strong>**</strong> <code>maximize()</code> maximizes the gut window.</li>
-<li>
-<strong>**</strong> <code>get/set_include_subdirectories(should)</code> flag to include subdirectories when <code>add_directory</code> is called.  This is <code>false</code> by default.</li>
+<li><a href="Asserts-and-Methods.html">Asserts-and-Methods</a></li>
+<li><a href="Command-Line.html">Command-Line</a></li>
+<li><a href="Comparing-Things.html">Comparing-Things</a></li>
+<li><a href="Contributing.html">Contributing</a></li>
+<li><a href="Creating-Tests.html">Creating-Tests</a></li>
+<li><a href="Doubles.html">Doubles</a></li>
+<li><a href="Export-Test-Results.html">Export-Test-Results</a></li>
+<li><a
+href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
+<li><a href="Home.html">Home</a></li>
+<li><a href="Hooks.html">Hooks</a></li>
+<li><a href="Inner-Test-Classes.html">Inner-Test-Classes</a></li>
+<li><a href="Input-Factory.html">Input-Factory</a></li>
+<li><a href="Install.html">Install</a></li>
+<li><a href="Memory-Management.html">Memory-Management</a></li>
+<li><a href="Mock-Input.html">Mock-Input</a></li>
+<li><a href="Orphans.html">Orphans</a></li>
+<li><a href="Parameterized-Tests.html">Parameterized-Tests</a></li>
+<li><a href="Partial-Doubles.html">Partial-Doubles</a></li>
+<li><a href="Quick-Start.html">Quick-Start</a></li>
+<li><a href="Running-On-Devices.html">Running-On-Devices</a></li>
+<li><a href="Simulate.html">Simulate</a></li>
+<li><a href="Spies.html">Spies</a></li>
+<li><a href="Stubbing.html">Stubbing</a></li>
+<li><a href="Tutorials.html">Tutorials</a></li>
+<li><a href="Yielding.html">Yielding</a></li>
 </ul>
-<h1><a id="user-content--extras" class="anchor" aria-hidden="true" href="#-extras"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-extras"> Extras</a></h1>
-<h2><a id="user-content--strict-type-checking" class="anchor" aria-hidden="true" href="#-strict-type-checking"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-strict"> Strict type checking</a></h2>
-<p>Gut performs type checks in the asserts when comparing two different types that would normally cause a runtime error.  With the type checking enabled (on be default) your test will fail instead of crashing.  Some types are ok to be compared such as Floats and Integers but if you attempt to compare a String with a Float your test will fail instead of blowing up.</p>
-<p>You can disable this behavior if you like by calling <code>disable_strict_datatype_checks(true)</code> on your Gut node or by clicking the checkbox to "Disable Strict Datatype Checks" in the editor.</p>
-<h2><a id="user-content--output-detail" class="anchor" aria-hidden="true" href="#-output-detail"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-output_detail"> Output Detail</a></h2>
-<p>The level of detail that is printed to the screen can be changed using the slider on the dialog or by calling <code>set_log_level</code> with one of the following constants defined in Gut</p>
+</body>
+</html>
+
+        </embed>
+    </div>
+
+
+<!------------------------------------------------------------------------->
+<!-- THE PAGE STARTS HERE                                                -->
+<!------------------------------------------------------------------------->
+    <div class="wiki-page">
+            <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Gut-Settings-And-Methods</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Gut-Settings-And-Methods</h1>
+</header>
+<h1 id="-gut-settings"><a name="gut_settings"> Gut Settings</h1>
+<p>These settings are for the GUT node that can be added to a scene. The
+most common scenario for using a scene (now that we have the GutPanel)
+is to run tests in a depoloyed build. These are not the settings for the
+in-editor GutPanel. Mouse over settings in the GutPanel for
+description.</p>
+<p>When using a GUT node in a scene, the following settings can be found
+in the Inspector. | Setting | Description| | --- | --- | | Run On Load|
+Flag to indicate if Gut should start running tests when loaded.| |Should
+Maximize|Flag to maximize the Gut window upon launch.| |Select
+Script|Select the named script in the drop down. When this is set and
+"Run On Load" is true, only this script will be run.| |Tests Like|Only
+tests that contain the set text will be run initially.| |Should Print To
+Console|Print output to the console as well as to Gut.| |Log Level|Set
+the level of output.| |Yield Between Tests|A short yield is performed by
+Gut so that the Gut control has a chance to redraw. This increases
+execution time by a tiny bit, but stops Gut from appearing to be hung up
+while it runs tests.| |Disable Strict Datatype Checks|All asserts check
+datatypes before making comparisions to avoid runtime errors. Disabling
+this was added for backwards compatability.| |Test Prefix|The prefix
+used on all test functions. This prefixed will be used by Gut to find
+tests inside your test scripts.| |File Prefix|The prefix used on all
+test files. This is used in conjunction with the Directory settings to
+find tests.| |File Suffix|This is the suffix it will use to find test
+files (must include the ".gd" extension).| |Inner Class Prefix|This is
+the prefix that Gut will use to find Inner Classes that are test
+scripts.| |Inner Class Name|Only run Inner Classes that have names that
+contain the specified string.| |Include Subdirectories|Include
+subdirectories when looking for tests. This applies to the 6 "Directory"
+settings.| |Directory(1-6)|The path to the directories where your test
+scripts are located. If you need more than six directories you can use
+the <code>add_directory</code> method to add more.| |Color Output| Unix
+style escape codes can be used for some color formatting of the ouput to
+the console. This doesn't work with the Godot console so it is disabled
+by default in the editor but is enabled by default when using the
+command line tool.| |Pre-run script| Path to a script that will run
+before all tests are ran. See <a href="Hooks.html">Hooks</a>| |Post-run
+script| Path to a script that will run after all tests are ran. See <a
+href="Hooks.html">Hooks</a>| |Junit Xml File | Gut will export test
+results in the JUnit XML format to this file when set.| |Junit Xml
+Timestamp| If checked, Gut will insert an epoch timestamp into the
+"Junit Xml File" filename.|</p>
+<h2
+id="-methods-for-configuring-the-execution-of-tests"><a name="gut_methods">
+Methods for Configuring the Execution of Tests</h2>
+<p><strong>When interacting with the GUT scene you must wait until it
+has completed initialization. GUT will emit the <code>gut_ready</code>
+signal. Do not interact with GUT until this signal has been
+emitted.</strong></p>
+<p>These methods would be used inside the scene you created at
+<code>res://test/tests.tcn</code>. These methods can be called against
+the Gut node you created. Most of these are not necessary anymore since
+you can configure Gut in the editor but they are here if you want to use
+them.</p>
+<p><i><strong>**</strong> indicates the option can be set via the
+editor</i></p>
+<ul>
+<li><code>add_script(script, select_this_one=false)</code> add a script
+to be tetsted with test_scripts</li>
+<li><strong>**</strong><code>add_directory(path, prefix='test_', suffix='.gd')</code>
+add a directory of test scripts that start with prefix and end with
+suffix. Subdirectories not included. This method is useful if you have
+more than the 6 directories the editor allows you to configure. You can
+use this to add others.</li>
+<li><strong>**</strong><code>test_scripts()</code> run all scripts added
+with add_script or add_directory. If you leave this out of your script
+then you can select which script will run, but you must press the "run"
+button to start the tests.</li>
+<li><code>test_script(script)</code> runs a single script
+immediately.</li>
+<li><strong>**</strong><code>select_script(script_name)</code> sets a
+script added with <code>add_script</code> or <code>add_directory</code>
+to be initially selected. This allows you to run one script instead of
+all the scripts. This will select the first script it finds that
+contains the specified string.</li>
+<li><code>get_test_count()</code> return the number of tests run</li>
+<li><code>get_assert_count()</code> return the number of assertions that
+were made</li>
+<li><code>get_pass_count()</code> return the number of tests that
+passed</li>
+<li><code>get_fail_count()</code> return the number of tests that
+failed</li>
+<li><code>get_pending_count()</code> return the number of tests that
+were pending</li>
+<li><strong>**</strong><code>get/set_should_print_to_console(should)</code>
+accessors for printing to console</li>
+<li><code>get_result_text()</code> returns all the text contained in the
+GUI</li>
+<li><code>clear_text()</code> clears the text in the GUI</li>
+<li><code>set_ignore_pause_before_teardown(should_ignore)</code> causes
+GUI to disregard any calls to pause_before_teardown. This is useful when
+you want to run in a batch mode.</li>
+<li><strong>**</strong><code>set_yield_between_tests(should)</code> will
+pause briefly between every 5 tests so that you can see progress in the
+GUI. If this is left out, it can seem like the program has hung when
+running longer test sets.</li>
+<li><strong>**</strong><code>get/set_log_level(level)</code> see section
+on log level for list of values.</li>
+<li><strong>**</strong><code>disable_strict_datatype_checks(true)</code>
+disables strict datatype checks. See section on "Strict type checking"
+before disabling.</li>
+<li><strong>**</strong> <code>maximize()</code> maximizes the gut
+window.</li>
+<li><strong>**</strong>
+<code>get/set_include_subdirectories(should)</code> flag to include
+subdirectories when <code>add_directory</code> is called. This is
+<code>false</code> by default.</li>
+</ul>
+<h1 id="-extras"><a name="extras"> Extras</h1>
+<h2 id="-strict-type-checking"><a name="strict"> Strict type
+checking</h2>
+<p>Gut performs type checks in the asserts when comparing two different
+types that would normally cause a runtime error. With the type checking
+enabled (on be default) your test will fail instead of crashing. Some
+types are ok to be compared such as Floats and Integers but if you
+attempt to compare a String with a Float your test will fail instead of
+blowing up.</p>
+<p>You can disable this behavior if you like by calling
+<code>disable_strict_datatype_checks(true)</code> on your Gut node or by
+clicking the checkbox to "Disable Strict Datatype Checks" in the
+editor.</p>
+<h2 id="-output-detail"><a name="output_detail"> Output Detail</h2>
+<p>The level of detail that is printed to the screen can be changed
+using the slider on the dialog or by calling <code>set_log_level</code>
+with one of the following constants defined in Gut</p>
 <ul>
 <li>LOG_LEVEL_FAIL_ONLY (0)</li>
 <li>LOG_LEVEL_TEST_AND_FAILURES (1)</li>
 <li>LOG_LEVEL_ALL_ASSERTS (2)</li>
 </ul>
-<h2><a id="user-content--printing-info" class="anchor" aria-hidden="true" href="#-printing-info"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-printing"> Printing info</a></h2>
-<p>The <code>gut.p</code> method allows you to print information that is indented under the test output.  This output appears wherever GUT sends output (gui, terminal, console).  It has an optional 2nd parameter that sets which log level to display it at.  Use one of the constants in the section above to set it.  The default is <code>LOG_LEVEL_FAIL_ONLY</code> which means the output will always be visible.</p>
+<h2 id="-printing-info"><a name="printing"> Printing info</h2>
+<p>The <code>gut.p</code> method allows you to print information that is
+indented under the test output. This output appears wherever GUT sends
+output (gui, terminal, console). It has an optional 2nd parameter that
+sets which log level to display it at. Use one of the constants in the
+section above to set it. The default is <code>LOG_LEVEL_FAIL_ONLY</code>
+which means the output will always be visible.</p>
 <pre><code># From within your tests
-gut.p('hello')
-gut.p('world', gut.LOG_LEVEL_ALL_ASSERTS)
-</code></pre>
-</article></body>
+gut.p(&#39;hello&#39;)
+gut.p(&#39;world&#39;, gut.LOG_LEVEL_ALL_ASSERTS)</code></pre>
+</body>
+</html>
+
+            </embed>
+    </div>
+
+</body>
+
+</html>

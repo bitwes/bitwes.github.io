@@ -1,127 +1,341 @@
+<html>
 
-        <html><head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            .markdown-body {
-                box-sizing: border-box;
-                min-width: 200px;
-                max-width: 980px;
-                margin: 0 auto;
-                padding: 45px;
-            }
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="maincss" rel="stylesheet" href="github-markdown.css">
+    <link rel="stylesheet" href="exported_wiki.css">
+</head>
 
-            @media (max-width: 767px) {
-                .markdown-body {
-                    padding: 15px;
-                }
-            }
-        </style>
-        <link rel="stylesheet" href="github-markdown.css"/>
-</head><body><article class="markdown-body"><h1><a id="user-content-comparing-things" class="anchor" aria-hidden="true" href="#comparing-things"><span aria-hidden="true" class="octicon octicon-link"></span></a>Comparing-Things</h1>
-<h1><a id="user-content-overview" class="anchor" aria-hidden="true" href="#overview"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h1>
-<p>Comparing values with GUT's asserts works the way you would expect it to in most cases.  Arrays and dictionaries are a little more complicated.  The following methods can help with this:</p>
+
+<body>
+
+<!------------------------------------------------------------------------->
+<!-- THE TOC STARTS HERE                                                 -->
+<!------------------------------------------------------------------------->
+
+    <div id="toc" class="w3-sidebar w3-border-right">
+        <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Gut Wiki</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Gut Wiki</h1>
+</header>
+<h3 id="900-godot-4x">9.0.0 (Godot 4.x)</h3>
+<ul>
+<li><a href="Asserts-and-Methods.html">Asserts-and-Methods</a></li>
+<li><a href="Command-Line.html">Command-Line</a></li>
+<li><a href="Comparing-Things.html">Comparing-Things</a></li>
+<li><a href="Contributing.html">Contributing</a></li>
+<li><a href="Creating-Tests.html">Creating-Tests</a></li>
+<li><a href="Doubles.html">Doubles</a></li>
+<li><a href="Export-Test-Results.html">Export-Test-Results</a></li>
+<li><a
+href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
+<li><a href="Home.html">Home</a></li>
+<li><a href="Hooks.html">Hooks</a></li>
+<li><a href="Inner-Test-Classes.html">Inner-Test-Classes</a></li>
+<li><a href="Input-Factory.html">Input-Factory</a></li>
+<li><a href="Install.html">Install</a></li>
+<li><a href="Memory-Management.html">Memory-Management</a></li>
+<li><a href="Mock-Input.html">Mock-Input</a></li>
+<li><a href="Orphans.html">Orphans</a></li>
+<li><a href="Parameterized-Tests.html">Parameterized-Tests</a></li>
+<li><a href="Partial-Doubles.html">Partial-Doubles</a></li>
+<li><a href="Quick-Start.html">Quick-Start</a></li>
+<li><a href="Running-On-Devices.html">Running-On-Devices</a></li>
+<li><a href="Simulate.html">Simulate</a></li>
+<li><a href="Spies.html">Spies</a></li>
+<li><a href="Stubbing.html">Stubbing</a></li>
+<li><a href="Tutorials.html">Tutorials</a></li>
+<li><a href="Yielding.html">Yielding</a></li>
+</ul>
+</body>
+</html>
+
+        </embed>
+    </div>
+
+
+<!------------------------------------------------------------------------->
+<!-- THE PAGE STARTS HERE                                                -->
+<!------------------------------------------------------------------------->
+    <div class="wiki-page">
+            <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Comparing-Things</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Comparing-Things</h1>
+</header>
+<h1 id="overview">Overview</h1>
+<p>Comparing values with GUT's asserts works the way you would expect it
+to in most cases. Arrays and dictionaries are a little more complicated.
+The following methods can help with this:</p>
 <ul>
 <li><code>compare_shallow</code></li>
 <li><code>compare_deep</code></li>
-<li>
-<a href="Asserts-and-Methods#assert_eq_shallow"><code>assert_eq_shallow</code></a>, <a href="Asserts-and-Methods#assert_ne_shallow"><code>assert_ne_shallow</code></a>
-</li>
-<li>
-<a href="Asserts-and-Methods#assert_eq_deep"><code>assert_eq_deep</code></a>, <a href="Asserts-and-Methods#assert_ne_deep"><code>assert_ne_deep</code></a>
-</li>
+<li><a
+href="Asserts-and-Methods#assert_eq_shallow"><code>assert_eq_shallow</code></a>,
+<a
+href="Asserts-and-Methods#assert_ne_shallow"><code>assert_ne_shallow</code></a></li>
+<li><a
+href="Asserts-and-Methods#assert_eq_deep"><code>assert_eq_deep</code></a>,
+<a
+href="Asserts-and-Methods#assert_ne_deep"><code>assert_ne_deep</code></a></li>
 </ul>
-<p>The asserts listed are convenience wrappers around <code>compare_shallow</code> and <code>compare_deep</code>.  In most cases this will be all you need.  If you would like to further inspect the differences with code then or adjust the number of differences displayed then use the "compare" methods.  These methods return a <a href="#CompareResult"><code>CompareResult</code></a> object which is described below.</p>
-<h3><a id="user-content-shallow" class="anchor" aria-hidden="true" href="#shallow"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shallow</h3>
-<p>A shallow compare will look at each element in a dictionary or array and use the default Godot equivalence logic.  Floats and Integers are never equal.  See <a href="Asserts-and-Methods#assert_eq_shallow"><code>assert_eq_shallow</code></a> for examples.</p>
-<h3><a id="user-content-deep" class="anchor" aria-hidden="true" href="#deep"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deep</h3>
-<p>A deep compare will recursively compare all values in the dictionary/array and all sub-dictionaries and sub-arrays.  Floats and Integers are never equal.  See <a href="Asserts-and-Methods#assert_eq_deep"><code>assert_eq_deep</code></a> for examples.</p>
-<h1><a id="user-content-comparing-arrays" class="anchor" aria-hidden="true" href="#comparing-arrays"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-ComparingArrays">Comparing Arrays</a></h1>
+<p>The asserts listed are convenience wrappers around
+<code>compare_shallow</code> and <code>compare_deep</code>. In most
+cases this will be all you need. If you would like to further inspect
+the differences with code then or adjust the number of differences
+displayed then use the "compare" methods. These methods return a <a
+href="#CompareResult"><code>CompareResult</code></a> object which is
+described below.</p>
+<h3 id="shallow">Shallow</h3>
+<p>A shallow compare will look at each element in a dictionary or array
+and use the default Godot equivalence logic. Floats and Integers are
+never equal. See <a
+href="Asserts-and-Methods#assert_eq_shallow"><code>assert_eq_shallow</code></a>
+for examples.</p>
+<h3 id="deep">Deep</h3>
+<p>A deep compare will recursively compare all values in the
+dictionary/array and all sub-dictionaries and sub-arrays. Floats and
+Integers are never equal. See <a
+href="Asserts-and-Methods#assert_eq_deep"><code>assert_eq_deep</code></a>
+for examples.</p>
+<h1 id="comparing-arrays"><a name=ComparingArrays>Comparing
+Arrays</a></h1>
 <ul>
 <li>Godot compares arrays by value with some caveats.
 <ul>
-<li>Unlike when using <code>==</code>, floats never == integers in an array.</li>
-<li>Dictionaries are compared by reference.  Two different dictionaries with the same values are not equal.</li>
-</ul>
-</li>
+<li>Unlike when using <code>==</code>, floats never == integers in an
+array.</li>
+<li>Dictionaries are compared by reference. Two different dictionaries
+with the same values are not equal.</li>
+</ul></li>
 <li>Sub arrays are compared the same way.</li>
 <li>Cannot compare arrays by reference.</li>
 </ul>
-<h3><a id="user-content-asserts-and-arrays" class="anchor" aria-hidden="true" href="#asserts-and-arrays"><span aria-hidden="true" class="octicon octicon-link"></span></a>Asserts and Arrays</h3>
+<h3 id="asserts-and-arrays">Asserts and Arrays</h3>
 <ul>
-<li>The <code>assert_eq</code> and <code>assert_ne</code> functions simulate Godot's behavior but have improved output.
+<li>The <code>assert_eq</code> and <code>assert_ne</code> functions
+simulate Godot's behavior but have improved output.
 <ul>
-<li>Up to 30 differences in index values are listed including any missing indexes.</li>
+<li>Up to 30 differences in index values are listed including any
+missing indexes.</li>
 <li>Dictionaries anywhere in the array are compared-by-ref.</li>
-<li>Sub-arrays are summarized, the number of indexes that do not match are listed, but each different value is not.</li>
+<li>Sub-arrays are summarized, the number of indexes that do not match
+are listed, but each different value is not.</li>
+</ul></li>
+<li><code>assert_called</code> and <code>assert_not_called</code>
+perform deep compares on any parameters specified.</li>
+<li><code>assert_signal_emitted_with_parameters</code> performs a deep
+compare on the parameters specified.</li>
+<li><code>assert_has</code> and <code>assert_does_not_have</code> use
+Godot's default behavior.</li>
 </ul>
-</li>
-<li>
-<code>assert_called</code> and <code>assert_not_called</code> perform deep compares on any parameters specified.</li>
-<li>
-<code>assert_signal_emitted_with_parameters</code> performs a deep compare on the parameters specified.</li>
-<li>
-<code>assert_has</code> and <code>assert_does_not_have</code> use Godot's default behavior.</li>
-</ul>
-<h3><a id="user-content-shallow-1" class="anchor" aria-hidden="true" href="#shallow-1"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shallow</h3>
-<p>A shallow compare of arrays acts the same as <code>assert_eq</code>/<code>assert_ne</code>.  Any dictionaries in the array or sub-arrays will be compared by reference.  Floats and Integers are never equal.</p>
-<h3><a id="user-content-deep-1" class="anchor" aria-hidden="true" href="#deep-1"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deep</h3>
-<p>A deep compare of arrays will compare all indexes and the values in all sub-arrays/sub-dictionaries found.  Floats and Integers are never equal.</p>
-<h1><a id="user-content-comparing-dictionaries" class="anchor" aria-hidden="true" href="#comparing-dictionaries"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-ComparingDictionaries">Comparing Dictionaries</a></h1>
+<h3 id="shallow-1">Shallow</h3>
+<p>A shallow compare of arrays acts the same as
+<code>assert_eq</code>/<code>assert_ne</code>. Any dictionaries in the
+array or sub-arrays will be compared by reference. Floats and Integers
+are never equal.</p>
+<h3 id="deep-1">Deep</h3>
+<p>A deep compare of arrays will compare all indexes and the values in
+all sub-arrays/sub-dictionaries found. Floats and Integers are never
+equal.</p>
+<h1 id="comparing-dictionaries"><a name=ComparingDictionaries>Comparing
+Dictionaries</a></h1>
 <ul>
 <li>Godot compares dictionaries by reference.</li>
 <li>Dictionary keys are ordered (which is unusual).</li>
-<li>The dictionary <code>hash</code> fuction requires dictionary keys be in the same order to generate the same hash so comparing dictionaries by value cannot be done reliably without additional coding.</li>
-<li>In order to compare values in dictionary you must use one of the shallow or deep methods listed above.</li>
+<li>The dictionary <code>hash</code> fuction requires dictionary keys be
+in the same order to generate the same hash so comparing dictionaries by
+value cannot be done reliably without additional coding.</li>
+<li>In order to compare values in dictionary you must use one of the
+shallow or deep methods listed above.</li>
 </ul>
-<h3><a id="user-content-asserts-and-dictionaries" class="anchor" aria-hidden="true" href="#asserts-and-dictionaries"><span aria-hidden="true" class="octicon octicon-link"></span></a>Asserts and Dictionaries</h3>
+<h3 id="asserts-and-dictionaries">Asserts and Dictionaries</h3>
 <ul>
-<li>The <code>assert_eq</code> and <code>assert_ne</code> uses Godot's default behavior and compares them by reference.</li>
-<li>
-<code>assert_called</code> and <code>assert_not_called</code> perform deep compares on any parameters specified.</li>
-<li>
-<code>assert_signal_emitted_with_parameters</code> performs a deep compare on the parameters specified.</li>
-<li>
-<code>assert_has</code> and <code>assert_does_not_have</code> use Godot's default behavior.</li>
+<li>The <code>assert_eq</code> and <code>assert_ne</code> uses Godot's
+default behavior and compares them by reference.</li>
+<li><code>assert_called</code> and <code>assert_not_called</code>
+perform deep compares on any parameters specified.</li>
+<li><code>assert_signal_emitted_with_parameters</code> performs a deep
+compare on the parameters specified.</li>
+<li><code>assert_has</code> and <code>assert_does_not_have</code> use
+Godot's default behavior.</li>
 </ul>
-<h3><a id="user-content-shallow-2" class="anchor" aria-hidden="true" href="#shallow-2"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shallow</h3>
-<p>A shallow compare of dictionaries will compare all values found in the dictionary.  Sub-dictionaries are compared by value.  Sub-arrays are compared with <code>==</code>.  Floats and Integers are never equal.</p>
-<h3><a id="user-content-deep-2" class="anchor" aria-hidden="true" href="#deep-2"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deep</h3>
-<p>A  deep compare of dictionaries will compare all keys and the values  in all sub-arrays/sub-dictionaries found.  Floats and Integers are never equal.</p>
-<h1><a id="user-content--compareresult" class="anchor" aria-hidden="true" href="#-compareresult"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-CompareResult"> CompareResult</a></h1>
-<p>A CompareResult object is returned from <code>compare_shallow</code> and <code>compare_deep</code>.  You can use this object to further inspect the differences or adjust the output.</p>
-<h3><a id="user-content-properties" class="anchor" aria-hidden="true" href="#properties"><span aria-hidden="true" class="octicon octicon-link"></span></a>Properties</h3>
+<h3 id="shallow-2">Shallow</h3>
+<p>A shallow compare of dictionaries will compare all values found in
+the dictionary. Sub-dictionaries are compared by value. Sub-arrays are
+compared with <code>==</code>. Floats and Integers are never equal.</p>
+<h3 id="deep-2">Deep</h3>
+<p>A deep compare of dictionaries will compare all keys and the values
+in all sub-arrays/sub-dictionaries found. Floats and Integers are never
+equal.</p>
+<h1 id="-compareresult"><a name=CompareResult> CompareResult</a></h1>
+<p>A CompareResult object is returned from <code>compare_shallow</code>
+and <code>compare_deep</code>. You can use this object to further
+inspect the differences or adjust the output.</p>
+<h3 id="properties">Properties</h3>
 <ul>
-<li>
-<code>are_equal</code>: returns <code>true</code>/<code>false</code> if the two objects are equal based on the kind of comparison performed.</li>
-<li>
-<code>summary</code>: returrns a string of all the differences found.  This will display <code>max_differences</code> differences.  When performing a deep compare, it will also display <code>max_differences</code> per each sub-array/sub-dictionary. This is returned if you use <code>str</code> on a <code>CompareResult</code>.</li>
-<li>
-<code>max_differences</code>:  The number of differences to display.  This only affects output, all differences are accessible from the <code>differences</code> property.  Set this to -1 to show the maximum number of differences (10,000)</li>
-<li>
-<code>differences</code>:  This is a dictionary of all the keys/indexes that are different between the compared items.  The key is the key/index that is different.  Keys/indexes that are missing from one of the compared objects are included.  The value of each index is a <code>CompareResult</code>.
-<br><br>
-<code>CompareResult</code>s for sub-arrays/sub-dictionaries <code>differences</code> will contain all their differences.  You can use  the <code>differences</code> property for that key to dig deeper into the differences.  <code>differences</code> will be an empty dictionary for any element that is not an array or dictionary.</li>
+<li><code>are_equal</code>: returns <code>true</code>/<code>false</code>
+if the two objects are equal based on the kind of comparison
+performed.</li>
+<li><code>summary</code>: returrns a string of all the differences
+found. This will display <code>max_differences</code> differences. When
+performing a deep compare, it will also display
+<code>max_differences</code> per each sub-array/sub-dictionary. This is
+returned if you use <code>str</code> on a
+<code>CompareResult</code>.</li>
+<li><code>max_differences</code>: The number of differences to display.
+This only affects output, all differences are accessible from the
+<code>differences</code> property. Set this to -1 to show the maximum
+number of differences (10,000)</li>
+<li><code>differences</code>: This is a dictionary of all the
+keys/indexes that are different between the compared items. The key is
+the key/index that is different. Keys/indexes that are missing from one
+of the compared objects are included. The value of each index is a
+<code>CompareResult</code>. <br/><br/> <code>CompareResult</code>s for
+sub-arrays/sub-dictionaries <code>differences</code> will contain all
+their differences. You can use the <code>differences</code> property for
+that key to dig deeper into the differences. <code>differences</code>
+will be an empty dictionary for any element that is not an array or
+dictionary.</li>
 </ul>
-<h2><a id="user-content-examples" class="anchor" aria-hidden="true" href="#examples"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h2>
-<h3><a id="user-content-deep-array-compare" class="anchor" aria-hidden="true" href="#deep-array-compare"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deep array compare:</h3>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> a1 <span class="pl-k">=</span> [
-    [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>],
-    [[<span class="pl-c1">4</span>, <span class="pl-c1">5</span>, <span class="pl-c1">6</span>], [<span class="pl-s">'same'</span>], [<span class="pl-c1">7</span>, <span class="pl-c1">8</span>, <span class="pl-c1">9</span>]]
-]
-<span class="pl-k">var</span> a2 <span class="pl-k">=</span> [
-    [<span class="pl-s">"1"</span>, <span class="pl-c1">2.0</span>, <span class="pl-c1">13</span>],
-    [[<span class="pl-c1">14</span>, <span class="pl-c1">15</span>, <span class="pl-c1">16</span>], [<span class="pl-s">'same'</span>], [<span class="pl-c1">17</span>, <span class="pl-c1">18</span>, <span class="pl-c1">19</span>]]
-]
-<span class="pl-k">var</span> result <span class="pl-k">=</span> <span class="pl-c1">compare_deep</span>(a1, a2)
-<span class="pl-c1">print</span>(result.summary)
-
-<span class="pl-c1">print</span>(<span class="pl-s">'Traversing differences:'</span>)
-<span class="pl-c1">print</span>(result.differences[<span class="pl-c1">1</span>].differences[<span class="pl-c1">2</span>].differences[<span class="pl-c1">0</span>])</pre></div>
+<h2 id="examples">Examples</h2>
+<h3 id="deep-array-compare">Deep array compare:</h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> a1 <span class="op">=</span> [</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>],</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    [[<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>], [<span class="st">&#39;same&#39;</span>], [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> a2 <span class="op">=</span> [</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    [<span class="st">&quot;1&quot;</span>, <span class="fl">2.0</span>, <span class="dv">13</span>],</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    [[<span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">16</span>], [<span class="st">&#39;same&#39;</span>], [<span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">19</span>]]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> result <span class="op">=</span> <span class="fu">compare_deep</span>(a1, a2)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result.summary)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Traversing differences:&#39;</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result.differences[<span class="dv">1</span>].differences[<span class="dv">2</span>].differences[<span class="dv">0</span>])</span></code></pre></div>
 <p>Output</p>
 <pre><code>[[1, 2, 3, 4], [[4, 5, 6], [same], [7, 8...7, 8, 9]]] != [[1, 2, 13], [[14, 15, 16], [same], [17,... 18, 19]]]  2 of 2 indexes do not match.
     [
         0:  [
-            0:  1 != "1".  Cannot compare Int with String.
+            0:  1 != &quot;1&quot;.  Cannot compare Int with String.
             1:  2 != 2.0.  Cannot compare Int with Float/Real.
             2:  3 != 13
             3:  4 != &lt;missing index&gt;
@@ -140,16 +354,16 @@
         ]
     ]
 Traversing differences:
-7 != 17
-</code></pre>
-<h3><a id="user-content-deep-dictionary-compare" class="anchor" aria-hidden="true" href="#deep-dictionary-compare"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deep Dictionary Compare</h3>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> v1 <span class="pl-k">=</span> {<span class="pl-s">'a'</span>:{<span class="pl-s">'b'</span>:{<span class="pl-s">'c'</span>:{<span class="pl-s">'d'</span>:<span class="pl-c1">1</span>}}}}
-<span class="pl-k">var</span> v2 <span class="pl-k">=</span> {<span class="pl-s">'a'</span>:{<span class="pl-s">'b'</span>:{<span class="pl-s">'c'</span>:{<span class="pl-s">'d'</span>:<span class="pl-c1">2</span>}}}}
-<span class="pl-k">var</span> result <span class="pl-k">=</span> <span class="pl-c1">compare_deep</span>(v1, v2)
-<span class="pl-c1">print</span>(result.summary)
-
-<span class="pl-c1">print</span>(<span class="pl-s">'Traversing differences:'</span>)
-<span class="pl-c1">print</span>(result.differences[<span class="pl-s">'a'</span>].differences[<span class="pl-s">'b'</span>].differences[<span class="pl-s">'c'</span>])</pre></div>
+7 != 17</code></pre>
+<h3 id="deep-dictionary-compare">Deep Dictionary Compare</h3>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> v1 <span class="op">=</span> {<span class="st">&#39;a&#39;</span>:{<span class="st">&#39;b&#39;</span>:{<span class="st">&#39;c&#39;</span>:{<span class="st">&#39;d&#39;</span>:<span class="dv">1</span>}}}}</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> v2 <span class="op">=</span> {<span class="st">&#39;a&#39;</span>:{<span class="st">&#39;b&#39;</span>:{<span class="st">&#39;c&#39;</span>:{<span class="st">&#39;d&#39;</span>:<span class="dv">2</span>}}}}</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> result <span class="op">=</span> <span class="fu">compare_deep</span>(v1, v2)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result.summary)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Traversing differences:&#39;</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result.differences[<span class="st">&#39;a&#39;</span>].differences[<span class="st">&#39;b&#39;</span>].differences[<span class="st">&#39;c&#39;</span>])</span></code></pre></div>
 <p>Output</p>
 <pre><code>{a:{b:{c:{d:1}}}} != {a:{b:{c:{d:2}}}}  1 of 1 keys do not match.
     {
@@ -165,34 +379,33 @@ Traversing differences:
 {d:1} != {d:2}  1 of 1 keys do not match.
     {
         d:  1 != 2
-    }
-</code></pre>
-<h3><a id="user-content-mix-bag-of-differences" class="anchor" aria-hidden="true" href="#mix-bag-of-differences"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mix Bag of Differences</h3>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> a1 <span class="pl-k">=</span> [
-    <span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>, <span class="pl-s">'c'</span>,
-    [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>],
-    {<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>, <span class="pl-s">'b'</span>:<span class="pl-c1">2</span>, <span class="pl-s">'c'</span>:<span class="pl-c1">3</span>},
-    [{<span class="pl-s">'a'</span>:<span class="pl-c1">1</span>}, {<span class="pl-s">'b'</span>:<span class="pl-c1">2</span>}]
-]
-<span class="pl-k">var</span> a2 <span class="pl-k">=</span> [
-    <span class="pl-s">'a'</span>, <span class="pl-c1">2</span>, <span class="pl-s">'c'</span>,
-    [<span class="pl-s">'a'</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-s">'d'</span>],
-    {<span class="pl-s">'a'</span>:<span class="pl-c1">11</span>, <span class="pl-s">'b'</span>:<span class="pl-c1">12</span>, <span class="pl-s">'c'</span>:<span class="pl-c1">13</span>},
-    [{<span class="pl-s">'a'</span>:<span class="pl-s">'diff'</span>}, {<span class="pl-s">'b'</span>:<span class="pl-c1">2</span>}]
-]
-<span class="pl-k">var</span> result <span class="pl-k">=</span> <span class="pl-c1">compare_deep</span>(a1, a2)
-<span class="pl-c1">print</span>(result.summary)
-
-<span class="pl-c1">print</span>(<span class="pl-s">'Traversing differences:'</span>)
-<span class="pl-c1">print</span>(result.differences[<span class="pl-c1">5</span>].differences[<span class="pl-c1">0</span>].differences[<span class="pl-s">'a'</span>])
-</pre></div>
+    }</code></pre>
+<h3 id="mix-bag-of-differences">Mix Bag of Differences</h3>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> a1 <span class="op">=</span> [</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>],</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>:<span class="dv">2</span>, <span class="st">&#39;c&#39;</span>:<span class="dv">3</span>},</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    [{<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}, {<span class="st">&#39;b&#39;</span>:<span class="dv">2</span>}]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> a2 <span class="op">=</span> [</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;a&#39;</span>, <span class="dv">2</span>, <span class="st">&#39;c&#39;</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    [<span class="st">&#39;a&#39;</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="st">&#39;d&#39;</span>],</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&#39;a&#39;</span>:<span class="dv">11</span>, <span class="st">&#39;b&#39;</span>:<span class="dv">12</span>, <span class="st">&#39;c&#39;</span>:<span class="dv">13</span>},</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    [{<span class="st">&#39;a&#39;</span>:<span class="st">&#39;diff&#39;</span>}, {<span class="st">&#39;b&#39;</span>:<span class="dv">2</span>}]</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> result <span class="op">=</span> <span class="fu">compare_deep</span>(a1, a2)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result.summary)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Traversing differences:&#39;</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result.differences[<span class="dv">5</span>].differences[<span class="dv">0</span>].differences[<span class="st">&#39;a&#39;</span>])</span></code></pre></div>
 <p>Output</p>
 <pre><code>[a, b, c, [1, 2, 3, 4], {a:1, b:2, c:3},...}, {b:2}]] != [a, 2, c, [a, 2, 3, d], {a:11, b:12, c:1...}, {b:2}]]  4 of 6 indexes do not match.
     [
-        1:  "b" != 2.  Cannot compare String with Int.
+        1:  &quot;b&quot; != 2.  Cannot compare String with Int.
         3:  [
-            0:  1 != "a".  Cannot compare Int with String.
-            3:  4 != "d".  Cannot compare Int with String.
+            0:  1 != &quot;a&quot;.  Cannot compare Int with String.
+            3:  4 != &quot;d&quot;.  Cannot compare Int with String.
         ]
         4:  {
             a:  1 != 11
@@ -201,11 +414,18 @@ Traversing differences:
         }
         5:  [
             0:  {
-                a:  1 != "diff".  Cannot compare Int with String.
+                a:  1 != &quot;diff&quot;.  Cannot compare Int with String.
             }
         ]
     ]
     Traversing differences:
-    1 != "diff".  Cannot compare Int with String.
-</code></pre>
-</article></body>
+    1 != &quot;diff&quot;.  Cannot compare Int with String.</code></pre>
+</body>
+</html>
+
+            </embed>
+    </div>
+
+</body>
+
+</html>

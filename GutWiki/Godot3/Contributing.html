@@ -1,62 +1,203 @@
+<html>
 
-        <html><head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            .markdown-body {
-                box-sizing: border-box;
-                min-width: 200px;
-                max-width: 980px;
-                margin: 0 auto;
-                padding: 45px;
-            }
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="maincss" rel="stylesheet" href="github-markdown.css">
+    <link rel="stylesheet" href="exported_wiki.css">
+</head>
 
-            @media (max-width: 767px) {
-                .markdown-body {
-                    padding: 15px;
-                }
-            }
-        </style>
-        <link rel="stylesheet" href="github-markdown.css"/>
-</head><body><article class="markdown-body"><h1><a id="user-content-contributing" class="anchor" aria-hidden="true" href="#contributing"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h1>
-<p><strong>NOTE</strong> Do not use the in-editor <strong>GUT toolbar</strong> to run tests for GUT.  I recommend using the command line or <code>main.tscn</code> instead.  There are notes below if you really want to try, but it crashes a lot and the plugin needs to be reloaded often.</p>
-<h1><a id="user-content-checklist-for-prs" class="anchor" aria-hidden="true" href="#checklist-for-prs"><span aria-hidden="true" class="octicon octicon-link"></span></a>Checklist for PRs</h1>
+
+<body>
+
+<!------------------------------------------------------------------------->
+<!-- THE TOC STARTS HERE                                                 -->
+<!------------------------------------------------------------------------->
+
+    <div id="toc" class="w3-sidebar w3-border-right">
+        <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Gut Wiki</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Gut Wiki</h1>
+</header>
+<h3 id="741-godot-3x">7.4.1 (Godot 3.x)</h3>
 <ul>
-<li>Open PRs against <code>master</code> unless there's a reason not to.</li>
-<li>PRs <strong>must have unit tests</strong>.  See sections below.</li>
-<li>Include any wiki text in the PR.  You cannot make PRs against the wiki so this is probably the best approach.  You can also NOT include wiki text and I'll add it, no problem.  Any typing you can save me is wonderful.</li>
+<li><a href="Asserts-and-Methods.html">Asserts-and-Methods</a></li>
+<li><a href="Command-Line.html">Command-Line</a></li>
+<li><a href="Comparing-Things.html">Comparing-Things</a></li>
+<li><a href="Contributing.html">Contributing</a></li>
+<li><a href="Creating-Tests.html">Creating-Tests</a></li>
+<li><a href="Doubles.html">Doubles</a></li>
+<li><a href="Export-Test-Results.html">Export-Test-Results</a></li>
+<li><a
+href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
+<li><a href="Home.html">Home</a></li>
+<li><a href="Hooks.html">Hooks</a></li>
+<li><a href="Inner-Test-Classes.html">Inner-Test-Classes</a></li>
+<li><a href="Input-Factory.html">Input-Factory</a></li>
+<li><a href="Install.html">Install</a></li>
+<li><a href="Memory-Management.html">Memory-Management</a></li>
+<li><a href="Mock-Input.html">Mock-Input</a></li>
+<li><a href="Orphans.html">Orphans</a></li>
+<li><a href="Parameterized-Tests.html">Parameterized-Tests</a></li>
+<li><a href="Partial-Doubles.html">Partial-Doubles</a></li>
+<li><a href="Quick-Start.html">Quick-Start</a></li>
+<li><a href="Running-On-Devices.html">Running-On-Devices</a></li>
+<li><a href="Simulate.html">Simulate</a></li>
+<li><a href="Spies.html">Spies</a></li>
+<li><a href="Stubbing.html">Stubbing</a></li>
+<li><a href="Tutorials.html">Tutorials</a></li>
+<li><a href="Yielding.html">Yielding</a></li>
+</ul>
+</body>
+</html>
+
+        </embed>
+    </div>
+
+
+<!------------------------------------------------------------------------->
+<!-- THE PAGE STARTS HERE                                                -->
+<!------------------------------------------------------------------------->
+    <div class="wiki-page">
+            <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Contributing</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Contributing</h1>
+</header>
+<p><strong>NOTE</strong> Do not use the in-editor <strong>GUT
+toolbar</strong> to run tests for GUT. I recommend using the command
+line or <code>main.tscn</code> instead. There are notes below if you
+really want to try, but it crashes a lot and the plugin needs to be
+reloaded often.</p>
+<h1 id="checklist-for-prs">Checklist for PRs</h1>
+<ul>
+<li>Open PRs against <code>master</code> unless there's a reason not
+to.</li>
+<li>PRs <strong>must have unit tests</strong>. See sections below.</li>
+<li>Include any wiki text in the PR. You cannot make PRs against the
+wiki so this is probably the best approach. You can also NOT include
+wiki text and I'll add it, no problem. Any typing you can save me is
+wonderful.</li>
 <li>CHANGES.md
 <ul>
 <li>I will take care of making any changes to CHANGES.md.</li>
-<li>I will credit you in the CHANGES.md.  If you have a handle you would like me to use (other than your github username) then let me know in the PR</li>
+<li>I will credit you in the CHANGES.md. If you have a handle you would
+like me to use (other than your github username) then let me know in the
+PR</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h1><a id="user-content-creating-tests-for-gut" class="anchor" aria-hidden="true" href="#creating-tests-for-gut"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating Tests for GUT</h1>
-<h4><a id="user-content-all-gut-tests-are-found-in" class="anchor" aria-hidden="true" href="#all-gut-tests-are-found-in"><span aria-hidden="true" class="octicon octicon-link"></span></a>All GUT tests are found in</h4>
+<h1 id="creating-tests-for-gut">Creating Tests for GUT</h1>
+<h4 id="all-gut-tests-are-found-in">All GUT tests are found in</h4>
 <ul>
 <li><code>res://test/unit</code></li>
 <li><code>res://test/integration</code></li>
 </ul>
 <p>Edit existing scripts or add new ones there.</p>
-<h4><a id="user-content-any-resources-needed-by-tests-should-be-placed-in" class="anchor" aria-hidden="true" href="#any-resources-needed-by-tests-should-be-placed-in"><span aria-hidden="true" class="octicon octicon-link"></span></a>Any resources needed by tests should be placed in:</h4>
+<h4 id="any-resources-needed-by-tests-should-be-placed-in">Any resources
+needed by tests should be placed in:</h4>
 <ul>
 <li><code>res://test/resources</code></li>
 </ul>
-<p>If you don't see an existing directory that matches your needs then you can create a new directory or place them directly in <code>res://test/resources</code>.</p>
-<h1><a id="user-content-running-gut-tests" class="anchor" aria-hidden="true" href="#running-gut-tests"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running GUT Tests</h1>
-<p><strong>Do not</strong> use the GUT Panel to run tests (at least in 3.3.2).  Godot doesn't seem to like using GUT inside GUT.  You can try, but you'll probably not like it.</p>
-<p>I've found that using VSCode and the VSCode plugin "gut-extension" is the easiest way to run tests as you develop your feature.  Mostly because you can have more than one file on the screen at a time.  If you do not care for VSCode then I'd suggest using the command line to avoid having to switch scenes.  A <code>.gutconfig.json</code> is already included in the project so you should be able to run tests with no config changes.</p>
-<p>If you are more of a Godot IDE fan then use <code>main.tscn</code> to run your tests. This scene includes a handy "Run Gut Unit Tests" button that will kick off all the essential test scripts.  This button might be hiding behind the GUT Node when you run the scene.  You may have to change the options for the GUT node in <code>main.tscn</code> to run specific tests if you don't use "Run Gut Unit Tests" button.</p>
-<h1><a id="user-content-gut-panel-issues" class="anchor" aria-hidden="true" href="#gut-panel-issues"><span aria-hidden="true" class="octicon octicon-link"></span></a>GUT Panel issues</h1>
-<p>When developing the GUT Panel (against version Godot 3.3.2) I had bunch of problems.  These only occurred when attempting to use the GUT Panel within the GUT project.  I have not seen these issues when using the panel in other projects.</p>
-<p><strong>reload the plugin</strong>  = Goto Project Settings-&gt;Plugins Tab.  Uncheck then check "enabled" for Gut.</p>
-<h5><a id="user-content-godot-crashes-upon-running-tests" class="anchor" aria-hidden="true" href="#godot-crashes-upon-running-tests"><span aria-hidden="true" class="octicon octicon-link"></span></a>Godot crashes upon running tests.</h5>
-<p>Sometimes Godot will crash and burn hard when using the various "run" buttons on the GUT panel.</p>
-<p>I found that closing <code>main</code> scene upon entering Godot (and before running tests) helps here.  You may have to reload the plugin after doing so.</p>
-<h5><a id="user-content-the-gut-panel-doesnt-do-anything" class="anchor" aria-hidden="true" href="#the-gut-panel-doesnt-do-anything"><span aria-hidden="true" class="octicon octicon-link"></span></a>The GUT Panel doesn't do anything.</h5>
-<p>Sometimes when you edit GUT files, the plugin doesn't like it.  Reload the plugin.</p>
-<h5><a id="user-content-if-you-see-this-in-the-ide-output" class="anchor" aria-hidden="true" href="#if-you-see-this-in-the-ide-output"><span aria-hidden="true" class="octicon octicon-link"></span></a>If you see this in the IDE Output</h5>
-<pre><code>res://addons/gut/gui/GutBottomPanel.gd:### - Invalid get index '&lt;whatever&gt;' (on base: 'Nil').
-</code></pre>
+<p>If you don't see an existing directory that matches your needs then
+you can create a new directory or place them directly in
+<code>res://test/resources</code>.</p>
+<h1 id="running-gut-tests">Running GUT Tests</h1>
+<p><strong>Do not</strong> use the GUT Panel to run tests (at least in
+3.3.2). Godot doesn't seem to like using GUT inside GUT. You can try,
+but you'll probably not like it.</p>
+<p>I've found that using VSCode and the VSCode plugin "gut-extension" is
+the easiest way to run tests as you develop your feature. Mostly because
+you can have more than one file on the screen at a time. If you do not
+care for VSCode then I'd suggest using the command line to avoid having
+to switch scenes. A <code>.gutconfig.json</code> is already included in
+the project so you should be able to run tests with no config
+changes.</p>
+<p>If you are more of a Godot IDE fan then use <code>main.tscn</code> to
+run your tests. This scene includes a handy "Run Gut Unit Tests" button
+that will kick off all the essential test scripts. This button might be
+hiding behind the GUT Node when you run the scene. You may have to
+change the options for the GUT node in <code>main.tscn</code> to run
+specific tests if you don't use "Run Gut Unit Tests" button.</p>
+<h1 id="gut-panel-issues">GUT Panel issues</h1>
+<p>When developing the GUT Panel (against version Godot 3.3.2) I had
+bunch of problems. These only occurred when attempting to use the GUT
+Panel within the GUT project. I have not seen these issues when using
+the panel in other projects.</p>
+<p><strong>reload the plugin</strong> = Goto Project
+Settings-&gt;Plugins Tab. Uncheck then check "enabled" for Gut.</p>
+<h5 id="godot-crashes-upon-running-tests">Godot crashes upon running
+tests.</h5>
+<p>Sometimes Godot will crash and burn hard when using the various "run"
+buttons on the GUT panel.</p>
+<p>I found that closing <code>main</code> scene upon entering Godot (and
+before running tests) helps here. You may have to reload the plugin
+after doing so.</p>
+<h5 id="the-gut-panel-doesnt-do-anything">The GUT Panel doesn't do
+anything.</h5>
+<p>Sometimes when you edit GUT files, the plugin doesn't like it. Reload
+the plugin.</p>
+<h5 id="if-you-see-this-in-the-ide-output">If you see this in the IDE
+Output</h5>
+<pre><code>res://addons/gut/gui/GutBottomPanel.gd:### - Invalid get index &#39;&lt;whatever&gt;&#39; (on base: &#39;Nil&#39;).</code></pre>
 <p>Then reload the plugin.</p>
-</article></body>
+</body>
+</html>
+
+            </embed>
+    </div>
+
+</body>
+
+</html>

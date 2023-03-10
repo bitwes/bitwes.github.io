@@ -1,93 +1,16 @@
+<html>
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <style>
-        .markdown-body {
-            box-sizing: border-box;
-            min-width: 200px;
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 45px;
-        }
-
-        @media (max-width: 767px) {
-            .markdown-body {
-                padding: 15px;
-            }
-        }
-
-        .toc {
-            float: left;
-            padding: 15px;
-        }
-
-
-        .w3-sidebar{height:100%;width:200px;background-color:#fff;position:fixed!important;z-index:1;overflow:auto}
-        .w3-bar-block .w3-dropdown-hover,.w3-bar-block .w3-dropdown-click{width:100%}
-        .w3-border-right{border-right:1px solid #ccc!important}
-        .inner-page{width: 100%; height: 100%;}
-    </style>
-
-
-    <script>
-        function loadWikiPage(pageUrl) {
-            var theDiv = document.getElementById("wiki_page");
-            theDiv.innerHTML='<object class="inner-page" type="text/html" data="' + pageUrl + '" ></object>';
-        }
-
-        function wireTocLink(link){
-            link.onclick = function(e) {
-                window.location = window.location.pathname + "?page=" + link.getAttribute("href")
-                e.preventDefault();
-                return false;
-            };
-        }
-
-        window.onload = function() {
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-
-            var loadPage = 'Home.html'
-            if(urlParams.has('page')){
-                loadPage = urlParams.get('page')
-            }
-            loadWikiPage(loadPage);
-
-            var allTocLinks = document.getElementById("toc").querySelectorAll('a')
-            for (let i = 0; i < allTocLinks.length; i++) {
-                console.log(allTocLinks[i].getAttribute("href"));
-                wireTocLink(allTocLinks[i]);
-            }
-
-        }
-    </script>
-
-
-    <link rel="stylesheet" href="github-markdown.css">
+    <link id="maincss" rel="stylesheet" href="github-markdown.css">
+    <link rel="stylesheet" href="exported_wiki.css">
+    <script src="index.js"></script>
 </head>
 
-<body>
-    <div id="toc" class="w3-sidebar w3-bar-block w3-border-right" style="width:25%">
-        
-        <html><head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            .markdown-body {
-                box-sizing: border-box;
-                min-width: 200px;
-                max-width: 980px;
-                margin: 0 auto;
-                padding: 45px;
-            }
 
-            @media (max-width: 767px) {
-                .markdown-body {
-                    padding: 15px;
-                }
-            }
-        </style>
-        <link rel="stylesheet" href="github-markdown.css"/>
-</head><body><article class="markdown-body"><h1><a id="user-content-gut-wiki" class="anchor" aria-hidden="true" href="#gut-wiki"><span aria-hidden="true" class="octicon octicon-link"></span></a>GUT Wiki</h1>
+<body>
+    <div id="toc" class="w3-sidebar w3-border-right">
+        <html><head><link id="maincss" rel="stylesheet" href="github-markdown.css"/></head><article class="markdown-body"><p>GUT Wiki 7.4.1</p>
 <ul>
 <li><a href="Asserts-and-Methods.html">Asserts-and-Methods</a></li>
 <li><a href="Command-Line.html">Command-Line</a></li>
@@ -121,7 +44,6 @@
     <div style="margin-left:25%">
         <div id="wiki_page"></div>
     </div>
-
 </body>
 
 </html>

@@ -1,68 +1,189 @@
+<html>
 
-        <html><head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            .markdown-body {
-                box-sizing: border-box;
-                min-width: 200px;
-                max-width: 980px;
-                margin: 0 auto;
-                padding: 45px;
-            }
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="maincss" rel="stylesheet" href="github-markdown.css">
+    <link rel="stylesheet" href="exported_wiki.css">
+</head>
 
-            @media (max-width: 767px) {
-                .markdown-body {
-                    padding: 15px;
-                }
-            }
-        </style>
-        <link rel="stylesheet" href="github-markdown.css"/>
-</head><body><article class="markdown-body"><h1><a id="user-content-inner-test-classes" class="anchor" aria-hidden="true" href="#inner-test-classes"><span aria-hidden="true" class="octicon octicon-link"></span></a>Inner-Test-Classes</h1>
-<p>You can define test classes inside a test script that will be treated as test scripts themselves.  This allows you to create different contexts for your tests in a single script.  These Inner Classes have thier own <code>before_all</code>, <code>before_each</code>, <code>after_each</code>, and <code>after_all</code> methods that will be called.  Only the methods defined in the class are used, the methods defined in the containing script will not be called.</p>
-<p>The Inner Classes must also extend <code>GutTest</code> and their constructor cannot take any parameters.  The Classes will be loaded and ran in the order they are defined <em>after</em> all the tests in the containing script are run.  If the script does not contain any tests then only the Inner Classes will be listed in the output.</p>
-<p>The order the tests are run are not guaranteed to be in the same order they are defined (I don't know why yet).  Also the line number for the tests cannot currently be reported when they fail or are pending (they aren't parsed the same way as normal script tests, I'll probably add this in later since it bugs me).</p>
-<p>Inner Classes are parsed out of the script by looking for a classes that start with <code>'Test'</code> and also extend <code>test.gd</code>.  You can change the name that Gut looks for using the <code>inner_class_prefix</code> property.</p>
-<p>There are options for the command line and editor node to specify an Inner Test Class name to run.  This allows you to easily run a subset of tests in a script as you develop a feature.  See <a href="https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods">Gut Settings and Methods</a> and  <a href="https://github.com/bitwes/Gut/wiki/Command-Line">Using Gut at the command line</a> for more information.</p>
-<h1><a id="user-content-example" class="anchor" aria-hidden="true" href="#example"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h1>
-<p>Given the following test script defined at <code>res://test/unit/some_example.gd</code></p>
+
+<body>
+
+<!------------------------------------------------------------------------->
+<!-- THE TOC STARTS HERE                                                 -->
+<!------------------------------------------------------------------------->
+
+    <div id="toc" class="w3-sidebar w3-border-right">
+        <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Gut Wiki</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Gut Wiki</h1>
+</header>
+<h3 id="741-godot-3x">7.4.1 (Godot 3.x)</h3>
+<ul>
+<li><a href="Asserts-and-Methods.html">Asserts-and-Methods</a></li>
+<li><a href="Command-Line.html">Command-Line</a></li>
+<li><a href="Comparing-Things.html">Comparing-Things</a></li>
+<li><a href="Contributing.html">Contributing</a></li>
+<li><a href="Creating-Tests.html">Creating-Tests</a></li>
+<li><a href="Doubles.html">Doubles</a></li>
+<li><a href="Export-Test-Results.html">Export-Test-Results</a></li>
+<li><a
+href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
+<li><a href="Home.html">Home</a></li>
+<li><a href="Hooks.html">Hooks</a></li>
+<li><a href="Inner-Test-Classes.html">Inner-Test-Classes</a></li>
+<li><a href="Input-Factory.html">Input-Factory</a></li>
+<li><a href="Install.html">Install</a></li>
+<li><a href="Memory-Management.html">Memory-Management</a></li>
+<li><a href="Mock-Input.html">Mock-Input</a></li>
+<li><a href="Orphans.html">Orphans</a></li>
+<li><a href="Parameterized-Tests.html">Parameterized-Tests</a></li>
+<li><a href="Partial-Doubles.html">Partial-Doubles</a></li>
+<li><a href="Quick-Start.html">Quick-Start</a></li>
+<li><a href="Running-On-Devices.html">Running-On-Devices</a></li>
+<li><a href="Simulate.html">Simulate</a></li>
+<li><a href="Spies.html">Spies</a></li>
+<li><a href="Stubbing.html">Stubbing</a></li>
+<li><a href="Tutorials.html">Tutorials</a></li>
+<li><a href="Yielding.html">Yielding</a></li>
+</ul>
+</body>
+</html>
+
+        </embed>
+    </div>
+
+
+<!------------------------------------------------------------------------->
+<!-- THE PAGE STARTS HERE                                                -->
+<!------------------------------------------------------------------------->
+    <div class="wiki-page">
+            <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Inner-Test-Classes</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Inner-Test-Classes</h1>
+</header>
+<p>You can define test classes inside a test script that will be treated
+as test scripts themselves. This allows you to create different contexts
+for your tests in a single script. These Inner Classes have thier own
+<code>before_all</code>, <code>before_each</code>,
+<code>after_each</code>, and <code>after_all</code> methods that will be
+called. Only the methods defined in the class are used, the methods
+defined in the containing script will not be called.</p>
+<p>The Inner Classes must also extend <code>GutTest</code> and their
+constructor cannot take any parameters. The Classes will be loaded and
+ran in the order they are defined <em>after</em> all the tests in the
+containing script are run. If the script does not contain any tests then
+only the Inner Classes will be listed in the output.</p>
+<p>The order the tests are run are not guaranteed to be in the same
+order they are defined (I don't know why yet). Also the line number for
+the tests cannot currently be reported when they fail or are pending
+(they aren't parsed the same way as normal script tests, I'll probably
+add this in later since it bugs me).</p>
+<p>Inner Classes are parsed out of the script by looking for a classes
+that start with <code>'Test'</code> and also extend
+<code>test.gd</code>. You can change the name that Gut looks for using
+the <code>inner_class_prefix</code> property.</p>
+<p>There are options for the command line and editor node to specify an
+Inner Test Class name to run. This allows you to easily run a subset of
+tests in a script as you develop a feature. See <a
+href="https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods">Gut
+Settings and Methods</a> and <a
+href="https://github.com/bitwes/Gut/wiki/Command-Line">Using Gut at the
+command line</a> for more information.</p>
+<h1 id="example">Example</h1>
+<p>Given the following test script defined at
+<code>res://test/unit/some_example.gd</code></p>
 <pre><code>extends GutTest
 
 func before_all():
-	gut.p('script:  pre-run')
+    gut.p(&#39;script:  pre-run&#39;)
 
 func before_each():
-	gut.p('script:  setup')
+    gut.p(&#39;script:  setup&#39;)
 
 func after_each():
-	gut.p('script:  teardown')
+    gut.p(&#39;script:  teardown&#39;)
 
 func after_all():
-	gut.p('script:  post-run')
+    gut.p(&#39;script:  post-run&#39;)
 
 func test_something():
-	assert_true(true)
+    assert_true(true)
 
 class TestClass1:
-	extends GutTest
+    extends GutTest
 
-	func before_all():
-		gut.p('TestClass1:  pre-run')
+    func before_all():
+        gut.p(&#39;TestClass1:  pre-run&#39;)
 
-	func before_each():
-		gut.p('TestClass1:  setup')
+    func before_each():
+        gut.p(&#39;TestClass1:  setup&#39;)
 
-	func after_each():
-		gut.p('TestClass1:  teardown')
+    func after_each():
+        gut.p(&#39;TestClass1:  teardown&#39;)
 
-	func after_all():
-		gut.p('TestClass1:  post-run')
+    func after_all():
+        gut.p(&#39;TestClass1:  post-run&#39;)
 
-	func test_context1_one():
-		assert_true(true)
+    func test_context1_one():
+        assert_true(true)
 
-	func test_context1_two():
-		pending()
-</code></pre>
+    func test_context1_two():
+        pending()</code></pre>
 <p>Gut will generate this following when running the test script.</p>
 <pre><code>/-----------------------------------------
 Running Script res://test/unit/some_sample.gd
@@ -85,6 +206,13 @@ TestClass1:  pre-run
     TestClass1:  setup
     PASSED:
     TestClass1:  teardown
-    TestClass1:  post-run
-</code></pre>
-</article></body>
+    TestClass1:  post-run</code></pre>
+</body>
+</html>
+
+            </embed>
+    </div>
+
+</body>
+
+</html>

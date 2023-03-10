@@ -1,88 +1,283 @@
+<html>
 
-        <html><head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            .markdown-body {
-                box-sizing: border-box;
-                min-width: 200px;
-                max-width: 980px;
-                margin: 0 auto;
-                padding: 45px;
-            }
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="maincss" rel="stylesheet" href="github-markdown.css">
+    <link rel="stylesheet" href="exported_wiki.css">
+</head>
 
-            @media (max-width: 767px) {
-                .markdown-body {
-                    padding: 15px;
-                }
-            }
-        </style>
-        <link rel="stylesheet" href="github-markdown.css"/>
-</head><body><article class="markdown-body"><h1><a id="user-content-partial-doubles" class="anchor" aria-hidden="true" href="#partial-doubles"><span aria-hidden="true" class="octicon octicon-link"></span></a>Partial-Doubles</h1>
-<p>A partial double is basically the inverse of a doubled object.  It creates an object that acts exactly the same way as its source but has hooks that allows us to stub or spy on any method.</p>
-<p>The <code>partial_double</code> method will create a partial double "class" which you can instance.  You can partially double scripts, packed scenes, and inner classes.  It works the same way as <code>double</code> works, so read up on that and then apply all that new knowledge to <code>partial_double</code>.</p>
-<p>Under the covers, whether you call <code>double</code> or <code>partial_double</code>, GUT makes the same thing.  If you call <code>partial_double</code> though, it will setup the object's methods to be stubbed <code>to_call_super</code> instead of not being stubbed at all.</p>
-<p>After you have your partial double, you can stub methods to return values instead of doing what they normally do.  You can also spy on any of the methods.</p>
-<p><strong>NOTE</strong> As of 7.0.0, in an attempt to help tests create less orphans, all Doubles and Partial Doubles are freed when a test finishes.  This means you do not have to free them manually and you should not use them in <code>before_all</code>.</p>
-<h2><a id="user-content-script-example" class="anchor" aria-hidden="true" href="#script-example"><span aria-hidden="true" class="octicon octicon-link"></span></a>Script Example</h2>
+
+<body>
+
+<!------------------------------------------------------------------------->
+<!-- THE TOC STARTS HERE                                                 -->
+<!------------------------------------------------------------------------->
+
+    <div id="toc" class="w3-sidebar w3-border-right">
+        <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Gut Wiki</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Gut Wiki</h1>
+</header>
+<h3 id="741-godot-3x">7.4.1 (Godot 3.x)</h3>
+<ul>
+<li><a href="Asserts-and-Methods.html">Asserts-and-Methods</a></li>
+<li><a href="Command-Line.html">Command-Line</a></li>
+<li><a href="Comparing-Things.html">Comparing-Things</a></li>
+<li><a href="Contributing.html">Contributing</a></li>
+<li><a href="Creating-Tests.html">Creating-Tests</a></li>
+<li><a href="Doubles.html">Doubles</a></li>
+<li><a href="Export-Test-Results.html">Export-Test-Results</a></li>
+<li><a
+href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
+<li><a href="Home.html">Home</a></li>
+<li><a href="Hooks.html">Hooks</a></li>
+<li><a href="Inner-Test-Classes.html">Inner-Test-Classes</a></li>
+<li><a href="Input-Factory.html">Input-Factory</a></li>
+<li><a href="Install.html">Install</a></li>
+<li><a href="Memory-Management.html">Memory-Management</a></li>
+<li><a href="Mock-Input.html">Mock-Input</a></li>
+<li><a href="Orphans.html">Orphans</a></li>
+<li><a href="Parameterized-Tests.html">Parameterized-Tests</a></li>
+<li><a href="Partial-Doubles.html">Partial-Doubles</a></li>
+<li><a href="Quick-Start.html">Quick-Start</a></li>
+<li><a href="Running-On-Devices.html">Running-On-Devices</a></li>
+<li><a href="Simulate.html">Simulate</a></li>
+<li><a href="Spies.html">Spies</a></li>
+<li><a href="Stubbing.html">Stubbing</a></li>
+<li><a href="Tutorials.html">Tutorials</a></li>
+<li><a href="Yielding.html">Yielding</a></li>
+</ul>
+</body>
+</html>
+
+        </embed>
+    </div>
+
+
+<!------------------------------------------------------------------------->
+<!-- THE PAGE STARTS HERE                                                -->
+<!------------------------------------------------------------------------->
+    <div class="wiki-page">
+            <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Partial-Doubles</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Partial-Doubles</h1>
+</header>
+<p>A partial double is basically the inverse of a doubled object. It
+creates an object that acts exactly the same way as its source but has
+hooks that allows us to stub or spy on any method.</p>
+<p>The <code>partial_double</code> method will create a partial double
+"class" which you can instance. You can partially double scripts, packed
+scenes, and inner classes. It works the same way as <code>double</code>
+works, so read up on that and then apply all that new knowledge to
+<code>partial_double</code>.</p>
+<p>Under the covers, whether you call <code>double</code> or
+<code>partial_double</code>, GUT makes the same thing. If you call
+<code>partial_double</code> though, it will setup the object's methods
+to be stubbed <code>to_call_super</code> instead of not being stubbed at
+all.</p>
+<p>After you have your partial double, you can stub methods to return
+values instead of doing what they normally do. You can also spy on any
+of the methods.</p>
+<p><strong>NOTE</strong> As of 7.0.0, in an attempt to help tests create
+less orphans, all Doubles and Partial Doubles are freed when a test
+finishes. This means you do not have to free them manually and you
+should not use them in <code>before_all</code>.</p>
+<h2 id="script-example">Script Example</h2>
 <p>Given</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-c"><span class="pl-c">#</span> res://script.gd</span>
-<span class="pl-k">extends</span><span class="pl-e"> Node2D</span>
-
-<span class="pl-k">var</span> _value <span class="pl-k">=</span> <span class="pl-c1">10</span>
-
-<span class="pl-k">func</span> <span class="pl-en">set_value</span>(<span class="pl-smi">val</span>):
-  _value <span class="pl-k">=</span> val
-
-<span class="pl-k">func</span> <span class="pl-en">get_value</span>():
-  <span class="pl-k">return</span> _value</pre></div>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># res://script.gd</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">extends</span> Node2D</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> <span class="co">_value</span> <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">set_value</span>(val):</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">_value</span> <span class="op">=</span> val</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">get_value</span>():</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="co">_value</span></span></code></pre></div>
 <p>Then</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_things</span>():
-  <span class="pl-k">var</span> partial <span class="pl-k">=</span> <span class="pl-c1">partial_double</span>(<span class="pl-s">'res://script.gd'</span>).<span class="pl-c1">new</span>()
-  <span class="pl-c1">stub</span>(partial, <span class="pl-s">'set_value'</span>).<span class="pl-c1">to_do_nothing</span>()
-  partial.<span class="pl-c1">set_value</span>(<span class="pl-c1">20</span>) <span class="pl-c"><span class="pl-c">#</span> stubbed so implementation bypassed.</span>
-
-  <span class="pl-c"><span class="pl-c">#</span> since set_value was stubbed, and get_value was not, and since</span>
-  <span class="pl-c"><span class="pl-c">#</span> this is a partial stub, then the original functionality of</span>
-  <span class="pl-c"><span class="pl-c">#</span> get_value will be executed and _value is returned.</span>
-  <span class="pl-c1">assert_eq</span>(partial.<span class="pl-c1">get_value</span>(), <span class="pl-c1">10</span>)
-  <span class="pl-c"><span class="pl-c">#</span> unstubbed partial methods can be spied on.</span>
-  <span class="pl-c1">assert_called</span>(partial, <span class="pl-s">'get_value'</span>)
-  <span class="pl-c"><span class="pl-c">#</span> stubbed methods can be spied on as well</span>
-  <span class="pl-c1">assert_called</span>(partial, <span class="pl-s">'set_value'</span>, [<span class="pl-c1">20</span>])</pre></div>
-<h2><a id="user-content-packed-scene-example" class="anchor" aria-hidden="true" href="#packed-scene-example"><span aria-hidden="true" class="octicon octicon-link"></span></a>Packed Scene Example</h2>
-<p>Given you have a scene <code>res://scene.tscn</code> that has the following script:</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-c"><span class="pl-c">#</span> res://script.gd</span>
-<span class="pl-k">extends</span><span class="pl-e"> Node2D</span>
-
-<span class="pl-k">var</span> _value <span class="pl-k">=</span> <span class="pl-c1">10</span>
-
-<span class="pl-k">func</span> <span class="pl-en">set_value</span>(<span class="pl-smi">val</span>):
-  _value <span class="pl-k">=</span> val
-
-<span class="pl-k">func</span> <span class="pl-en">get_value</span>():
-  <span class="pl-k">return</span> _value</pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_things</span>():</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> partial <span class="op">=</span> <span class="fu">partial_double</span>(<span class="st">&#39;res://script.gd&#39;</span>).<span class="fu">new</span>()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stub</span>(partial, <span class="st">&#39;set_value&#39;</span>).<span class="fu">to_do_nothing</span>()</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  partial.<span class="fu">set_value</span>(<span class="dv">20</span>) <span class="co"># stubbed so implementation bypassed.</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># since set_value was stubbed, and get_value was not, and since</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># this is a partial stub, then the original functionality of</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get_value will be executed and _value is returned.</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_eq</span>(partial.<span class="fu">get_value</span>(), <span class="dv">10</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># unstubbed partial methods can be spied on.</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_called</span>(partial, <span class="st">&#39;get_value&#39;</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># stubbed methods can be spied on as well</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_called</span>(partial, <span class="st">&#39;set_value&#39;</span>, [<span class="dv">20</span>])</span></code></pre></div>
+<h2 id="packed-scene-example">Packed Scene Example</h2>
+<p>Given you have a scene <code>res://scene.tscn</code> that has the
+following script:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># res://script.gd</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">extends</span> Node2D</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> <span class="co">_value</span> <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">set_value</span>(val):</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">_value</span> <span class="op">=</span> val</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">get_value</span>():</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="co">_value</span></span></code></pre></div>
 <p>Then</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> partial <span class="pl-k">=</span> <span class="pl-c1">partial_double</span>(<span class="pl-s">'res://scene.tscn'</span>).<span class="pl-c1">instance</span>()
-<span class="pl-c"><span class="pl-c">#</span> or</span>
-<span class="pl-k">var</span> <span class="pl-c1">Scene</span> <span class="pl-k">=</span> <span class="pl-c1">load</span>(<span class="pl-s">'res://scene.tscn'</span>)
-<span class="pl-k">var</span> partial <span class="pl-k">=</span> <span class="pl-c1">partial_double</span>(<span class="pl-c1">Scene</span>).<span class="pl-c1">instance</span>()</pre></div>
-<h2><a id="user-content-inner-class-example" class="anchor" aria-hidden="true" href="#inner-class-example"><span aria-hidden="true" class="octicon octicon-link"></span></a>Inner Class Example</h2>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-c"><span class="pl-c">#</span> res://script.gd</span>
-<span class="pl-k">extends</span><span class="pl-e"> Node2D</span>
-
-<span class="pl-k">class</span> <span class="pl-en">InnerClass</span>:
-  <span class="pl-k">var</span> _value <span class="pl-k">=</span> <span class="pl-c1">10</span>
-
-  <span class="pl-k">func</span> <span class="pl-en">set_value</span>(<span class="pl-smi">val</span>):
-    _value <span class="pl-k">=</span> val
-
-  <span class="pl-k">func</span> <span class="pl-en">get_value</span>():
-    <span class="pl-k">return</span> _value</pre></div>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> partial <span class="op">=</span> <span class="fu">partial_double</span>(<span class="st">&#39;res://scene.tscn&#39;</span>).<span class="fu">instance</span>()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> Scene <span class="op">=</span> <span class="bu">load</span>(<span class="st">&#39;res://scene.tscn&#39;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> partial <span class="op">=</span> <span class="fu">partial_double</span>(Scene).<span class="fu">instance</span>()</span></code></pre></div>
+<h2 id="inner-class-example">Inner Class Example</h2>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># res://script.gd</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">extends</span> Node2D</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> InnerClass:</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> <span class="co">_value</span> <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">func</span> <span class="fu">set_value</span>(val):</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">_value</span> <span class="op">=</span> val</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">func</span> <span class="fu">get_value</span>():</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="co">_value</span></span></code></pre></div>
 <p>Then</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> partial <span class="pl-k">=</span> <span class="pl-c1">partial_double</span>(<span class="pl-s">'res://script.gd'</span>, <span class="pl-s">'InnerClass'</span>).<span class="pl-c1">new</span>()
-<span class="pl-c"><span class="pl-c">#</span> or</span>
-<span class="pl-k">var</span> <span class="pl-c1">Script</span> <span class="pl-k">=</span> <span class="pl-c1">load</span>(<span class="pl-s">'res://script.gd'</span>)
-<span class="pl-k">var</span> partial <span class="pl-k">=</span> <span class="pl-c1">partial_double</span>(<span class="pl-c1">Script</span>, <span class="pl-s">'InnerClass'</span>).<span class="pl-c1">new</span>()</pre></div>
-<h2><a id="user-content-overriding-doubling-strategy" class="anchor" aria-hidden="true" href="#overriding-doubling-strategy"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overriding Doubling Strategy</h2>
-<p>Partial doubles also support overriding the set Experimental Doubling Strategy.  Pass in the strategy as an optional last parameter in any of the cases above.  It will override the strategy used when creating just this one partial double Class.</p>
-</article></body>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> partial <span class="op">=</span> <span class="fu">partial_double</span>(<span class="st">&#39;res://script.gd&#39;</span>, <span class="st">&#39;InnerClass&#39;</span>).<span class="fu">new</span>()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> Script <span class="op">=</span> <span class="bu">load</span>(<span class="st">&#39;res://script.gd&#39;</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> partial <span class="op">=</span> <span class="fu">partial_double</span>(Script, <span class="st">&#39;InnerClass&#39;</span>).<span class="fu">new</span>()</span></code></pre></div>
+<h2 id="overriding-doubling-strategy">Overriding Doubling Strategy</h2>
+<p>Partial doubles also support overriding the set Experimental Doubling
+Strategy. Pass in the strategy as an optional last parameter in any of
+the cases above. It will override the strategy used when creating just
+this one partial double Class.</p>
+</body>
+</html>
+
+            </embed>
+    </div>
+
+</body>
+
+</html>

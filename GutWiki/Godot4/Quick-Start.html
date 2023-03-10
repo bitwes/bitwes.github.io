@@ -1,24 +1,188 @@
+<html>
 
-        <html><head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            .markdown-body {
-                box-sizing: border-box;
-                min-width: 200px;
-                max-width: 980px;
-                margin: 0 auto;
-                padding: 45px;
-            }
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="maincss" rel="stylesheet" href="github-markdown.css">
+    <link rel="stylesheet" href="exported_wiki.css">
+</head>
 
-            @media (max-width: 767px) {
-                .markdown-body {
-                    padding: 15px;
-                }
-            }
-        </style>
-        <link rel="stylesheet" href="github-markdown.css"/>
-</head><body><article class="markdown-body"><h1><a id="user-content-quick-start" class="anchor" aria-hidden="true" href="#quick-start"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick-Start</h1>
-<p>This page contains brief descrptions of many of GUT's features.  Most sections have a "More information" link where more in depth documentation can be found.</p>
+
+<body>
+
+<!------------------------------------------------------------------------->
+<!-- THE TOC STARTS HERE                                                 -->
+<!------------------------------------------------------------------------->
+
+    <div id="toc" class="w3-sidebar w3-border-right">
+        <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Gut Wiki</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Gut Wiki</h1>
+</header>
+<h3 id="900-godot-4x">9.0.0 (Godot 4.x)</h3>
+<ul>
+<li><a href="Asserts-and-Methods.html">Asserts-and-Methods</a></li>
+<li><a href="Command-Line.html">Command-Line</a></li>
+<li><a href="Comparing-Things.html">Comparing-Things</a></li>
+<li><a href="Contributing.html">Contributing</a></li>
+<li><a href="Creating-Tests.html">Creating-Tests</a></li>
+<li><a href="Doubles.html">Doubles</a></li>
+<li><a href="Export-Test-Results.html">Export-Test-Results</a></li>
+<li><a
+href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
+<li><a href="Home.html">Home</a></li>
+<li><a href="Hooks.html">Hooks</a></li>
+<li><a href="Inner-Test-Classes.html">Inner-Test-Classes</a></li>
+<li><a href="Input-Factory.html">Input-Factory</a></li>
+<li><a href="Install.html">Install</a></li>
+<li><a href="Memory-Management.html">Memory-Management</a></li>
+<li><a href="Mock-Input.html">Mock-Input</a></li>
+<li><a href="Orphans.html">Orphans</a></li>
+<li><a href="Parameterized-Tests.html">Parameterized-Tests</a></li>
+<li><a href="Partial-Doubles.html">Partial-Doubles</a></li>
+<li><a href="Quick-Start.html">Quick-Start</a></li>
+<li><a href="Running-On-Devices.html">Running-On-Devices</a></li>
+<li><a href="Simulate.html">Simulate</a></li>
+<li><a href="Spies.html">Spies</a></li>
+<li><a href="Stubbing.html">Stubbing</a></li>
+<li><a href="Tutorials.html">Tutorials</a></li>
+<li><a href="Yielding.html">Yielding</a></li>
+</ul>
+</body>
+</html>
+
+        </embed>
+    </div>
+
+
+<!------------------------------------------------------------------------->
+<!-- THE PAGE STARTS HERE                                                -->
+<!------------------------------------------------------------------------->
+    <div class="wiki-page">
+            <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Quick-Start</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Quick-Start</h1>
+</header>
+<p>This page contains brief descrptions of many of GUT's features. Most
+sections have a "More information" link where more in depth
+documentation can be found.</p>
 <ul>
 <li><a href="#setup">Setup</a></li>
 <li><a href="#creating_tests">Creating Tests</a></li>
@@ -26,21 +190,28 @@
 <li><a href="#partial_doubles">Partial Doubles</a></li>
 <li><a href="#parameterized_tests">Parameterized Tests</a></li>
 <li><a href="#yielding">Yielding</a></li>
-<li><a href="#memory_management">Memory Leak Testing and Memory Management</a></li>
+<li><a href="#memory_management">Memory Leak Testing and Memory
+Management</a></li>
 </ul>
-<h1><a id="user-content--setup" class="anchor" aria-hidden="true" href="#-setup"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-setup"> Setup</a></h1>
-<p>Setup doesn't get any simplier than what is already on the <a href="Install.html">install page.</a></p>
-<h1><a id="user-content--run-tests" class="anchor" aria-hidden="true" href="#-run-tests"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-run"> Run Tests</a></h1>
-<p>Configure the GUT Panel to find your tests and use the various "Run" buttons to run your entire test suite or specific scripts/tests.
-[[<a href="https://raw.githubusercontent.com/wiki/bitwes/Gut/images/gut_panel.png|alt=gut_panel" rel="nofollow">https://raw.githubusercontent.com/wiki/bitwes/Gut/images/gut_panel.png|alt=gut_panel</a>]]</p>
-<p>Mouse-over labels and buttons in the GUT panel for more information.  You can even set keyboard shortcuts for all of the GUT panel actions.</p>
-<p>You can also run tests via the <a href="Command-Line.html">command line</a> or by <a href="(Install)">creating a scene</a>.</p>
-<h1><a id="user-content-creating-tests" class="anchor" aria-hidden="true" href="#creating-tests"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-creating_tests">Creating Tests</a></h1>
+<h1 id="-setup"><a name = "setup"> Setup</h1>
+<p>Setup doesn't get any simplier than what is already on the <a
+href="Install.html">install page.</a></p>
+<h1 id="-run-tests"><a name = "run"> Run Tests</h1>
+<p>Configure the GUT Panel to find your tests and use the various "Run"
+buttons to run your entire test suite or specific scripts/tests. [[<a
+href="https://raw.githubusercontent.com/wiki/bitwes/Gut/images/gut_panel.png">https://raw.githubusercontent.com/wiki/bitwes/Gut/images/gut_panel.png</a>|alt=gut_panel]]</p>
+<p>Mouse-over labels and buttons in the GUT panel for more information.
+You can even set keyboard shortcuts for all of the GUT panel
+actions.</p>
+<p>You can also run tests via the <a href="Command-Line.html">command
+line</a> or by <a href="(Install)">creating a scene</a>.</p>
+<h1 id="creating-tests"><a name = "creating_tests">Creating Tests</h1>
 <p><a href="Creating-Tests.html">More Information</a></p>
-<p>All test scripts must extend the <code>test.gd</code> script supplied by GUT.</p>
-<pre><code>extends GutTest
-</code></pre>
-<p>There are various asserts and helpers that are listed <a href="Asserts-and-Methods.html">here</a></p>
+<p>All test scripts must extend the <code>test.gd</code> script supplied
+by GUT.</p>
+<pre><code>extends GutTest</code></pre>
+<p>There are various asserts and helpers that are listed <a
+href="Asserts-and-Methods.html">here</a></p>
 <p>Setup and teardown methods:</p>
 <ul>
 <li><code>before_all</code></li>
@@ -49,134 +220,185 @@
 <li><code>after_all</code></li>
 </ul>
 <p>Any method that starts with "test" will be run as a test.</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">extends</span><span class="pl-e"> GutTest</span>
-
-<span class="pl-k">func</span> <span class="pl-en">before_all</span>():
-	gut.<span class="pl-c1">p</span>(<span class="pl-s">"Runs once before all tests"</span>)
-
-<span class="pl-k">func</span> <span class="pl-en">before_each</span>():
-	gut.<span class="pl-c1">p</span>(<span class="pl-s">"Runs before each test."</span>)
-
-<span class="pl-k">func</span> <span class="pl-en">after_each</span>():
-	gut.<span class="pl-c1">p</span>(<span class="pl-s">"Runs after each test."</span>)
-
-<span class="pl-k">func</span> <span class="pl-en">after_all</span>():
-	gut.<span class="pl-c1">p</span>(<span class="pl-s">"Runs once after all tests"</span>)
-
-<span class="pl-k">func</span> <span class="pl-en">test_assert_eq_number_not_equal</span>():
-	<span class="pl-c1">assert_eq</span>(<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-s">"Should fail.  1 != 2"</span>)
-
-<span class="pl-k">func</span> <span class="pl-en">test_assert_eq_number_equal</span>():
-	<span class="pl-c1">assert_eq</span>(<span class="pl-s">'asdf'</span>, <span class="pl-s">'asdf'</span>, <span class="pl-s">"Should pass"</span>)</pre></div>
-<p>You can use inner classes to group tests together.  The class name must start with "Test" and it also must extend <code>test.gd</code>.</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">extends</span><span class="pl-e"> GutTest</span>
-
-<span class="pl-k">class</span> <span class="pl-en">TestSomeAspects</span>:
-	<span class="pl-k">extends</span><span class="pl-e"> GutTest</span>
-
-	<span class="pl-k">func</span> <span class="pl-en">test_assert_eq_number_not_equal</span>():
-		<span class="pl-c1">assert_eq</span>(<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-s">"Should fail.  1 != 2"</span>)
-
-	<span class="pl-k">func</span> <span class="pl-en">test_assert_eq_number_equal</span>():
-		<span class="pl-c1">assert_eq</span>(<span class="pl-s">'asdf'</span>, <span class="pl-s">'asdf'</span>, <span class="pl-s">"Should pass"</span>)
-
-<span class="pl-k">class</span> <span class="pl-en">TestOtherAspects</span>:
-	<span class="pl-k">extends</span><span class="pl-e"> GutTest</span>
-
-	<span class="pl-k">func</span> <span class="pl-en">test_assert_true_with_true</span>():
-		<span class="pl-c1">assert_true</span>(<span class="pl-c1">true</span>, <span class="pl-s">"Should pass, true is true"</span>)</pre></div>
-<h1><a id="user-content-doublesspiesstubs" class="anchor" aria-hidden="true" href="#doublesspiesstubs"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-doubles">Doubles/Spies/Stubs</a></h1>
-<p>More Information:  <a href="Doubles.html">Doubles</a>, <a href="Spies.html">Spies</a>, <a href="Stubbing.html">Stubs</a></p>
-<p>You can make a double of just about anything.  <code>double</code> returns a loaded class, not an instance.  Doubles extend the object to be doubled and have empty implmenetations for all methods defined in the script or parent scripts, but not parent GDScript methods that are not overloaded.</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> <span class="pl-c1">Foo</span> <span class="pl-k">=</span> <span class="pl-c1">load</span>(<span class="pl-s">'res://foo.gd'</span>)
-<span class="pl-k">var</span> <span class="pl-c1">MyScene</span> <span class="pl-k">=</span> <span class="pl-c1">load</span>(<span class="pl-s">'res://my_scene.tscn'</span>)
-
-<span class="pl-k">var</span> double_foo <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">Foo</span>).<span class="pl-c1">new</span>()
-<span class="pl-k">var</span> double_scene <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-c1">MyScene</span>).<span class="pl-c1">instance</span>()
-<span class="pl-k">var</span> <span class="pl-c1">DoubleOther</span> <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-s">'res://other.gd'</span>)
-<span class="pl-k">var</span> double_other1 <span class="pl-k">=</span> <span class="pl-c1">DoubleOther</span>.<span class="pl-c1">new</span>()
-<span class="pl-k">var</span> double_other2 <span class="pl-k">=</span> <span class="pl-c1">DoubleOther</span>.<span class="pl-c1">new</span>()</pre></div>
-<p>You can stub your double to do different things.  Any unstubbed method that is called will generate a warning.</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> double_foo <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-s">'res://foo.gd'</span>).<span class="pl-c1">new</span>()
-<span class="pl-c1">stub</span>(double_foo, <span class="pl-s">'bar'</span>).<span class="pl-c1">to_return</span>(<span class="pl-c1">42</span>)
-<span class="pl-c1">stub</span>(double_foo, <span class="pl-s">'something'</span>).<span class="pl-c1">to_call_super</span>() <span class="pl-c"><span class="pl-c">#</span> do what method would normally do</span>
-<span class="pl-c1">stub</span>(double_foo, <span class="pl-s">'other_thing'</span>).<span class="pl-c1">to_return</span>(<span class="pl-c1">null</span>).<span class="pl-c1">when_passed</span>(<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-s">'c'</span>)
-<span class="pl-c1">stub</span>(double_foo, <span class="pl-s">'method'</span>).<span class="pl-c1">to_do_nothing</span>()</pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extends</span> GutTest</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">before_all</span>():</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    gut.p(<span class="st">&quot;Runs once before all tests&quot;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">before_each</span>():</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    gut.p(<span class="st">&quot;Runs before each test.&quot;</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">after_each</span>():</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    gut.p(<span class="st">&quot;Runs after each test.&quot;</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">after_all</span>():</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    gut.p(<span class="st">&quot;Runs once after all tests&quot;</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_assert_eq_number_not_equal</span>():</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">&quot;Should fail.  1 != 2&quot;</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_assert_eq_number_equal</span>():</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq</span>(<span class="st">&#39;asdf&#39;</span>, <span class="st">&#39;asdf&#39;</span>, <span class="st">&quot;Should pass&quot;</span>)</span></code></pre></div>
+<p>You can use inner classes to group tests together. The class name
+must start with "Test" and it also must extend <code>test.gd</code>.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extends</span> GutTest</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TestSomeAspects:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">extends</span> GutTest</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">func</span> <span class="fu">test_assert_eq_number_not_equal</span>():</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">assert_eq</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">&quot;Should fail.  1 != 2&quot;</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">func</span> <span class="fu">test_assert_eq_number_equal</span>():</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">assert_eq</span>(<span class="st">&#39;asdf&#39;</span>, <span class="st">&#39;asdf&#39;</span>, <span class="st">&quot;Should pass&quot;</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TestOtherAspects:</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">extends</span> GutTest</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">func</span> <span class="fu">test_assert_true_with_true</span>():</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">assert_true</span>(<span class="va">true</span>, <span class="st">&quot;Should pass, true is true&quot;</span>)</span></code></pre></div>
+<h1 id="doublesspiesstubs"><a name="doubles">Doubles/Spies/Stubs</h1>
+<p>More Information: <a href="Doubles.html">Doubles</a>, <a
+href="Spies.html">Spies</a>, <a href="Stubbing.html">Stubs</a></p>
+<p>You can make a double of just about anything. <code>double</code>
+returns a loaded class, not an instance. Doubles extend the object to be
+doubled and have empty implmenetations for all methods defined in the
+script or parent scripts, but not parent GDScript methods that are not
+overloaded.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> Foo <span class="op">=</span> <span class="bu">load</span>(<span class="st">&#39;res://foo.gd&#39;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> MyScene <span class="op">=</span> <span class="bu">load</span>(<span class="st">&#39;res://my_scene.tscn&#39;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> double_foo <span class="op">=</span> <span class="fu">double</span>(Foo).<span class="fu">new</span>()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> double_scene <span class="op">=</span> <span class="fu">double</span>(MyScene).<span class="fu">instance</span>()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> DoubleOther <span class="op">=</span> <span class="fu">double</span>(<span class="st">&#39;res://other.gd&#39;</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> double_other1 <span class="op">=</span> DoubleOther.<span class="fu">new</span>()</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> double_other2 <span class="op">=</span> DoubleOther.<span class="fu">new</span>()</span></code></pre></div>
+<p>You can stub your double to do different things. Any unstubbed method
+that is called will generate a warning.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> double_foo <span class="op">=</span> <span class="fu">double</span>(<span class="st">&#39;res://foo.gd&#39;</span>).<span class="fu">new</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(double_foo, <span class="st">&#39;bar&#39;</span>).<span class="fu">to_return</span>(<span class="dv">42</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(double_foo, <span class="st">&#39;something&#39;</span>).<span class="fu">to_call_super</span>() <span class="co"># do what method would normally do</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(double_foo, <span class="st">&#39;other_thing&#39;</span>).<span class="fu">to_return</span>(<span class="va">null</span>).<span class="fu">when_passed</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">&#39;c&#39;</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(double_foo, <span class="st">&#39;method&#39;</span>).<span class="fu">to_do_nothing</span>()</span></code></pre></div>
 <p>You can spy on your doubles with various asserts and helpers.</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> double_foo <span class="pl-k">=</span> <span class="pl-c1">double</span>(<span class="pl-s">'res://foo.gd'</span>).<span class="pl-c1">new</span>()
-<span class="pl-c"><span class="pl-c">#</span> do some actions</span>
-<span class="pl-c1">assert_called</span>(double_foo, <span class="pl-s">'bar'</span>)
-<span class="pl-c1">assert_not_called</span>(double_foo, <span class="pl-s">'something'</span>)
-<span class="pl-c1">assert_call_count</span>(double_foo, <span class="pl-s">'call_me'</span>, <span class="pl-c1">10</span>)
-<span class="pl-c"><span class="pl-c">#</span> assert other_thing called with parameters in array.</span>
-<span class="pl-c1">assert_called</span>(double_foo, <span class="pl-s">'other_thing'</span>, [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-s">'c'</span>])
-<span class="pl-c"><span class="pl-c">#</span> Get an array of the parameters sent to the last</span>
-<span class="pl-c"><span class="pl-c">#</span> call to call_me</span>
-<span class="pl-k">var</span> called_with_last <span class="pl-k">=</span> <span class="pl-c1">get_call_parameters</span>(double_foo, <span class="pl-s">'call_me'</span>)
-<span class="pl-c"><span class="pl-c">#</span> get the parameters passed to the 4th call of `call_me`</span>
-<span class="pl-k">var</span> called_with_4 <span class="pl-k">=</span> <span class="pl-c1">get_call_parameters</span>(double_foo, <span class="pl-s">'call_me'</span>, <span class="pl-c1">4</span>))</pre></div>
-<h1><a id="user-content-partial-doubles" class="anchor" aria-hidden="true" href="#partial-doubles"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-partial_doubles">Partial Doubles</a></h1>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> double_foo <span class="op">=</span> <span class="fu">double</span>(<span class="st">&#39;res://foo.gd&#39;</span>).<span class="fu">new</span>()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># do some actions</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_called</span>(double_foo, <span class="st">&#39;bar&#39;</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_not_called</span>(double_foo, <span class="st">&#39;something&#39;</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_call_count</span>(double_foo, <span class="st">&#39;call_me&#39;</span>, <span class="dv">10</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># assert other_thing called with parameters in array.</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_called</span>(double_foo, <span class="st">&#39;other_thing&#39;</span>, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">&#39;c&#39;</span>])</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Get an array of the parameters sent to the last</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># call to call_me</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> called_with_last <span class="op">=</span> <span class="fu">get_call_parameters</span>(double_foo, <span class="st">&#39;call_me&#39;</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># get the parameters passed to the 4th call of `call_me`</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> called_with_4 <span class="op">=</span> <span class="fu">get_call_parameters</span>(double_foo, <span class="st">&#39;call_me&#39;</span>, <span class="dv">4</span>))</span></code></pre></div>
+<h1 id="partial-doubles"><a name="partial_doubles">Partial Doubles</h1>
 <p><a href="Partial-Doubles.html">More Information</a></p>
-<p>Partial doubles have all the same properties of a double except they retain the source functionality by default.  You can stub and spy on them just like a double, but anything not stubbed will behave as if it wasn't a double.</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> double_bar <span class="pl-k">=</span> <span class="pl-c1">partial_double</span>(<span class="pl-s">'res://bar.tscn'</span>).<span class="pl-c1">instance</span>()
-<span class="pl-c"><span class="pl-c">#</span> the foo method will do nothing always now</span>
-<span class="pl-c1">stub</span>(double_bar, <span class="pl-s">'foo'</span>).<span class="pl-c1">to_do_nothing</span>()
-<span class="pl-c"><span class="pl-c">#</span> the something method will return 27 when passed 32,</span>
-<span class="pl-c"><span class="pl-c">#</span> but act normally when passed anything else.</span>
-<span class="pl-c1">stub</span>(double_bar, <span class="pl-s">'something'</span>).<span class="pl-c1">to_return</span>(<span class="pl-c1">27</span>).<span class="pl-c1">when_passed</span>(<span class="pl-c1">32</span>)
-<span class="pl-c"><span class="pl-c">#</span> example of spying</span>
-<span class="pl-c1">assert_called</span>(double_bar, <span class="pl-s">'other_thing'</span>)</pre></div>
-<h1><a id="user-content-parameterized-tests" class="anchor" aria-hidden="true" href="#parameterized-tests"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-parameterized_tests">Parameterized Tests</a></h1>
+<p>Partial doubles have all the same properties of a double except they
+retain the source functionality by default. You can stub and spy on them
+just like a double, but anything not stubbed will behave as if it wasn't
+a double.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> double_bar <span class="op">=</span> <span class="fu">partial_double</span>(<span class="st">&#39;res://bar.tscn&#39;</span>).<span class="fu">instance</span>()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the foo method will do nothing always now</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(double_bar, <span class="st">&#39;foo&#39;</span>).<span class="fu">to_do_nothing</span>()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the something method will return 27 when passed 32,</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># but act normally when passed anything else.</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(double_bar, <span class="st">&#39;something&#39;</span>).<span class="fu">to_return</span>(<span class="dv">27</span>).<span class="fu">when_passed</span>(<span class="dv">32</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># example of spying</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_called</span>(double_bar, <span class="st">&#39;other_thing&#39;</span>)</span></code></pre></div>
+<h1 id="parameterized-tests"><a name="parameterized_tests">Parameterized
+Tests</h1>
 <p><a href="Parameterized-Tests.html">More Information</a></p>
-<p>You can create tests that will be run multiple times and be passed multiple values.</p>
+<p>You can create tests that will be run multiple times and be passed
+multiple values.</p>
 <ul>
 <li>The test must have one and only one parameter.</li>
-<li>That parameter must be defaulted to call <code>use_parameters</code>.</li>
+<li>That parameter must be defaulted to call
+<code>use_parameters</code>.</li>
 <li>The value passed to use_parameters must be an array.
 <ul>
-<li>Each element in the array will result in one execution of the test with that element passed in.</li>
+<li>Each element in the array will result in one execution of the test
+with that element passed in.</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> test_params <span class="pl-k">=</span> [[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>], [<span class="pl-c1">4</span>, <span class="pl-c1">5</span>, <span class="pl-c1">6</span>]]
-<span class="pl-k">func</span> <span class="pl-en">test_with_parameters</span>(<span class="pl-smi">p</span><span class="pl-k">=</span><span class="pl-c1">use_parameters</span>(test_params)):
-	<span class="pl-c1">assert_eq</span>(p[<span class="pl-c1">0</span>], p[<span class="pl-c1">2</span>] - p[<span class="pl-c1">1</span>])
-
-<span class="pl-c"><span class="pl-c">#</span> The first array contains the name of the parameters, the 2nd array contains the values.</span>
-<span class="pl-k">var</span> named_params <span class="pl-k">=</span> <span class="pl-c1">ParameterFactory</span>.<span class="pl-c1">named_parameters</span>([<span class="pl-s">'a'</span>, <span class="pl-s">'b'</span>], [[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>], [<span class="pl-s">'one'</span>, <span class="pl-s">'two'</span>]])
-<span class="pl-k">func</span> <span class="pl-en">test_with_named_params</span>(<span class="pl-smi">p</span><span class="pl-k">=</span><span class="pl-c1">use_parameters</span>(better_params)):
-	<span class="pl-c1">assert_ne</span>(p.a, p.b)</pre></div>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> test_params <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_with_parameters</span>(p<span class="op">=</span><span class="fu">use_parameters</span>(test_params)):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq</span>(p[<span class="dv">0</span>], p[<span class="dv">2</span>] <span class="op">-</span> p[<span class="dv">1</span>])</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># The first array contains the name of the parameters, the 2nd array contains the values.</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> named_params <span class="op">=</span> ParameterFactory.<span class="fu">named_parameters</span>([<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>], [[<span class="dv">1</span>, <span class="dv">2</span>], [<span class="st">&#39;one&#39;</span>, <span class="st">&#39;two&#39;</span>]])</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_with_named_params</span>(p<span class="op">=</span><span class="fu">use_parameters</span>(better_params)):</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_ne</span>(p.a, p.b)</span></code></pre></div>
 <p>There are helpers to make your parameters more readable.</p>
-<h1><a id="user-content-yielding" class="anchor" aria-hidden="true" href="#yielding"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-yielding">Yielding</a></h1>
+<h1 id="yielding"><a name="yielding">Yielding</h1>
 <p><a href="Yielding.html">More Information</a></p>
-<p>You can use <code>yield</code> in your tests if you need to.  If you want to wait for a cetain amount of time you can use <code>yield_for</code>.</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">yield</span>(<span class="pl-c1">yield_for</span>(<span class="pl-c1">10</span>), <span class="pl-k">YIELD</span>)</pre></div>
-<p>You can yield to a signal or an amount of time, whichever comes first with <code>yield_to</code>.  This ensures that your tests do not hang when a signal is not emitted.</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> my_obj <span class="pl-k">=</span> <span class="pl-c1">load</span>(<span class="pl-s">'res://my_obj.gd'</span>).<span class="pl-c1">new</span>()
-<span class="pl-k">yield</span>(<span class="pl-c1">yield_to</span>(my_obj, <span class="pl-s">'some_signal'</span>, <span class="pl-c1">3</span>), <span class="pl-k">YIELD</span>)</pre></div>
-<p>All of the magic of <code>yield_to</code>, <code>yield_for</code> and the <code>YIELD</code> constant is covered on the yielding page.</p>
-<h1><a id="user-content-leak-testing-and-memory-management" class="anchor" aria-hidden="true" href="#leak-testing-and-memory-management"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="user-content-memory_management">Leak Testing and Memory Management</a></h1>
+<p>You can use <code>yield</code> in your tests if you need to. If you
+want to wait for a cetain amount of time you can use
+<code>yield_for</code>.</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">yield</span>(<span class="fu">yield_for</span>(<span class="dv">10</span>), YIELD)</span></code></pre></div>
+<p>You can yield to a signal or an amount of time, whichever comes first
+with <code>yield_to</code>. This ensures that your tests do not hang
+when a signal is not emitted.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> my_obj <span class="op">=</span> <span class="bu">load</span>(<span class="st">&#39;res://my_obj.gd&#39;</span>).<span class="fu">new</span>()</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">yield</span>(<span class="fu">yield_to</span>(my_obj, <span class="st">&#39;some_signal&#39;</span>, <span class="dv">3</span>), YIELD)</span></code></pre></div>
+<p>All of the magic of <code>yield_to</code>, <code>yield_for</code> and
+the <code>YIELD</code> constant is covered on the yielding page.</p>
+<h1
+id="leak-testing-and-memory-management"><a name="memory_management">Leak
+Testing and Memory Management</h1>
 <p><a href="Memory-Management.html">More Information</a></p>
-<p>Call <code>autofree</code> or <code>autoqfree</code> on anything you want to be automatically freed up after your test.  These return whatever you pass it so you can save a line of code!</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> my_node <span class="pl-k">=</span> <span class="pl-c1">autofree</span>(<span class="pl-c1">Node</span>.<span class="pl-c1">new</span>())</pre></div>
-<p><code>autofree</code> calls <code>free</code> on the object and <code>autoqfree</code> calls <code>queue_free</code>.</p>
-<p>If you plan to add your object to the tree you can use the <code>add_child_autofree</code> and <code>add_child_autoqfree</code> methods to add them as a child of the test script and free them at the end of the test.</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">var</span> my_node <span class="pl-k">=</span> <span class="pl-c1">add_child_autofree</span>(<span class="pl-c1">Node2D</span>.<span class="pl-c1">new</span>())</pre></div>
-<p>Orphan counts are displayed after each test/script that generates orphans and at the end of the run.  If you don't see output, then you don't have any orphans!  You can disable this feature if you want.</p>
-<p>All objects created with <code>double</code> or <code>partial_double</code> are freed automatically.</p>
-<p>You can assert you didn't make any new orphans with <code>assert_no_new_orphans</code>.  <code>assert_no_new_orphans</code> doesn't know about objects passed to <code>autofree</code> so they will be counted if they are not in the tree.</p>
-<div class="highlight highlight-source-gdscript"><pre><span class="pl-k">func</span> <span class="pl-en">test_freeing</span>():
-	<span class="pl-k">var</span> node <span class="pl-k">=</span> <span class="pl-c1">Node</span>.<span class="pl-c1">new</span>()
-	<span class="pl-c1">assert_no_new_orphans</span>(<span class="pl-s">'this one fails'</span>)
-	node.<span class="pl-c1">free</span>()
-	<span class="pl-c1">assert_no_new_orphans</span>(<span class="pl-s">'this one passes'</span>)
+<p>Call <code>autofree</code> or <code>autoqfree</code> on anything you
+want to be automatically freed up after your test. These return whatever
+you pass it so you can save a line of code!</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> my_node <span class="op">=</span> <span class="fu">autofree</span>(Node.<span class="fu">new</span>())</span></code></pre></div>
+<p><code>autofree</code> calls <code>free</code> on the object and
+<code>autoqfree</code> calls <code>queue_free</code>.</p>
+<p>If you plan to add your object to the tree you can use the
+<code>add_child_autofree</code> and <code>add_child_autoqfree</code>
+methods to add them as a child of the test script and free them at the
+end of the test.</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> my_node <span class="op">=</span> <span class="fu">add_child_autofree</span>(Node2D.<span class="fu">new</span>())</span></code></pre></div>
+<p>Orphan counts are displayed after each test/script that generates
+orphans and at the end of the run. If you don't see output, then you
+don't have any orphans! You can disable this feature if you want.</p>
+<p>All objects created with <code>double</code> or
+<code>partial_double</code> are freed automatically.</p>
+<p>You can assert you didn't make any new orphans with
+<code>assert_no_new_orphans</code>. <code>assert_no_new_orphans</code>
+doesn't know about objects passed to <code>autofree</code> so they will
+be counted if they are not in the tree.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_freeing</span>():</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> node <span class="op">=</span> Node.<span class="fu">new</span>()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_no_new_orphans</span>(<span class="st">&#39;this one fails&#39;</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    node.<span class="fu">free</span>()</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_no_new_orphans</span>(<span class="st">&#39;this one passes&#39;</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># If you queue_free then you have to wait for it to be freed.</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_queue_freeing</span>():</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> node <span class="op">=</span> Node.<span class="fu">new</span>()</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    node.<span class="fu">queue_free</span>()</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_no_new_orphans</span>(<span class="st">&#39;this one fails&#39;</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">yield</span>(<span class="fu">yield_for</span>(<span class="fl">.1</span>), YIELD)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_no_new_orphans</span>(<span class="st">&#39;this one passes&#39;</span>)</span></code></pre></div>
+</body>
+</html>
 
-<span class="pl-c"><span class="pl-c">#</span> If you queue_free then you have to wait for it to be freed.</span>
-<span class="pl-k">func</span> <span class="pl-en">test_queue_freeing</span>():
-	<span class="pl-k">var</span> node <span class="pl-k">=</span> <span class="pl-c1">Node</span>.<span class="pl-c1">new</span>()
-	node.<span class="pl-c1">queue_free</span>()
-	<span class="pl-c1">assert_no_new_orphans</span>(<span class="pl-s">'this one fails'</span>)
-	<span class="pl-k">yield</span>(<span class="pl-c1">yield_for</span>(.<span class="pl-c1">1</span>), <span class="pl-k">YIELD</span>)
-	<span class="pl-c1">assert_no_new_orphans</span>(<span class="pl-s">'this one passes'</span>)
-</pre></div>
-</article></body>
+            </embed>
+    </div>
+
+</body>
+
+</html>
