@@ -33,6 +33,15 @@ body{
 }
 
 
-.wiki-page{
+.wiki-div{
     margin-left: 26%
+}
+
+.wiki-page{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+img{
+    max-width: 100%;
 }
