@@ -1,93 +1,52 @@
+<html>
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <style>
-        .markdown-body {
-            box-sizing: border-box;
-            min-width: 200px;
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 45px;
-        }
-
-        @media (max-width: 767px) {
-            .markdown-body {
-                padding: 15px;
-            }
-        }
-
-        .toc {
-            float: left;
-            padding: 15px;
-        }
-
-
-        .w3-sidebar{height:100%;width:200px;background-color:#fff;position:fixed!important;z-index:1;overflow:auto}
-        .w3-bar-block .w3-dropdown-hover,.w3-bar-block .w3-dropdown-click{width:100%}
-        .w3-border-right{border-right:1px solid #ccc!important}
-        .inner-page{width: 100%; height: 100%;}
-    </style>
-
-
-    <script>
-        function loadWikiPage(pageUrl) {
-            var theDiv = document.getElementById("wiki_page");
-            theDiv.innerHTML='<object class="inner-page" type="text/html" data="' + pageUrl + '" ></object>';
-        }
-
-        function wireTocLink(link){
-            link.onclick = function(e) {
-                window.location = window.location.pathname + "?page=" + link.getAttribute("href")
-                e.preventDefault();
-                return false;
-            };
-        }
-
-        window.onload = function() {
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-
-            var loadPage = 'Home.html'
-            if(urlParams.has('page')){
-                loadPage = urlParams.get('page')
-            }
-            loadWikiPage(loadPage);
-
-            var allTocLinks = document.getElementById("toc").querySelectorAll('a')
-            for (let i = 0; i < allTocLinks.length; i++) {
-                console.log(allTocLinks[i].getAttribute("href"));
-                wireTocLink(allTocLinks[i]);
-            }
-
-        }
-    </script>
-
-
-    <link rel="stylesheet" href="github-markdown.css">
+    <link id="maincss" rel="stylesheet" href="github-markdown.css">
+    <link rel="stylesheet" href="exported_wiki.css">
 </head>
 
-<body>
-    <div id="toc" class="w3-sidebar w3-bar-block w3-border-right" style="width:25%">
-        
-        <html><head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            .markdown-body {
-                box-sizing: border-box;
-                min-width: 200px;
-                max-width: 980px;
-                margin: 0 auto;
-                padding: 45px;
-            }
 
-            @media (max-width: 767px) {
-                .markdown-body {
-                    padding: 15px;
-                }
-            }
-        </style>
-        <link rel="stylesheet" href="github-markdown.css"/>
-</head><body><article class="markdown-body"><h1><a id="user-content-gut-wiki-900" class="anchor" aria-hidden="true" href="#gut-wiki-900"><span aria-hidden="true" class="octicon octicon-link"></span></a>GUT Wiki 9.0.0</h1>
+<body>
+
+<!------------------------------------------------------------------------->
+<!-- THE TOC STARTS HERE                                                 -->
+<!------------------------------------------------------------------------->
+
+    <div id="toc" class="w3-sidebar w3-border-right">
+        <div class="markdown-body">
+            <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Gut Wiki</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Gut Wiki</h1>
+</header>
+<h3 id="900-godot-4x">9.0.0 (Godot 4.x)</h3>
 <ul>
 <li><a href="Asserts-and-Methods.html">Asserts-and-Methods</a></li>
 <li><a href="Command-Line.html">Command-Line</a></li>
@@ -96,7 +55,8 @@
 <li><a href="Creating-Tests.html">Creating-Tests</a></li>
 <li><a href="Doubles.html">Doubles</a></li>
 <li><a href="Export-Test-Results.html">Export-Test-Results</a></li>
-<li><a href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
+<li><a
+href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
 <li><a href="Home.html">Home</a></li>
 <li><a href="Hooks.html">Hooks</a></li>
 <li><a href="Inner-Test-Classes.html">Inner-Test-Classes</a></li>
@@ -115,11 +75,143 @@
 <li><a href="Tutorials.html">Tutorials</a></li>
 <li><a href="Yielding.html">Yielding</a></li>
 </ul>
-</article></body>
+</body>
+</html>
+
+            </embed>
+        </div>
     </div>
 
-    <div style="margin-left:25%">
-        <div id="wiki_page"></div>
+
+<!------------------------------------------------------------------------->
+<!-- THE PAGE STARTS HERE                                                -->
+<!------------------------------------------------------------------------->
+    <div class="wiki-div">
+        <div class="markdown-body">
+            <embed>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Home</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github-markdown.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Home</h1>
+</header>
+<h1 id="-not-updated-for-gut-900-yet-">!! Not Updated for GUT 9.0.0 Yet
+!!</h1>
+<p>This wiki has not been updated yet for the changes made for Godot 4.
+Any page that has <strong>!! Not Updated for GUT 9.0.0 Yet !!</strong>
+at the top could have incorrect information. You can find information
+about what has changed in 9.0.0 and Godot 4 in the <a
+href="https://github.com/bitwes/Gut/blob/godot_4/GODOT_4_README.md">GODOT_4_README</a></p>
+<h1 id="gut-900">Gut 9.0.0</h1>
+<p>GUT (Godot Unit Test) is a utility for writing tests for your Godot
+Engine game. It allows you to write tests for your gdscripts in
+gdscript.</p>
+<h3 id="godot-3x4x">Godot 3.x/4.x</h3>
+<p>GUT 9 requires Godot 4. GUT 7 requires Godot 3.4.</p>
+<h1 id="getting-started">Getting Started</h1>
+<ul>
+<li><a href="Quick-Start.html">Quick Start</a></li>
+<li><a href="Install.html">Install</a></li>
+<li><a href="Asserts-and-Methods.html">Asserts and Methods</a></li>
+<li><a href="Creating-Tests.html">Creating Tests</a></li>
+<li><a href="Gut-Settings-And-Methods.html">Gut Settings and
+Methods</a></li>
+<li><a href="Command-Line.html">Using Gut at the command line</a></li>
+</ul>
+<h1 id="advanced-testing">Advanced Testing</h1>
+<ul>
+<li><a href="Inner-Test-Classes.html">Inner Test Classes</a></li>
+<li><a href="Doubles.html">Doubling</a></li>
+<li><a href="Spies.html">Spies</a></li>
+<li><a href="Stubbing.html">Stubbing</a></li>
+<li><a href="Parameterized-Tests.html">Parameterized Tests</a></li>
+<li><a href="Simulate.html">Simulate</a></li>
+<li><a href="Yielding.html">Yielding during tests</a></li>
+<li><a href="Hooks.html">Pre/Post Run Hooks</a></li>
+<li><a href="Export-Test-Results.html">Exporting Results</a></li>
+</ul>
+<h1 id="editor-gui">Editor GUI</h1>
+<p>[[<a
+href="https://raw.githubusercontent.com/wiki/bitwes/Gut/images/gut_panel.png">https://raw.githubusercontent.com/wiki/bitwes/Gut/images/gut_panel.png</a>|alt=gut_panel]]</p>
+<h1 id="gut-gui">GUT GUI</h1>
+<p>[[<a
+href="https://raw.githubusercontent.com/wiki/bitwes/Gut/images/GutGui.png">https://raw.githubusercontent.com/wiki/bitwes/Gut/images/GutGui.png</a>|alt=gutgui]]</p>
+<ol type="1">
+<li>Output Box.</li>
+<li>List of Test Scripts. Inner Classes are indented under scripts.</li>
+<li>Progress bars for all scripts and the current script.</li>
+<li>Log Level slider.</li>
+<li>Previous Script (in list of scripts)</li>
+<li>Run the currently selected script and all scripts after it. This can
+be especially useful when running on another device and some script in
+the middle of the list causes a crash. To run the tests after the crash,
+just select that test in the list and click this button. It will run
+that one and all the ones after.</li>
+<li>Next Script (in list of scripts)</li>
+<li>Run the currently selected script. If an Inner Class is selected
+then just that class will be run. If a Script is selected then the
+script and all of its Inner Classes will be run.</li>
+<li>Toggle display of List of Test Scripts</li>
+<li>The Hamburger button. It shows some additional options.</li>
+<li>Continue button will be enabled if a call to
+<code>yield_before_teardown</code> occurs. Click it to continue running
+tests.</li>
+<li>The title bar. It has a maximize button, shows the current script,
+has a running tally on the left of the pass/fail count, shows the
+elapsed time. Also you can drag it all about.</li>
+</ol>
+<p>Also, in the bottom right corner, you can drag to resize the
+dialog.</p>
+<h1 id="engine-warnings">Engine Warnings</h1>
+<p>There are a fair number of warnings that Godot will show related to
+GUT. Some of the warnings are valid and are being cleaned up overtime.
+Most of the warnings are not valid and sometimes relate to generated
+code. As of 3.2 you can disable warnings for addons, and it recommended
+you do so. [[<a
+href="https://raw.githubusercontent.com/wiki/bitwes/Gut/images/exclude_addons.png">https://raw.githubusercontent.com/wiki/bitwes/Gut/images/exclude_addons.png</a>|alt=exclude_addons]]</p>
+<h1 id="license">License</h1>
+<p>Gut is provided under the MIT license. <a
+href="https://github.com/bitwes/Gut/blob/master/addons/gut/LICENSE.md">The
+license is distributed with Gut so it is in the <code>addons/gut</code>
+folder</a>.</p>
+<h1 id="contributing">Contributing</h1>
+<p><a href="Contributing.html">Contributing</a></p>
+<h1 id="who-do-i-talk-to">Who do I talk to?</h1>
+<p>You can talk to me, Butch Wesley</p>
+<ul>
+<li>Github: bitwes</li>
+<li>Godot forums: bitwes</li>
+<li>Godot Discord: bitwes</li>
+</ul>
+</body>
+</html>
+
+            </embed>
+        </div>
     </div>
 
 </body>
