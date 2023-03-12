@@ -47,16 +47,22 @@
 <h1 class="title">Gut Wiki</h1>
 </header>
 <h3 id="900-godot-4x">9.0.0 (Godot 4.x)</h3>
+<h3 id="start-here">Start Here</h3>
+<ul>
+<li><a href="New-For-Godot-4.html">New-For-Godot-4</a></li>
+<li><a href="Home.html">Home</a></li>
+<li><a href="Quick-Start.html">Quick-Start</a></li>
+</ul>
+<h3 id="all-pages">All Pages</h3>
 <ul>
 <li><a href="Asserts-and-Methods.html">Asserts-and-Methods</a></li>
 <li><a href="Command-Line.html">Command-Line</a></li>
 <li><a href="Comparing-Things.html">Comparing-Things</a></li>
 <li><a href="Contributing.html">Contributing</a></li>
 <li><a href="Creating-Tests.html">Creating-Tests</a></li>
+<li><a href="Double-Strategy.html">Double-Strategy</a></li>
 <li><a href="Doubles.html">Doubles</a></li>
 <li><a href="Export-Test-Results.html">Export-Test-Results</a></li>
-<li><a
-href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
 <li><a href="Home.html">Home</a></li>
 <li><a href="Hooks.html">Hooks</a></li>
 <li><a href="Inner-Test-Classes.html">Inner-Test-Classes</a></li>
@@ -64,6 +70,7 @@ href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
 <li><a href="Install.html">Install</a></li>
 <li><a href="Memory-Management.html">Memory-Management</a></li>
 <li><a href="Mock-Input.html">Mock-Input</a></li>
+<li><a href="New-For-Godot-4.html">New-For-Godot-4</a></li>
 <li><a href="Orphans.html">Orphans</a></li>
 <li><a href="Parameterized-Tests.html">Parameterized-Tests</a></li>
 <li><a href="Partial-Doubles.html">Partial-Doubles</a></li>
@@ -183,10 +190,9 @@ href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
 <header id="title-block-header">
 <h1 class="title">Asserts-and-Methods</h1>
 </header>
-<h1 id="-not-updated-for-gut-900-yet-">!! Not Updated for GUT 9.0.0 Yet
-!!</h1>
-<p>These are all the methods, bells, whistles and blinky lights you get
-when you extend the Gut Test Class (<code>extends GutTest</code>).</p>
+<div class="warning">This page has not been updated for GUT 9.0.0 or Godot 4.  There could be incorrect information here.</div>
+These are all the methods, bells, whistles and blinky lights you get when you extend the Gut Test Class (`extends GutTest`).
+
 <p>All sample code listed for the methods can be found here in <a
 href="https://github.com/bitwes/Gut/blob/master/test/samples/test_readme_examples.gd">test_readme_examples.gd</a></p>
 <h1 id="utilities">Utilities</h1>
@@ -1794,8 +1800,7 @@ class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb52-1">
 be doubled again. Since the class under test will be doubled within the
 assert procession it is important to only feed in types that can be
 doubled. For more information about doubling its restrictions see the
-wiki page about <a
-href="https://github.com/bitwes/Gut/wiki/Doubles">Doubles</a>.</p>
+wiki page about <a href="Doubles.html">Doubles</a>.</p>
 <h4
 id="-assert_propertyobj-name_property-has_setterfalse-has_getterfalse-"><a name="assert_setget">
 assert_property(obj, name_property, has_setter=false, has_getter=false)

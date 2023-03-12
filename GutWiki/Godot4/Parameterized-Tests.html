@@ -47,16 +47,22 @@
 <h1 class="title">Gut Wiki</h1>
 </header>
 <h3 id="900-godot-4x">9.0.0 (Godot 4.x)</h3>
+<h3 id="start-here">Start Here</h3>
+<ul>
+<li><a href="New-For-Godot-4.html">New-For-Godot-4</a></li>
+<li><a href="Home.html">Home</a></li>
+<li><a href="Quick-Start.html">Quick-Start</a></li>
+</ul>
+<h3 id="all-pages">All Pages</h3>
 <ul>
 <li><a href="Asserts-and-Methods.html">Asserts-and-Methods</a></li>
 <li><a href="Command-Line.html">Command-Line</a></li>
 <li><a href="Comparing-Things.html">Comparing-Things</a></li>
 <li><a href="Contributing.html">Contributing</a></li>
 <li><a href="Creating-Tests.html">Creating-Tests</a></li>
+<li><a href="Double-Strategy.html">Double-Strategy</a></li>
 <li><a href="Doubles.html">Doubles</a></li>
 <li><a href="Export-Test-Results.html">Export-Test-Results</a></li>
-<li><a
-href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
 <li><a href="Home.html">Home</a></li>
 <li><a href="Hooks.html">Hooks</a></li>
 <li><a href="Inner-Test-Classes.html">Inner-Test-Classes</a></li>
@@ -64,6 +70,7 @@ href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
 <li><a href="Install.html">Install</a></li>
 <li><a href="Memory-Management.html">Memory-Management</a></li>
 <li><a href="Mock-Input.html">Mock-Input</a></li>
+<li><a href="New-For-Godot-4.html">New-For-Godot-4</a></li>
 <li><a href="Orphans.html">Orphans</a></li>
 <li><a href="Parameterized-Tests.html">Parameterized-Tests</a></li>
 <li><a href="Partial-Doubles.html">Partial-Doubles</a></li>
@@ -183,14 +190,14 @@ href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
 <header id="title-block-header">
 <h1 class="title">Parameterized-Tests</h1>
 </header>
-<h1 id="-not-updated-for-gut-900-yet-">!! Not Updated for GUT 9.0.0 Yet
-!!</h1>
-<h2 id="overview">Overview</h2>
 <p>There are some scenarios where it is desireable to run a test
 numerous times with different parameters. You can do this in GUT by
 creating a test that has a single parameter that is defaulted to the GUT
 method <code>use_parameters</code>.</p>
-<h2 id="requirements">Requirements:</h2>
+<p><code>use_parameters</code> expects and array. The test will be
+called once for each element in the array, passing the value of each
+element to the parameter of the function.</p>
+<h1 id="requirements">Requirements:</h1>
 <ul>
 <li>The test must have one and only one paramter.</li>
 <li>The parameter must be defaulted to call
@@ -202,57 +209,77 @@ error.</li>
 <li>If <code>use_parameters</code> is not called then GUT will only run
 the test once and will generate an error.</li>
 </ul>
-<h2 id="example">Example</h2>
-<p>Given:</p>
+<h1 id="example">Example</h1>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Foo:</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">func</span> <span class="fu">add</span>(p1, p2):</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p1 <span class="op">+</span> p2</span></code></pre></div>
-<p>Then</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extends</span> GutTest</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> foo_params <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>]]</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_foo</span>(params<span class="op">=</span><span class="fu">use_parameters</span>(foo_params)):</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> foo <span class="op">=</span> Foo.<span class="fu">new</span>()</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> result <span class="op">=</span> foo.<span class="fu">add</span>(params[<span class="dv">0</span>], params[<span class="dv">1</span>])</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_eq</span>(result, params[<span class="dv">2</span>])</span></code></pre></div>
-<p>Which would result in :</p>
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extends</span> GutTest</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Foo:</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">func</span> <span class="fu">add</span>(p1, p2):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p1 <span class="op">+</span> p2</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define one array, with two arrays as the elements in the array.</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># This will cause the test to be called twice.  The first</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># call will get [1, 2, 3] as the value of the paramter.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># The second call will get [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> foo_params <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>]]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># This test will add the first two elements in params together,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># using Foo, and assert that they equal the third element in params.</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_foo</span>(params<span class="op">=</span><span class="fu">use_parameters</span>(foo_params)):</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> foo <span class="op">=</span> Foo.<span class="fu">new</span>()</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> result <span class="op">=</span> foo.<span class="fu">add</span>(params[<span class="dv">0</span>], params[<span class="dv">1</span>])</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_eq</span>(result, params[<span class="dv">2</span>])</span></code></pre></div>
+<p>Running this test will result in:</p>
 <ul>
-<li>one passing test (<code>1 + 2 = 3</code>)</li>
-<li>one failing test (<code>'a' + 'b'  != 'c'</code>, it actually equals
+<li>One passing test (<code>1 + 2 = 3</code>)</li>
+<li>One failing test (<code>'a' + 'b'  != 'c'</code>, it actually equals
 <code>'ab'</code>)</li>
 </ul>
-<h2 id="helpers-parameterfactory">Helpers (ParameterFactory)</h2>
-<h3 id="named_parametersnames-values">named_parameters(names,
-values)</h3>
+<h1 id="parameterfactory">ParameterFactory</h1>
+<p><code>GutTest</code> scripts have access to the
+<code>ParameterFactory</code> static class which has helper methods for
+defining parameters for parameterized tests.</p>
+<h3
+id="named_parametersnames-values"><code>named_parameters(names, values)</code></h3>
 <p>Creates an array of dictionaries. It pairs up the names array with
 each set of values in values. If more names than values are specified
 then the missing values will be filled with nulls. If more values than
 names are specified those values will be ignored.</p>
 <p>Example:</p>
-<pre><code>ParameterFactory.named_parameters([&#39;a&#39;, &#39;b&#39;], [[1, 2], [&#39;one&#39;, &#39;two&#39;]])
-# returns [{a:1, b:2}, {a:&#39;one&#39;, b:&#39;two&#39;}]
-
-# extra values
-ParameterFactory.named_parameters([&#39;a&#39;], [[1, 2], [3, 4]])
-# returns [{a:1}, {a:3}]
-
-# not enough values
-ParameterFactory.named_parameters([&#39;a&#39;, &#39;b&#39;], [[1], &#39;oops&#39;, [&#39;one&#39;, &#39;two&#39;]])
-# returns [{a:1, b:null}, {a:&#39;oops&#39;, b:null}, {a:&#39;one&#39;, b:&#39;two&#39;}]</code></pre>
-<p>This allows you to increase readability of your parameterized
-tests:</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> foo_params <span class="op">=</span> ParameterFactory.<span class="fu">named_parameters</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  [<span class="st">&#39;p1&#39;</span>, <span class="st">&#39;p2&#39;</span>, <span class="st">&#39;result&#39;</span>], <span class="co"># names</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  [[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>]]) <span class="co"># values</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_foo</span>(params<span class="op">=</span><span class="fu">use_parameters</span>(foo_params)):</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> foo <span class="op">=</span> Foo.<span class="fu">new</span>()</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> result <span class="op">=</span> foo.<span class="fu">add</span>(params.p1, params.p2)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_eq</span>(result, params.result)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With this setup, you can use `params.p1`, `params.p2`, and</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># `params.result` in the test below.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> foo_params <span class="op">=</span> ParameterFactory.<span class="fu">named_parameters</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    [<span class="st">&#39;p1&#39;</span>, <span class="st">&#39;p2&#39;</span>, <span class="st">&#39;result&#39;</span>], <span class="co"># names</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    [                       <span class="co"># values</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    ])</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_foo</span>(params <span class="op">=</span> <span class="fu">use_parameters</span>(foo_params)):</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> foo <span class="op">=</span> Foo.<span class="fu">new</span>()</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> result <span class="op">=</span> foo.<span class="fu">add</span>(params.p1, params.p2)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq</span>(result, params.result)</span></code></pre></div>
+<p>Here are some invalid setups and what results.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of extra values.  This returns:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [{a:1}, {a:3}]</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ParameterFactory.<span class="fu">named_parameters</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    [<span class="st">&#39;a&#39;</span>],</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">1</span>, <span class="dv">2</span>],</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    ])</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of not enough values.  This returns:</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># [{a:1, b:null}, {a:&#39;oops&#39;, b:null}, {a:&#39;one&#39;, b:&#39;two&#39;}]</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>ParameterFactory.<span class="fu">named_parameters</span>(</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>],</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">1</span>],</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;oops&#39;</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        [<span class="st">&#39;one&#39;</span>, <span class="st">&#39;two&#39;</span>]</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    ])</span></code></pre></div>
 <h3 id="others">Others?</h3>
 <p>If you have an idea for a helper please create an <a
 href="https://github.com/bitwes/Gut/issues">issue on Github</a>.</p>

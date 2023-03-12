@@ -47,16 +47,22 @@
 <h1 class="title">Gut Wiki</h1>
 </header>
 <h3 id="900-godot-4x">9.0.0 (Godot 4.x)</h3>
+<h3 id="start-here">Start Here</h3>
+<ul>
+<li><a href="New-For-Godot-4.html">New-For-Godot-4</a></li>
+<li><a href="Home.html">Home</a></li>
+<li><a href="Quick-Start.html">Quick-Start</a></li>
+</ul>
+<h3 id="all-pages">All Pages</h3>
 <ul>
 <li><a href="Asserts-and-Methods.html">Asserts-and-Methods</a></li>
 <li><a href="Command-Line.html">Command-Line</a></li>
 <li><a href="Comparing-Things.html">Comparing-Things</a></li>
 <li><a href="Contributing.html">Contributing</a></li>
 <li><a href="Creating-Tests.html">Creating-Tests</a></li>
+<li><a href="Double-Strategy.html">Double-Strategy</a></li>
 <li><a href="Doubles.html">Doubles</a></li>
 <li><a href="Export-Test-Results.html">Export-Test-Results</a></li>
-<li><a
-href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
 <li><a href="Home.html">Home</a></li>
 <li><a href="Hooks.html">Hooks</a></li>
 <li><a href="Inner-Test-Classes.html">Inner-Test-Classes</a></li>
@@ -64,6 +70,7 @@ href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
 <li><a href="Install.html">Install</a></li>
 <li><a href="Memory-Management.html">Memory-Management</a></li>
 <li><a href="Mock-Input.html">Mock-Input</a></li>
+<li><a href="New-For-Godot-4.html">New-For-Godot-4</a></li>
 <li><a href="Orphans.html">Orphans</a></li>
 <li><a href="Parameterized-Tests.html">Parameterized-Tests</a></li>
 <li><a href="Partial-Doubles.html">Partial-Doubles</a></li>
@@ -183,15 +190,10 @@ href="Gut-Settings-And-Methods.html">Gut-Settings-And-Methods</a></li>
 <header id="title-block-header">
 <h1 class="title">Creating-Tests</h1>
 </header>
-<h1 id="-not-updated-for-gut-900-yet-">!! Not Updated for GUT 9.0.0 Yet
-!!</h1>
-<h1 id="-making-tests"><a name="creating_tests"> Making Tests</h1>
-<h1 id="sample-for-setup">Sample for Setup</h1>
 <p>Here's a sample test script. Copy the contents into the file
-<code>res://test/unit/test_example.gd</code> then run your scene. If
+<code>res://test/unit/test_example.gd</code> then run the script. If
 everything is setup correctly then you'll see some passing and failing
-tests. If you don't have "Run on Load" checked in the editor, you'll
-have to hit the "&gt;" button on the dialog window.</p>
+tests.</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extends</span> GutTest</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">before_each</span>():</span>
@@ -238,27 +240,23 @@ running.</li>
 </ul>
 <p>All tests in the test script must start with the prefix
 <code>test_</code> in order for them to be run. The methods must not
-have any parameters.</p>
+have any parameters (excpet <a
+href="Parameterized-Tests.html">Parameterized-Tests</a>).</p>
 <ul>
 <li><code>func test_this_is_only_a_test():</code></li>
 </ul>
 <p>Each test should perform at least one assert or call
-<code>pending</code> to indicate the test hasn't been implemented
-yet.</p>
+<code>pending</code>, <code>pass_test</code> or <code>fail_test</code>
+or it will be marked risky.</p>
 <p>A list of all <code>asserts</code> and other helper functions
 available in your test script can be found in <a
-href="https://github.com/bitwes/Gut/wiki/Methods">Methods</a>. There's
-also some helpful methods in the Gut object itself. They are listed in
-<a
-href="https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods">Gut
-Settings and Methods</a></p>
+href="Asserts-and-Methods.html">Asserts and Methods</a>.</p>
 <h1 id="inner-test-classes">Inner Test Classes</h1>
 <p>You can group tests together using Inner Classes. These classes must
 start with the prefix <code>'Test'</code> (this is configurable) and
 they must also extend <code>GutTest</code>. You cannot create Inner Test
 Classes inside Inner Test Classes. More info can be found at <a
-href="https://github.com/bitwes/Gut/wiki/Inner-Test-Classes">Inner Test
-Classes</a>.</p>
+href="Inner-Test-Classes.html">Inner Test Classes</a>.</p>
 <h2 id="simple-example">Simple Example</h2>
 <pre><code>extends GutTest
 
@@ -287,20 +285,9 @@ class TestFeatureB:
         assert_eq(_obj.foo(), &#39;bar&#39;, &#39;Foo should return bar&#39;)</code></pre>
 <h1 id="where-to-next">Where to next?</h1>
 <ul>
-<li><a
-href="https://github.com/bitwes/Gut/wiki/Gut-Settings-And-Methods">Gut
-Settings and Methods</a></li>
-<li><a
-href="https://github.com/bitwes/Gut/wiki/Inner-Test-Classes">Inner Test
-Classes</a></li>
-<li><a
-href="https://github.com/bitwes/Gut/wiki/Methods">Methods</a></li>
-<li><a href="https://github.com/bitwes/Gut/wiki/Command-Line">Command
-Line</a></li>
-<li><a
-href="https://github.com/bitwes/Gut/wiki/Simulate">Simulate</a></li>
-<li><a href="https://github.com/bitwes/Gut/wiki/Yielding">Yielding
-during tests</a></li>
+<li><a href="Asserts-and-Methods.html">Asserts and Methods</a></li>
+<li><a href="Inner-Test-Classes.html">Inner Test Classes</a></li>
+<li><a href="Command-Line.html">Command Line</a></li>
 </ul>
 </body>
 </html>
