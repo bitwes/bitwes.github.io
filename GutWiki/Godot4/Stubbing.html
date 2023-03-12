@@ -190,20 +190,17 @@
 <header id="title-block-header">
 <h1 class="title">Stubbing</h1>
 </header>
-<h1
-id="this-page-has-not-been-updated-for-gut-900-or-godot-4-there-could-be-incorrect-information-here"><div class="warning">This
-page has not been updated for GUT 9.0.0 or Godot 4. There could be
-incorrect information here.</div></h1>
 <h5 id="table-of-contents">Table of Contents</h5>
 <ul>
-<li>The Fine Print</li>
-<li>Syntax</li>
-<li>Stubbing based off of parameter values</li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#stubbing-based-off-of-parameter-values">Stubbing based off
+of parameter values</a></li>
 <li><a href="#stubbing-packed-scenes">Stubbing Packed Scenes</a></li>
 <li><a href="#stubbing-method-parameter-defaults">Stubbing Method
 Parameter Defaults</a></li>
 <li><a href="#stubbing-method-parameter-count">Stubbing Method Parameter
 Count</a></li>
+<li><a href="#stubbing-accessors">Stubbing Accessors</a></li>
 </ul>
 <hr />
 <p>The <code>stub</code> function allows you to set return values for
@@ -213,8 +210,10 @@ situations.</p>
 <p>You can also use <code>stub</code> to set default parameter values
 and change the parameter count for a method.</p>
 <h1 id="syntax">Syntax</h1>
-<pre><code>var inst = double(&#39;res://script.gd&#39;).new()
-stub(inst, &#39;some_method&#39;).to_return(&quot;I&#39;m stubbed!&quot;)</code></pre>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> MyScript <span class="op">=</span> <span class="bu">load</span>(<span class="st">&#39;res://my_script.gd&#39;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> inst <span class="op">=</span> <span class="fu">double</span>(MyScript).<span class="fu">new</span>()</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(inst, <span class="st">&#39;some_method&#39;</span>).<span class="fu">to_return</span>(<span class="st">&quot;I&#39;m stubbed!&quot;</span>)</span></code></pre></div>
 <ul>
 <li><code>stub(obj, method)</code> This stubs the value for a method.
 You must chain in a call to one of the "to" methods such as
@@ -261,7 +260,7 @@ class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb3-1"><
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> foo <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> bar <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">return_seven</span>():</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">returns_seven</span>():</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">7</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">return_hello</span>(param<span class="op">=</span><span class="dv">1</span>):</span>
@@ -270,12 +269,14 @@ class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb3-1"><
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> InnerClass:</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> another_foo <span class="op">=</span> <span class="dv">100</span></span></code></pre></div>
 <p>Then, from inside your test script you can do the following to alter
-the <code>return_seven</code> method to return <code>500</code></p>
+the <code>returns_seven</code> method to return <code>500</code></p>
 <div class="sourceCode" id="cb4"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_something</span>():</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> inst <span class="op">=</span> <span class="fu">double</span>(<span class="st">&#39;res://scripts/double_this.gd&#39;</span>).<span class="fu">new</span>()</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stub</span>(<span class="st">&#39;res://scripts/double_this.gd&#39;</span>, <span class="st">&#39;return_seven&#39;</span>).<span class="fu">to_return</span>(<span class="dv">500</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_eq</span>(inst.<span class="fu">return_seven</span>(), <span class="dv">500</span>)</span></code></pre></div>
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> DoubleThis <span class="op">=</span> <span class="bu">load</span>(<span class="st">&#39;res://scripts/double_this.gd&#39;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_something</span>():</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> inst <span class="op">=</span> <span class="fu">double</span>(DoubleThis).<span class="fu">new</span>()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stub</span>(inst, <span class="st">&#39;returns_seven&#39;</span>).<span class="fu">to_return</span>(<span class="dv">500</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_eq</span>(inst.<span class="fu">returns_seven</span>(), <span class="dv">500</span>)</span></code></pre></div>
 <p>The <code>stub</code> method is pretty smart about what you pass it.
 You can pass it a path, an Object or an instance. If you pass an
 instance, it <strong>must</strong> be an instance of a double.</p>
@@ -285,24 +286,32 @@ stubs. When you pass it an instance of a doubled class, then the stubbed
 return will only be set for that instance.</p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> DoubleThis <span class="op">=</span> <span class="bu">load</span>(<span class="st">&#39;res://scripts/double_this.gd&#39;</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> Doubled <span class="op">=</span> <span class="fu">double</span>(<span class="st">&#39;res://scripts/double_this.gd&#39;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> Doubled <span class="op">=</span> <span class="fu">double</span>(DoubleThis)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># these two are equivalent</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(<span class="st">&#39;res://scripts/double_this.gd&#39;</span>, <span class="st">&#39;return_seven&#39;</span>).<span class="fu">to_return</span>(<span class="dv">500</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(DoubleThis, <span class="st">&#39;return_seven&#39;</span>).<span class="fu">to_return</span>(<span class="dv">500</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># This will stub the value for the passed in instance ONLY.</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Any other instances will return 500 from the lines above.</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> doubled_inst <span class="op">=</span> Doubled.<span class="fu">new</span>()</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(doubled_inst, <span class="st">&#39;return_seven&#39;</span>).<span class="fu">to_return</span>(<span class="st">&#39;words&#39;</span>)</span></code></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># These two are equivalent, and stub returns_seven for any doubles of</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># DoubleThis to return 500.</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(<span class="st">&#39;res://scripts/double_this.gd&#39;</span>, <span class="st">&#39;returns_seven&#39;</span>).<span class="fu">to_return</span>(<span class="dv">500</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(DoubleThis, <span class="st">&#39;returns_seven&#39;</span>).<span class="fu">to_return</span>(<span class="dv">500</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> inst <span class="op">=</span> Doubled.<span class="fu">new</span>()</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_eq</span>(inst.<span class="fu">returns_seven</span>(), <span class="dv">500</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># This will stub returns_seven on the passed in instance ONLY.</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Any other instances will return 500 from the lines above.</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> stub_again <span class="op">=</span> Doubled.<span class="fu">new</span>()</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(stub_again, <span class="st">&#39;returns_seven&#39;</span>).<span class="fu">to_return</span>(<span class="st">&#39;words&#39;</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_eq</span>(stub_again.<span class="fu">returns_seven</span>(), <span class="st">&#39;words&#39;</span>)</span></code></pre></div>
 <h1 id="stubbing-based-off-of-parameter-values">Stubbing based off of
 parameter values</h1>
 <p>You can stub a method to return a specific value based on what was
 passed in.</p>
 <div class="sourceCode" id="cb6"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> DOUBLE_THIS_PATH <span class="op">=</span> <span class="st">&#39;res://scripts/double_this.gd&#39;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> Doubled <span class="op">=</span> <span class="fu">double</span>(DOUBLE_THI_PATH)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(DOUBLE_THIS_PATH, <span class="st">&#39;return_hello&#39;</span>).<span class="fu">to_return</span>(<span class="st">&#39;world&#39;</span>).<span class="fu">when_passed</span>(<span class="dv">7</span>)</span></code></pre></div>
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> DoubleThis <span class="op">=</span> <span class="bu">load</span>(<span class="st">&#39;res://scripts/double_this.gd&#39;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> Doubled <span class="op">=</span> <span class="fu">double</span>(DoubleThis)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stub</span>(DoubleThis, <span class="st">&#39;return_hello&#39;</span>).<span class="fu">to_return</span>(<span class="st">&#39;world&#39;</span>).<span class="fu">when_passed</span>(<span class="st">&#39;hello&#39;</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> inst <span class="op">=</span> Doubled.<span class="fu">new</span>()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_eq</span>(inst.<span class="fu">return_hello</span>(), <span class="st">&#39;hello&#39;</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_eq</span>(inst.<span class="fu">return_hello</span>(<span class="st">&#39;hello&#39;</span>), <span class="st">&#39;world&#39;</span>)</span></code></pre></div>
 <p>The ordering of <code>when_passed</code> and <code>to_return</code>
 does not matter.</p>
 <h1 id="stubbing-packed-scenes">Stubbing Packed Scenes</h1>
@@ -322,20 +331,14 @@ class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb7-1"><
 <p>And given a scene with the path
 <code>res://double_this_scene.tscn</code> which has its script set to
 <code>res://the_script.gd</code>.</p>
-<p>The following asserts will pass</p>
 <div class="sourceCode" id="cb8"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_illustrate_stubbing_scenes</span>():</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> SCENE_PATH <span class="op">=</span> <span class="st">&#39;res://double_this_scene.tscn&#39;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> SCRIPT_PATH <span class="op">=</span> <span class="st">&#39;res://the_script.gd&#39;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> scene <span class="op">=</span> <span class="fu">double_scene</span>(SCENE_PATH).<span class="fu">instance</span>()</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> script <span class="op">=</span> <span class="fu">double</span>(SCRIPT_PATH).<span class="fu">new</span>()</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stub</span>(SCENE_PATH, <span class="st">&#39;return_hello&#39;</span>).<span class="fu">to_return</span>(<span class="st">&#39;world&#39;</span>)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stub</span>(SCRIPT_PATH, <span class="st">&#39;return_hello&#39;</span>).<span class="fu">to_return</span>(<span class="st">&#39;goodbye&#39;</span>)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_eq</span>(scene.<span class="fu">return_hello</span>(), <span class="st">&#39;world&#39;</span>)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_eq</span>(script.<span class="fu">return_hello</span>(), <span class="st">&#39;goodbye&#39;</span>)</span></code></pre></div>
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> DoubleThisScene <span class="op">=</span> <span class="bu">load</span>(<span class="st">&#39;res://double_this_scene.tscn&#39;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_illustrate_stubbing_scenes</span>():</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> doubled_scene <span class="op">=</span> <span class="fu">double</span>(DoubleThisScene).<span class="fu">instantiate</span>()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stub</span>(doubled_scene, <span class="st">&#39;return_hello&#39;</span>).<span class="fu">to_return</span>(<span class="st">&#39;world&#39;</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_eq</span>(doubled_scene.<span class="fu">return_hello</span>(), <span class="st">&#39;world&#39;</span>)</span></code></pre></div>
 <h1 id="stubbing-method-parameter-defaults">Stubbing Method Parameter
 Defaults</h1>
 <p>Godot only provides information about default values for built in
@@ -406,6 +409,32 @@ class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb14-1">
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  inst.<span class="fu">rpc_id</span>(<span class="dv">1</span>, <span class="st">&#39;foo&#39;</span>, <span class="st">&#39;z&#39;</span>)</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_called</span>(inst, <span class="st">&#39;rpc_id&#39;</span>, [<span class="dv">1</span>, <span class="st">&#39;foo&#39;</span>, <span class="st">&#39;z&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>])</span></code></pre></div>
 <p>You cannot make a method have less parameters, only more.</p>
+<h1 id="stubbing-accessors">Stubbing Accessors</h1>
+<p>It is not possible to stub the accessors for properties if you do not
+use a secondary method for the accessors. This means that doubles retain
+the functionality of the accessors, and it cannot be changed.</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The get and set for my_property cannot be stubbed.  Doubles retain the</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># functionality of the get and set methods.</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> my_property <span class="op">=</span> <span class="st">&#39;foo&#39;</span> :</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  get: <span class="cf">return</span> my_property</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set</span>(val): my_property <span class="op">=</span> val</span></code></pre></div>
+<p>If you use secondary methods, you can stub the behavior, but all
+doubles will not have any functionality for the accessors by
+default.</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You can stub _get_my_property and _set_my_property.  Doubles of this do not</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># retain the functionality of the accessors.  _get_my_property and</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># _set_my_property must be stubbed to_call_super to actually return or set</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the value of my_property.</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> my_property <span class="op">=</span> <span class="st">&#39;foo&#39;</span> :</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  get: <span class="co">_get_my_property</span>, set: <span class="co">_set_my_property</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">_get_my_property</span>():</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> my_property</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">_set_my_property</span>(val):</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  my_property <span class="op">=</span> val</span></code></pre></div>
 </body>
 </html>
 
