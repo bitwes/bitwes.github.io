@@ -45,3 +45,15 @@ body{
 img{
     max-width: 100%;
 }
+
+.warning{
+    background-color: yellow;
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    border-style: dashed;
+    border-width: 5px;
+    border-color: black;
+
+    padding: 20px;
+}
