@@ -194,8 +194,6 @@ behavior is to return <code>0</code> when all tests pass and
 <code>1</code> if any tests fail (pending tests do not affect the exit
 code). If you call <code>set_exit_code</code> then the value passed will
 be used.</p>
-<p><strong>Note</strong> Any call directly to <code>OS.exit_code</code>
-will be overwritten by <code>gut_cmdln</code>.</p>
 <p><strong>Note</strong> Calling <code>set_exit_code</code> in the
 pre-run script will not affect the actual exit code. You could use
 <code>gut.get_pre_run_script_instance().get_exit_code()</code> in your
@@ -226,7 +224,7 @@ been generated. The post-run hook can access the pre-run script instance
 (if one was specified) via
 <code>gut.get_pre_run_script_instance()</code>.</p>
 <p>The post-run hook could be useful in writing files used by CICD
-pipelines to verify the status fo the run.</p>
+pipelines to verify the status of the run.</p>
 <h1 id="summary-info">Summary Info</h1>
 <p>GUT tracks the results of all the scripts and tests that are run.
 There is a Summary object that you can access via the <code>gut</code>

@@ -190,16 +190,16 @@
 <header id="title-block-header">
 <h1 class="title">Parameterized-Tests</h1>
 </header>
-<p>There are some scenarios where it is desireable to run a test
-numerous times with different parameters. You can do this in GUT by
-creating a test that has a single parameter that is defaulted to the GUT
-method <code>use_parameters</code>.</p>
+<p>There are some scenarios where it is desirable to run a test numerous
+times with different parameters. You can do this in GUT by creating a
+test that has a single parameter that is defaulted to the GUT method
+<code>use_parameters</code>.</p>
 <p><code>use_parameters</code> expects and array. The test will be
 called once for each element in the array, passing the value of each
 element to the parameter of the function.</p>
 <h1 id="requirements">Requirements:</h1>
 <ul>
-<li>The test must have one and only one paramter.</li>
+<li>The test must have one and only one parameter.</li>
 <li>The parameter must be defaulted to call
 <code>use_parameters</code>.</li>
 <li>You must pass an array to <code>use_parameters</code>. The test will
@@ -219,7 +219,7 @@ class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb1-1"><
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define one array, with two arrays as the elements in the array.</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># This will cause the test to be called twice.  The first</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># call will get [1, 2, 3] as the value of the paramter.</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># call will get [1, 2, 3] as the value of the parameter.</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># The second call will get [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> foo_params <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>]]</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>

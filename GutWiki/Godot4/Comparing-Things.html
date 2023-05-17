@@ -274,9 +274,9 @@ Dictionaries</a></h1>
 <ul>
 <li>Godot compares dictionaries by reference.</li>
 <li>Dictionary keys are ordered (which is unusual).</li>
-<li>The dictionary <code>hash</code> fuction requires dictionary keys be
-in the same order to generate the same hash so comparing dictionaries by
-value cannot be done reliably without additional coding.</li>
+<li>The dictionary <code>hash</code> function requires dictionary keys
+be in the same order to generate the same hash so comparing dictionaries
+by value cannot be done reliably without additional coding.</li>
 <li>In order to compare values in dictionary you must use one of the
 shallow or deep methods listed above.</li>
 </ul>
@@ -308,8 +308,8 @@ inspect the differences or adjust the output.</p>
 <li><code>are_equal</code>: returns <code>true</code>/<code>false</code>
 if the two objects are equal based on the kind of comparison
 performed.</li>
-<li><code>summary</code>: returrns a string of all the differences
-found. This will display <code>max_differences</code> differences. When
+<li><code>summary</code>: returns a string of all the differences found.
+This will display <code>max_differences</code> differences. When
 performing a deep compare, it will also display
 <code>max_differences</code> per each sub-array/sub-dictionary. This is
 returned if you use <code>str</code> on a

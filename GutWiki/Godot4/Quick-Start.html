@@ -190,7 +190,7 @@
 <header id="title-block-header">
 <h1 class="title">Quick-Start</h1>
 </header>
-<p>This page contains brief descrptions of many of GUT's features. Most
+<p>This page contains brief descriptions of many of GUT's features. Most
 sections have a "More information" link where more in depth
 documentation can be found.</p>
 <ul>
@@ -204,7 +204,7 @@ documentation can be found.</p>
 Management</a></li>
 </ul>
 <h1 id="-setup"><a name = "setup"> Setup</h1>
-<p>Setup doesn't get any simplier than what is already on the <a
+<p>Setup doesn't get any simpler than what is already on the <a
 href="Install.html">install page.</a></p>
 <h1 id="-run-tests"><a name = "run"> Run Tests</h1>
 <ul>
@@ -279,7 +279,7 @@ class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb3-1"><
 href="Spies.html">Spies</a>, <a href="Stubbing.html">Stubs</a></p>
 <p>You can make a double of just about anything. <code>double</code>
 returns a loaded class, not an instance. Doubles extend the object to be
-doubled and have empty implmenetations for all methods defined in the
+doubled and have empty implementations for all methods defined in the
 script or parent scripts, but not parent Godot methods that are not
 overloaded.</p>
 <div class="sourceCode" id="cb4"><pre
@@ -364,7 +364,7 @@ class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb8-1"><
 before making assertions. This can be useful if you need to wait for
 some interaction to play out, a signal to be emitted, or wait for things
 to happen in the next frames, such as physics process or draw.</p>
-<p>If you want to wait for a cetain amount of time you can use
+<p>If you want to wait for a certain amount of time you can use
 <code>wait_seconds</code>.</p>
 <div class="sourceCode" id="cb9"><pre
 class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>await <span class="fu">wait_seconds</span>(<span class="dv">10</span>)</span></code></pre></div>
@@ -376,7 +376,7 @@ class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb10-1">
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>await <span class="fu">wait_for_signal</span>(my_obj.some_signal, <span class="dv">3</span>)</span></code></pre></div>
 <p>You can also <code>await</code> for a number of frames using
 <code>wait_frames</code>. It's best to wait at least 2 frames as waiting
-one frame can be flakey.</p>
+one frame can be flaky.</p>
 <pre><code>await wait_frames(5)</code></pre>
 <h1
 id="leak-testing-and-memory-management"><a name="memory_management">Leak

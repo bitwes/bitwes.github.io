@@ -207,8 +207,8 @@ href="https://github.com/bitwes/Gut/issues/383">#383</a>.</li>
 <li><code>yield</code> has been replaced with <code>await</code>.
 <code>yield_to</code>, <code>yield_for</code>, and
 <code>yield_frames</code> have been deprecated, the new methods are
-<code>wait_seconds</code>, <code>wait_frams</code> and
-<code>wait_for_signal</code>. There are exampels below and more info at
+<code>wait_seconds</code>, <code>wait_frames</code> and
+<code>wait_for_signal</code>. There are examples below and more info at
 <a href="https://github.com/bitwes/Gut/issues/382">#382</a>.</li>
 <li>Arrays are pass by reference now.</li>
 <li>Dictionaries are compared by value now.</li>
@@ -270,7 +270,7 @@ script or scene first and pass that to <code>double</code>. See the
 "Doubling Changes" section for more details.</li>
 <li>Doubling Inner Classes now requires you to call
 <code>register_inner_classes</code> first. See the "Doubling Changes"
-sedtion for more details.</li>
+section for more details.</li>
 <li>Comparing Dictionary/Arrays with <code>assert_eq</code>,
 <code>assert_eq_deep</code>, and the new <code>assert_same</code> and
 <code>assert_not_same</code> for comparing references. See Godot's new
@@ -285,19 +285,19 @@ Arrays</h2>
 compared by value. In 4.0 both are compared by value. Godot 4.0
 introduces the <code>is_same</code> method which (amongst other things)
 will compare dictionaries and arrays by reference.</p>
-<p>GUT's <code>assert_eq</code> and <code>asssert_ne</code> changed to
+<p>GUT's <code>assert_eq</code> and <code>assert_ne</code> changed to
 match Godot's behavior. To compare by reference you can use the new
 <code>assert_same</code> or <code>assert_not_same</code>. This works
 with arrays and dictionaries. Review Godot's documentation for
 <code>is_same</code>. When comparing dictionaries and arrays it is
 recommended that you use <code>assert_eq_deep</code> since it provides
 more detailed output than <code>assert_eq</code>.</p>
-<p>The shallow compare functionanlity has been removed since it no
-longer applies. Shallow compares would compare the elements of an array
-or dictionary by value. In Godot 3.x this meant that dictionaries inside
-of arrays or dictionaries would be compared by reference and everything
+<p>The shallow compare functionality has been removed since it no longer
+applies. Shallow compares would compare the elements of an array or
+dictionary by value. In Godot 3.x this meant that dictionaries inside of
+arrays or dictionaries would be compared by reference and everything
 else would be compared by value. Since arrays and dictionaries are both
-cmpared by value now, shallow compares are no different (functionally)
+compared by value now, shallow compares are no different (functionally)
 than deep compares. The following methods have been removed. Calling
 these methods will generate a failure and an error.</p>
 <ul>
@@ -314,8 +314,8 @@ Godot's <code>==</code> operator uses a hashing function which is much
 faster but does not provide information about what is different in each
 array/dictionary. With <code>assert_eq</code>,
 <code>assert_eq_deep</code>, and <code>assert_same</code> (and their
-inverses) you have fine grained control over the type of comparision
-that is performed.</p>
+inverses) you have fine grained control over the type of comparison that
+is performed.</p>
 <h2 id="doubling-changes">Doubling Changes</h2>
 <h4 id="doubling-scripts-and-scenes">Doubling scripts and scenes</h4>
 <p>The <code>double</code> method no longer supports paths to scripts or
@@ -352,7 +352,7 @@ source script, then <code>register_inner_classes</code> can be removed
 later and no other changes will need to be made.</p>
 <h2 id="setget-vs-set-and-get">setget vs set: and get:</h2>
 <p>In godot 4.0 <code>setget</code> has been replaced with
-<code>set(val):</code> and <code>get():</code> psuedo methods which make
+<code>set(val):</code> and <code>get():</code> pseudo methods which make
 properties more concrete. This is a welcome change, but comes with a few
 caveats.</p>
 <p>Here's an example of usage:</p>
@@ -385,7 +385,7 @@ removed. <code>assert_property</code> has changed to work with the new
 syntax. <code>assert_property_with_backing_variable</code> was added to
 validate the backing variable wiring. If you use
 <code>assert_property_with_backing_variable</code> it will verify that
-the proeperty has accessors and will also look for a
+the property has accessors and will also look for a
 <code>_&lt;varname&gt;</code> variable with the same name and verify it
 is being set.</p>
 <p><code>assert_property</code> will generate a warning when it finds

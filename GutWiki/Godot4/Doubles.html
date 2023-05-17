@@ -206,7 +206,7 @@ Doubles</a> which retain their functionality by default.</p>
 <li>Assert how many times a method was called.</li>
 <li>Assert a method was called with specific parameters.</li>
 <li>And much much more. See <a href="Stubbing.html">Stubbing</a> and <a
-href="Spies.html">Spies</a> for more infomration.</li>
+href="Spies.html">Spies</a> for more information.</li>
 </ul>
 <h1 id="characteristics-of-a-double">Characteristics of a Double</h1>
 <ul>
@@ -222,8 +222,8 @@ even if they did not have a default value originally. You can stub
 parameter defaults.</li>
 </ul></li>
 <li>Methods defined in any Godot super class (such as <code>Node</code>
-or <code>Control</code>) are not altered unless those methos have been
-overridden. This is overridable by chaninging the <a
+or <code>Control</code>) are not altered unless those methods have been
+overridden. This is overridable by changing the <a
 href="Double-Strategy.html">Double-Strategy</a>.</li>
 <li>Inner Classes of the source are not doubled and will retain their
 functionality.</li>
@@ -232,10 +232,10 @@ Inner Class section below.</li>
 <li>If your <code>_init</code> method has required parameters you must
 <a href="Stubbing.html">stub</a> default values before trying to
 <code>double</code> the object.</li>
-<li>Static mehtods must be ignored before doubling using
+<li>Static methods must be ignored before doubling using
 <code>ignore_method_when_doubling</code>. More information about this
 below.</li>
-<li>All <strong>instances</strong> of Doubles and Partial Dobules are
+<li>All <strong>instances</strong> of Doubles and Partial Doubles are
 freed after a test finishes. This means you do not have to free them
 manually and you should not use them in <code>before_all</code>.</li>
 <li>You can double Scripts, Inner Classes, and Packed Scenes. Once you
@@ -317,7 +317,7 @@ id="methods-with-varargs-and-nativescript-parameter-mismatches">Methods
 with varargs and NativeScript parameter mismatches</h1>
 <p>Some methods provided by Godot can contain and endless list of
 parameters (varargs). Trying to call one of these methods on a double
-can result in runtime errors due to a paramter mismatch. See the
+can result in runtime errors due to a parameter mismatch. See the
 sections in <a href="Stubbing.html">Stubbing</a> that address
 parameters.</p>
 <p>Sometimes NativeScript parameters aren't found in doubles (maybe
@@ -331,7 +331,7 @@ built-in methods. When using partial-doubles or stubbing a method
 <code>to_call_super</code> <code>null</code> can get passed around when
 you wouldn't expect it causing errors such as
 <code>Invalid operands 'int' and 'Nil'</code>. See the "Stubbing Method
-Paramter Defaults" in <a href="Stubbing.html">Stubbing</a> for a way to
+Parameter Defaults" in <a href="Stubbing.html">Stubbing</a> for a way to
 stub method default values.</p>
 <h1 id="doubling-built-ins">Doubling Built-Ins</h1>
 <p>You can <code>double</code> built-in objects that are not inherited
@@ -389,7 +389,7 @@ will always return 0.</em></li>
 <ul>
 <li><a href="Stubbing.html">Stubbing</a></li>
 <li><a href="Spies.html">Spies</a></li>
-<li><a href="Partial-Doubles.html">Parital-Doubles</a></li>
+<li><a href="Partial-Doubles.html">Partial-Doubles</a></li>
 <li><a href="Double-Strategy.html">Double-Strategy</a></li>
 </ul>
 </body>

@@ -256,11 +256,11 @@ order:</p>
 <li><code>_gui_input</code></li>
 <li><code>_unhandled_input</code></li>
 </ol>
-<p>When there are multipe receivers, each receiver will be called in the
-order they were added. All three <code>_input</code> methods will be
-called on each reciever then the <code>InputSender</code> will move to
+<p>When there are multiple receivers, each receiver will be called in
+the order they were added. All three <code>_input</code> methods will be
+called on each receiver then the <code>InputSender</code> will move to
 the next receiver.</p>
-<p>When using objects as recievers it is recommended that each test
+<p>When using objects as receivers it is recommended that each test
 create its own instance of <code>InputSender</code>.
 <code>InputSender</code> retains information about what
 actions/buttons/etc have been pressed. By creating a new instance in
@@ -287,7 +287,7 @@ default (even though the documentation indicates otherwise). In Godot
 below about <code>use_accumulated_input</code> before continuing.</p>
 <hr>
 
-<p>When <code>Input</code> is used as a reciever <code>Input</code> will
+<p>When <code>Input</code> is used as a receiver <code>Input</code> will
 send all inputs it receives from the <code>InputSender</code> to every
 object that has been added to the tree. <code>Input</code> will treat
 all the events it gets exactly the same as if the events were triggered
@@ -312,7 +312,7 @@ think that a button is pressed when you don't expect it to be. If
 <li>Call <code>clear</code> on the <code>InputSender</code> in
 <code>after_each</code>. This clears out any state the
 <code>InputSender</code> has. It tracks inputs so that functions like
-<code>hold_for</code> can create dyanmic "up" events, as well as various
+<code>hold_for</code> can create dynamic "up" events, as well as various
 other things. Calling <code>clear</code> makes sure that
 <code>InputSender</code> state does not leak from one test to
 another.</li>
@@ -426,7 +426,7 @@ class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb6-1"><
 <span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="co"># In this example we are testing that two actions in combination cause the</span></span>
 <span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="co"># player to slide.  Note that there is no release of the actions in this</span></span>
 <span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="co"># test.  This is a good example of why using release_all in after_each makes</span></span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="co"># the tests simplier to write and prevents leaking of inputs from one test to</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="co"># the tests simpler to write and prevents leaking of inputs from one test to</span></span>
 <span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="co"># another.</span></span>
 <span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_holding_down_and_jump_does_slide</span>():</span>
 <span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> player <span class="op">=</span> <span class="fu">add_child_autofree</span>(Player.<span class="fu">new</span>())</span>
@@ -451,7 +451,7 @@ Input.use_accumulated_input</h2>
 <p>When <code>use_accumualted_input</code> is enabled,
 <code>Input</code> waits to process input until the end of a frame. This
 means that if you do not flush the buffer or there are no "waits" or
-calls to <code>yeild</code> before you test how input was processed then
+calls to <code>yield</code> before you test how input was processed then
 your tests will fail.</p>
 <h3 id="testing-with-use_accumulated_input">Testing with
 use_accumulated_input</h3>
@@ -481,7 +481,7 @@ tests that do not expect the buffer to be constantly flushed or
 When enabled this will call <code>Input.flush_buffered_events</code>
 after each input sent through an <code>InputSender</code>. This is a bit
 dangerous since this can cause some of your tests to not test the way
-your game will recieve input when playing the game.</li>
+your game will receive input when playing the game.</li>
 <li>You can disable <code>use_accumulated_input</code> in
 <code>before_all</code> and re-enable in <code>after_all</code>. Just
 like with <code>auto_flush_input</code>, this has the potential to not
@@ -539,7 +539,7 @@ class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb7-1"><
 <span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_true</span>(Input.<span class="fu">is_action_just_pressed</span>(<span class="st">&#39;jump&#39;</span>))</span></code></pre></div>
 <h1 id="functions">Functions</h1>
 <p><strong><a name="new">new(receiver=null)</a></strong><br/> The
-optional receiver will be added to the list of recievers.</p>
+optional receiver will be added to the list of receivers.</p>
 <p><strong><a name="add_receiver">add_receiver(obj)</a></strong><br/>
 Add an object to receive input events.</p>
 <p><strong><a name="get_receivers">get_receivers()</a></strong><br/>
@@ -586,7 +586,7 @@ global_position=null)</a></strong><br/> Sets the mouse's position. This
 does not send an event. This position will be used for the next call to
 <code>mouse_relative_motion</code>.</p>
 <p><strong><a name="set_auto_flush_input">set_auto_flush_input(val)</a></strong><br/>
-Enable/Disable auto flusing of input. When enabled the
+Enable/Disable auto flushing of input. When enabled the
 <code>InputSender</code> will call
 <code>Input.flush_buffered_events</code> after each event is sent. See
 the <code>use_accumulated_input</code> section for more information.</p>
@@ -630,7 +630,7 @@ global_position=null)</a></strong><br/> Sends a "button up"
 <code>InputEventMouseButton</code> for the right mouse button.</p>
 <p><strong><a name="mouse_motion(">mouse_motion(position,
 global_position=null)</a></strong><br/> Sends a "InputEventMouseMotion"
-to move the mouse the specified postions.</p>
+to move the mouse the specified positions.</p>
 <p><strong><a name="mouse_relative_motion">mouse_relative_motion(offset,
 speed=Vector2(0, 0))</a></strong><br/> Sends a "InputEventMouseMotion"
 that moves the mouse <code>offset</code> from the last

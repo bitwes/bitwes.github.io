@@ -527,7 +527,7 @@ class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb17-1">
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- failing --&#39;</span>)</span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_does_not_have</span>(an_array, <span class="st">&#39;four&#39;</span>) <span class="co"># FAIL</span></span>
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_does_not_have</span>(an_array, <span class="dv">2</span>) <span class="co"># FAIL</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># the hash&#39;s has method checkes indexes not values</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># the hash&#39;s has method checks indexes not values</span></span>
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_does_not_have</span>(a_hash, <span class="st">&#39;one&#39;</span>) <span class="co"># FAIL</span></span>
 <span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_does_not_have</span>(a_hash, <span class="st">&#39;3&#39;</span>) <span class="co"># FAIL</span></span></code></pre></div>
 <h4
@@ -585,7 +585,7 @@ class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb20-1">
 id="-assert_has_signalobject-signal_name-"><a name="assert_has_signal">
 assert_has_signal(object, signal_name) </a></h4>
 <p>Asserts the passed in object has a signal with the specified name. It
-should be noted that all the asserts that verfy a signal was/wasn't
+should be noted that all the asserts that verify a signal was/wasn't
 emitted will first check that the object has the signal being asserted
 against. If it does not, a specific failure message will be given. This
 means you can usually skip the step of specifically verifying that the
@@ -1188,7 +1188,7 @@ id="get_call_countobj-method_name-parametersnull-"><a name="get_call_count">get_
 method_name, parameters=null) </a></h4>
 <p>Get the number of times a method was called on a double. Include the
 optional parameters array to only get the count for calls with matching
-parameters. This is essentailly <code>assert_call_count</code> without
+parameters. This is essentially <code>assert_call_count</code> without
 the assert, in case you need to do something else with the count.</p>
 <pre><code>    func test_called_10_times():
         var doubled = partial_double(DOUBLE_ME_PATH).new()
@@ -1320,7 +1320,7 @@ id="assert_no_new_orphanstext-"><a name="assert_no_new_orphans">assert_no_new_or
 <p>This method will assert that no orphaned nodes have been introduced
 by the test when the assert is executed. See the <a
 href="Memory-Management#testing_for_leaks">Memory Management</a> page
-for more infomration.</p>
+for more information.</p>
 <h4 id="-gutptext-level0-"><a name="gut_p"> gut.p(text, level=0)
 </a></h4>
 <p>Print info to the GUI and console (if enabled). You can see examples
@@ -1510,7 +1510,7 @@ replaced and:</p>
 variable, and the base object has already been added to the tree</li>
 </ul>
 <p>then these variables will point to the old object (which gets freed
-after the call to <code>repalce_node</code>).</p>
+after the call to <code>replace_node</code>).</p>
 <div class="sourceCode" id="cb47"><pre
 class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_replace_node</span>():</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This scene has:</span></span>
@@ -1789,7 +1789,7 @@ class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb52-1">
 <span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;max_hp&#39;</span>, <span class="st">&#39;set_max_hp&#39;</span>) <span class="co"># FAIL</span></span>
 <span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;max_hp&#39;</span>) <span class="co"># FAIL =&gt; out of scope</span></span>
 <span id="cb52-37"><a href="#cb52-37" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;current_hp&#39;</span>) <span class="co"># FAIL =&gt; setter or getter name must be specified</span></span>
-<span id="cb52-38"><a href="#cb52-38" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;set_curent_hp&#39;</span>, <span class="st">&#39;get_current_hp&#39;</span>) <span class="co"># FAIL =&gt; typo...</span></span>
+<span id="cb52-38"><a href="#cb52-38" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;set_current_hp&#39;</span>, <span class="st">&#39;get_current_hp&#39;</span>) <span class="co"># FAIL =&gt; typo...</span></span>
 <span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> health <span class="op">=</span> Health.<span class="fu">new</span>()</span>
 <span id="cb52-40"><a href="#cb52-40" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(health, <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;set_current_hp&#39;</span>) <span class="co"># FAIL =&gt; type has to be a Resource</span></span>
 <span id="cb52-41"><a href="#cb52-41" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, max_hp, <span class="va">null</span>, <span class="va">null</span>) <span class="co"># FAIL =&gt; methods do not exist</span></span>

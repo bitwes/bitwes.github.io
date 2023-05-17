@@ -345,7 +345,7 @@ Defaults</h1>
 methods so Gut doesn't know what any default values are for methods you
 have created. Since it can't know, Gut defaults all parameters to
 <code>null</code>. This can cause issues in specific cases (probably all
-invovling calling super). You can use <code>.param_defaults</code> to
+involving calling super). You can use <code>.param_defaults</code> to
 specify default values to be used.</p>
 <p>Here's an example where things go wrong</p>
 <pre><code># res://foo.gd
@@ -376,13 +376,13 @@ Count</h1>
 <p><u><strong>Changing the number of parameters must be done before
 <code>double</code> is called</strong></u></p>
 <p>Some built-in methods have <code>vararg</code> parameters. This makes
-the paramter list dynamic. Godot does not provide this information. This
-can cause errors due to a signature mismatch. Your code might be calling
-a method using 10 parameter values but Gut only sees two.</p>
+the parameter list dynamic. Godot does not provide this information.
+This can cause errors due to a signature mismatch. Your code might be
+calling a method using 10 parameter values but Gut only sees two.</p>
 <p>Let's take <code>Node.rpc_id</code> for example. It has two normal
-parameters and then a vararg of strings as the last paramter.</p>
+parameters and then a vararg of strings as the last parameter.</p>
 <pre><code>Variant rpc_id(peer_id: int, method: String, ...) vararg</code></pre>
-<p>If this method gets called in a parital double with more than 2
+<p>If this method gets called in a partial double with more than 2
 parameters Godot will will throw <em>Invalid call to function 'rpc_id'
 in base 'Control ()'. Expected 2 arguments.</em></p>
 <p>You can use <code>.param_count(x)</code> to tell Gut to give the
