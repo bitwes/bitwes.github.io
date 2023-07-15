@@ -116,6 +116,70 @@
       vertical-align: middle;
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="github-markdown.css" />
   <!--[if lt IE 9]>
@@ -126,58 +190,64 @@
 <header id="title-block-header">
 <h1 class="title">Double-Strategy</h1>
 </header>
-<h1
-id="this-page-has-not-been-updated-for-gut-900-or-godot-4-there-could-be-incorrect-information-here"><div class="warning">This
-page has not been updated for GUT 9.0.0 or Godot 4. There could be
-incorrect information here.</div></h1>
-<p>Remember all that stuff I said earlier about not being able to double
-Godot Built-Ins? Forget about it...or forget half of it, maybe 45% of
-it.</p>
-<p>You can <a href="Spies.html">spy on</a> and stub most of the
-Built-Ins in Godot if you enable the <code>FULL</code> Doubling
-Strategy. I've enabled this feature in my own game and it didn't crash
-(I currently have 75 test scripts and 3633 asserts). As reassuring as
-that was I'm still not sure that it won't blow up for someone so it is
-off by default.</p>
-<p>The following methods cannot be spied on due to implementation
-details with either Gut or GDScript. There might be more.</p>
-<pre><code>has_method      _draw
-get_script      _physics_process
-get             _input
-_notification   _unhandled_input
-get_path        _unhandled_key_input
-_enter_tree     _get
-_exit_tree      emit_signal
-_process        _set</code></pre>
-<h2 id="remember">Remember</h2>
-<p>If you've defined one of these methods in your class then you can
-double/spy on them just as you normally would.</p>
-<h1 id="setting-the-doubling-strategy">Setting the Doubling
-Strategy</h1>
-<p>You can set the default strategy from the command line, .gutconfig,
-or by calling <code>set_double_strategy</code> on your Gut instance.</p>
-<p>You can also override the default strategy at the Test Script level
-or for a specific call to <code>double</code>. When set at the script
-level, it will reset at the end of the script or Inner Test Class. When
-passed to <code>double</code> it will only take effect for that one
-double.</p>
+<p>By default Godot does not allow you to override native methods
+defined in Godot Objects (you can change this in the project settings:
+Debug-&gt;GDScript-&gt;Native Method Override). For example, overriding
+<code>set_position</code> on a Node2D will cause an error. This is
+because the engine may or may not use overrides in some cases for
+performance reasons. It has something to do with pointers and functions
+and efficiency and stuff. I don't fully understand it, but it's true (<a
+href="https://github.com/godotengine/godot/issues/55024">Here's a Github
+Issue with some info</a>). The important thing for us, is that this
+means you cannot spy-on or stub these functions...or can you?</p>
+<p>In most cases Doubles are not used in a manner that would cause the
+engine to directly interact with them. You may want to verify that some
+object you created calls <code>set_position</code> on a double. This is
+where changing the Double Strategy can help. When using
+<code>DOUBLE_STRATEGY.INCLUDE_NATIVE</code> GUT will override all native
+functions which means you can spy-on and stub them for your tests. It
+will also disable the error and then restore the original setting after
+the Double or Partial Double is created so that GUT does not blow up.
+Note that only direct calls that you make in your objects will use the
+overrides. A tween probably won't be calling your
+<code>set_position</code> override.</p>
+<p>The default Double Strategy is <code>SCRIPT_ONLY</code>, meaning no
+overrides will be included. You can change the strategy globally, at the
+script level, or for an individual Double or Partial Double.</p>
+<h1 id="set-the-default-strategy">Set the Default Strategy</h1>
+<p>You can change the default through the GutPanel in the editor, the
+<code>.gutconfig.json</code> file for the command line, or as a command
+line option. Note that the editor and the command line configuration are
+separate, so you must set it in both places if you are using both.</p>
 <h3 id="gutconfig">.gutconfig</h3>
-<p>Valid values are <code>partial</code>(default) or
-<code>full</code></p>
-<pre><code>&quot;double_strategy&quot;:&quot;full&quot;</code></pre>
+<p>Valid values are <code>SCRIPT_ONLY</code>(default) or
+<code>INCLUDE_NATIVE</code></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;double_strategy&quot;:&quot;INCLUDE_NATIVE&quot;</span></span></code></pre></div>
 <h3 id="command-line">Command Line</h3>
 <p>Use the <code>-gdouble_strategy</code> option with the values
-<code>partial</code> or <code>full</code></p>
-<pre><code>-gdouble_strategy=full</code></pre>
+<code>INCLUDE_NATIVE</code> or <code>SCRIPT_ONLY</code></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">-gdouble_strategy=</span><span class="st">&#39;SCRIPT_ONLY&#39;</span></span></code></pre></div>
+<h1 id="overriding-the-default">Overriding the Default</h1>
 <h3 id="script-level">Script Level</h3>
-<pre><code>set_double_strategy(DOUBLE_STRATEGY.FULL)
-set_double_strategy(DOUBLE_STRATEGY.PARTIAL)</code></pre>
-<h3 id="when-calling-double">When Calling <code>double</code></h3>
-<p>Just add another parameter to your call to <code>double</code> using
-the <code>DOUBLE_STRATEGY</code> enum.</p>
-<pre><code>double(&#39;res://thing.gd&#39;, DOUBLE_STRATEGY.PARTIAL)
-double(&#39;res://inners.gd&#39;, &#39;InnerA&#39;, DOUBLE_STRATEGY.FULL)
-double(&#39;res://my_scene.tscn&#39;, DOUBLE_STRATEGY.PARTIAL)</code></pre>
+<p>From within a <code>GutTest</code> script you can call
+<code>set_double_strategy</code> to change the strategy for that
+script/inner-class ONLY. This value will be reset to the default after
+the script has finished. You should call this in
+<code>before_all</code>.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set_double_strategy</span>(DOUBLE_STRATEGY.INCLUDE_NATIVE)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set_double_strategy</span>(DOUBLE_STRATEGY.SCRIPT_ONLY)</span></code></pre></div>
+<h3 id="individual-doublepartial-double">Individual Double/Partial
+Double</h3>
+<p>When calling <code>double</code> or <code>partial_double</code> you
+can pass an optional parameter to set the double strategy for just that
+double.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">double</span>(Foo, DOUBLE_STRATEGY.SCRIPT_ONLY)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">partial_double</span>(Bar, DOUBLE_STRATEGY.INCLUDE_NATIVE)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">double</span>(MyScene, DOUBLE_STRATEGY.SCRIPT_ONLY)</span></code></pre></div>
 </body>
 </html>
 
