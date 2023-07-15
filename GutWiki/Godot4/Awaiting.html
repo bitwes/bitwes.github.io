@@ -103,7 +103,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Double-Strategy</title>
+  <title>Awaiting</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -189,66 +189,83 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Double-Strategy</h1>
+<h1 class="title">Awaiting</h1>
 </header>
-<p>By default Godot does not allow you to override native methods
-defined in Godot Objects (you can change this in the project settings:
-Debug-&gt;GDScript-&gt;Native Method Override). For example, overriding
-<code>set_position</code> on a Node2D will cause an error. This is
-because the engine may or may not use overrides in some cases for
-performance reasons. It has something to do with pointers and functions
-and efficiency and stuff. I don't fully understand it, but it's true (<a
-href="https://github.com/godotengine/godot/issues/55024">Here's a Github
-Issue with some info</a>). The important thing for us, is that this
-means you cannot spy-on or stub these functions...or can you?</p>
-<p>In most cases Doubles are not used in a manner that would cause the
-engine to directly interact with them. You may want to verify that some
-object you created calls <code>set_position</code> on a double. This is
-where changing the Double Strategy can help. When using
-<code>DOUBLE_STRATEGY.INCLUDE_NATIVE</code> GUT will override all native
-functions which means you can spy-on and stub them for your tests. It
-will also disable the error and then restore the original setting after
-the Double or Partial Double is created so that GUT does not blow up.
-Note that only direct calls that you make in your objects will use the
-overrides. A tween probably won't be calling your
-<code>set_position</code> override.</p>
-<p>The default Double Strategy is <code>SCRIPT_ONLY</code>, meaning no
-overrides will be included. You can change the strategy globally, at the
-script level, or for an individual Double or Partial Double.</p>
-<h1 id="set-the-default-strategy">Set the Default Strategy</h1>
-<p>You can change the default through the GutPanel in the editor, the
-<code>.gutconfig.json</code> file for the command line, or as a command
-line option. Note that the editor and the command line configuration are
-separate, so you must set it in both places if you are using both.</p>
-<h3 id="gutconfig">.gutconfig</h3>
-<p>Valid values are <code>SCRIPT_ONLY</code>(default) or
-<code>INCLUDE_NATIVE</code></p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;double_strategy&quot;:&quot;INCLUDE_NATIVE&quot;</span></span></code></pre></div>
-<h3 id="command-line">Command Line</h3>
-<p>Use the <code>-gdouble_strategy</code> option with the values
-<code>INCLUDE_NATIVE</code> or <code>SCRIPT_ONLY</code></p>
+<p>If you aren't sure about coroutines and using <code>await</code>, <a
+href="https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#awaiting-for-signals-or-coroutines">Godot
+explains it pretty well</a>. GUT supports coroutines, so you can
+<code>await</code> at anytime in your tests. GUT also provides some
+handy methods to make awaiting easier.</p>
+<p>If you want to pause test execution for some amount of time/frames or
+until a signal is emitted use <code>await</code> and one of GUT's "wait"
+methods:</p>
+<ul>
+<li><code>wait_for_signal</code></li>
+<li><code>wait_seconds</code></li>
+<li><code>wait_frames</code>.</li>
+</ul>
+<p>Calling <code>await</code> without using one of GUT's "wait" methods
+is discouraged. When you use these methods, GUT provides output to
+indicate that execution is paused. If you don't use them it can look
+like your tests have hung up.</p>
+<h1 id="wait_for_signal">wait_for_signal</h1>
+<pre><code>wait_for_signal(sig, max_wait, msg=&#39;&#39;):</code></pre>
+<p>This method will pause execution until a signal is emitted or until
+<code>max_wait</code> seconds have passed, whichever comes first. Using
+<code>wait_for_signal</code> is better than just using
+<code>await my_obj.my_signal</code> since tests will continue to run if
+the signal is never emitted.</p>
+<p><code>wait_for_signal</code> internally calls
+<code>watch_signals</code> for the object, so you can skip that step
+when asserting signals have been emitted.</p>
+<p>The optional <code>msg</code> parameter is logged so you know why
+test execution is paused.</p>
 <div class="sourceCode" id="cb2"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">-gdouble_strategy=</span><span class="st">&#39;SCRIPT_ONLY&#39;</span></span></code></pre></div>
-<h1 id="overriding-the-default">Overriding the Default</h1>
-<h3 id="script-level">Script Level</h3>
-<p>From within a <code>GutTest</code> script you can call
-<code>set_double_strategy</code> to change the strategy for that
-script/inner-class ONLY. This value will be reset to the default after
-the script has finished. You should call this in
-<code>before_all</code>.</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set_double_strategy</span>(DOUBLE_STRATEGY.INCLUDE_NATIVE)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set_double_strategy</span>(DOUBLE_STRATEGY.SCRIPT_ONLY)</span></code></pre></div>
-<h3 id="individual-doublepartial-double">Individual Double/Partial
-Double</h3>
-<p>When calling <code>double</code> or <code>partial_double</code> you
-can pass an optional parameter to set the double strategy for just that
-double.</p>
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>my_object.<span class="fu">do_something</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># wait for my_object to emit the signal &#39;my_signal&#39;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or 5 seconds, whichever comes first.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>await <span class="fu">wait_for_signal</span>(my_object.my_signal, <span class="dv">5</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_signal_emitted</span>(my_object, <span class="st">&#39;my_signal&#39;</span>, \</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&#39;Maybe it did, maybe it didnt, but we still got here.&#39;</span>)</span></code></pre></div>
+<h1 id="wait_seconds">wait_seconds</h1>
+<pre><code>wait_seconds(time, msg=&#39;&#39;):</code></pre>
+<p>Sometimes you just want to pause for some amount of time. Use
+<code>wait_seconds</code> instead of making timers.</p>
+<p>The optional <code>msg</code> parameter is logged so you know why
+test execution is paused.</p>
 <div class="sourceCode" id="cb4"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">double</span>(Foo, DOUBLE_STRATEGY.SCRIPT_ONLY)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">partial_double</span>(Bar, DOUBLE_STRATEGY.INCLUDE_NATIVE)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">double</span>(MyScene, DOUBLE_STRATEGY.SCRIPT_ONLY)</span></code></pre></div>
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_wait_for_a_bit</span>():</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    my_object <span class="op">=</span> ObjectToTest.<span class="fu">new</span>()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    my_object.<span class="fu">do_something</span>()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># wait 2.8 seconds then continue running the test</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    await <span class="fu">wait_seconds</span>(<span class="fl">2.8</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    gut.<span class="fu">assert_eq</span>(my_object.some_property, <span class="st">&#39;some value&#39;</span>)</span></code></pre></div>
+<h1 id="wait_frames">wait_frames</h1>
+<pre><code>wait_frames(frames, msg=&#39;&#39;):</code></pre>
+<p>This is just like <code>wait_seconds</code> but instead of counting
+seconds it counts frames. Due to order of operations, this may wait +/-
+1 frames, but sholdn't ever be 0. This can be very useful if you use
+<code>call_deferred</code> in any of the objects under test, or need to
+wait a frame or two for <code>_process</code> to run.</p>
+<p>The optional <code>msg</code> parameter is logged so you know why
+test execution is paused.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_wait_for_some_frames</span>():</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    my_object <span class="op">=</span> ObjectToTest.<span class="fu">new</span>()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    my_object.<span class="fu">do_something</span>()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># wait 2 frames before continue test execution</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    await <span class="fu">wait_frames</span>(<span class="dv">2</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    gut.<span class="fu">assert_eq</span>(my_object.some_property, <span class="st">&#39;some value&#39;</span>)</span></code></pre></div>
+<h1 id="pause_before_teardown">pause_before_teardown</h1>
+<p>Sometimes, as you are developing your tests you may want to verify
+something before the any of the teardown methods are called or just look
+at things a bit. If you call <code>pause_before_teardown()</code>
+anywhere in your test then GUT will pause execution until you press the
+"Continue" button in the GUT GUI. You can also specify an option to
+ignore all calls to <code>pause_before_teardown</code> through the GUT
+Panel, command line, or <code>.gutconfig</code> in case you get lazy and
+don't want to remove them. You should always remove them, but I know you
+won't because I didn't so I made that an option.</p>
 </body>
 </html>
 

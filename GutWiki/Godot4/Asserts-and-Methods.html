@@ -46,7 +46,7 @@
 <header id="title-block-header">
 <h1 class="title">Gut Wiki</h1>
 </header>
-<h3 id="901-godot-4x">9.0.1 (Godot 4.x)</h3>
+<h3 id="910-godot-41">9.1.0 (Godot 4.1)</h3>
 <h3 id="start-here">Start Here</h3>
 <ul>
 <li><a href="New-For-Godot-4.html">New-For-Godot-4</a></li>
@@ -56,6 +56,7 @@
 <h3 id="all-pages">All Pages</h3>
 <ul>
 <li><a href="Asserts-and-Methods.html">Asserts-and-Methods</a></li>
+<li><a href="Awaiting.html">Awaiting</a></li>
 <li><a href="Command-Line.html">Command-Line</a></li>
 <li><a href="Comparing-Things.html">Comparing-Things</a></li>
 <li><a href="Contributing.html">Contributing</a></li>
@@ -190,7 +191,7 @@
 <header id="title-block-header">
 <h1 class="title">Asserts-and-Methods</h1>
 </header>
-<div class="warning">This page has not been updated for GUT 9.0.0 or Godot 4.  There could be incorrect information here.</div>
+<div class="warning">This page has not been <b>completely</b> updated for GUT 9.0.0 or Godot 4.  There could be incorrect information here.</div>
 These are all the methods, bells, whistles and blinky lights you get when you extend the Gut Test Class (`extends GutTest`).
 
 <p>All sample code listed for the methods can be found here in <a
@@ -211,10 +212,10 @@ href="#is_failing">is_failing</a> | <a href="#is_passing">is_passing</a>
 | <a href="#pause_before_teardown">pause_before_teardown</a> | <a
 href="#pending">pending</a> | <a href="#replace_node">replace_node</a> |
 <a href="#simulate">simulate</a> | <a href="#stub">stub</a> | <a
-href="#watch_signals">watch_signals</a> | <a
-href="#yield_for">yield_for</a> | <a
-href="#yield_frames">yield_frames</a> | <a href="#yield_to">yield_to</a>
-|</p>
+href="#wait_for_signal">wait_for_signal</a> | <a
+href="#wait_frames">wait_frames</a> | <a
+href="#wait_seconds">wait_seconds</a> | <a
+href="#watch_signals">watch_signals</a> |</p>
 <h1 id="gut-utilities">Gut Utilities</h1>
 <p>These methods exist on the GUT instance, and not in
 <code>test.gd</code>. They must all be prefixed with
@@ -1333,85 +1334,15 @@ pause_before_teardown() </a></h4>
 test. This is useful for debugging, for instance if you want to
 investigate the screen or anything else after a test has finished
 executing. See also <code>set_ignore_pause_before_teardown</code></p>
-<h4 id="-yield_fortime_in_seconds-"><a name="yield_for">
-yield_for(time_in_seconds) </a></h4>
-<p>This simplifies the code needed to pause the test execution for a
-number of seconds so the thing that you are testing can run its course
-in real time. There are more details in the Yielding section. It is
-designed to be used with the <code>yield</code> built in. The following
-example will pause your test execution (and only the test execution) for
-2 seconds before continuing.</p>
-<div class="sourceCode" id="cb43"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MovingNode:</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">extends</span> Node2D</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="co">_speed</span> <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">func</span> <span class="bu">_ready</span>():</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">set_process</span>(<span class="va">true</span>)</span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">func</span> <span class="bu">_process</span>(delta):</span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">set_pos</span>(<span class="fu">get_pos</span>() <span class="op">+</span> <span class="fu">Vector2</span>(<span class="co">_speed</span> <span class="op">*</span> delta, <span class="dv">0</span>))</span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_illustrate_yield</span>():</span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> moving_node <span class="op">=</span> MovingNode.<span class="fu">new</span>()</span>
-<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_child_autofree</span>(moving_node)</span>
-<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>    moving_node.<span class="fu">set_pos</span>(<span class="fu">Vector2</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
-<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># While the yield happens, the node should move</span></span>
-<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">yield</span>(<span class="fu">yield_for</span>(<span class="dv">2</span>), YIELD)</span>
-<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_gt</span>(moving_node.<span class="fu">get_pos</span>().x, <span class="dv">0</span>)</span>
-<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_between</span>(moving_node.<span class="fu">get_pos</span>().x, <span class="fl">3.9</span>, <span class="dv">4</span>, <span class="st">&#39;it should move almost 4 whatevers at speed 2&#39;</span>)</span></code></pre></div>
-<h4 id="-yield_fornum_frames-"><a name="yield_frames">
-yield_for(num_frames) </a></h4>
-<p>This works similar to <code>yield_for</code> except that it will wait
-for a number of frames to elapse instead of a set amount of time. The
-frames are counted down by Gut's <code>_process</code> method. When the
-count reaches 0 the <code>YIELD</code> signal is emitted.</p>
-<h4 id="-yield_toobject-signal_name-max_time-"><a name="yield_to">
-yield_to(object, signal_name, max_time) </a></h4>
-<p><code>yield_to</code> allows you to yield to a signal just like
-<code>yield</code> but for a maximum amount of time. This keeps tests
-moving along when signals are not emitted.</p>
-<p>As a bonus, <code>yield_to</code> does an implicit call to
-<code>watch_signals</code> so you can easily make signal based
-assertions afterwards.</p>
-<div class="sourceCode" id="cb44"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TimedSignaler:</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">extends</span> Node2D</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="co">_time</span> <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">signal</span> the_signal</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">func</span> <span class="bu">_init</span>(time):</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">_time</span> <span class="op">=</span> time</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">func</span> <span class="fu">start</span>():</span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">var</span> t <span class="op">=</span> Timer.<span class="fu">new</span>()</span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">add_child</span>(t)</span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>        t.<span class="fu">set_wait_time</span>(<span class="co">_time</span>)</span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>        t.<span class="bu">connect</span>(<span class="st">&#39;timeout&#39;</span>, <span class="va">self</span>, <span class="st">&#39;_on_timer_timeout&#39;</span>)</span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>        t.<span class="fu">set_one_shot</span>(<span class="va">true</span>)</span>
-<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>        t.<span class="fu">start</span>()</span>
-<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">func</span> <span class="fu">_on_timer_timeout</span>():</span>
-<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">emit_signal</span>(<span class="st">&#39;the_signal&#39;</span>)</span>
-<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_illustrate_yield_to_with_less_time</span>():</span>
-<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> t <span class="op">=</span> TimedSignaler.<span class="fu">new</span>(<span class="dv">5</span>)</span>
-<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_child_autofree</span>(t)</span>
-<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>    t.<span class="fu">start</span>()</span>
-<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">yield</span>(<span class="fu">yield_to</span>(t, <span class="st">&#39;the_signal&#39;</span>, <span class="dv">1</span>), YIELD)</span>
-<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># since we setup t to emit after 5 seconds, this will fail because we</span></span>
-<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># only yielded for 1 second via yield_to</span></span>
-<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_signal_emitted</span>(t, <span class="st">&#39;the_signal&#39;</span>, <span class="st">&#39;This will fail&#39;</span>)</span>
-<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-29"><a href="#cb44-29" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_illustrate_yield_to_with_more_time</span>():</span>
-<span id="cb44-30"><a href="#cb44-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> t <span class="op">=</span> TimedSignaler.<span class="fu">new</span>(<span class="dv">1</span>)</span>
-<span id="cb44-31"><a href="#cb44-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_child_autofree</span>(t)</span>
-<span id="cb44-32"><a href="#cb44-32" aria-hidden="true" tabindex="-1"></a>    t.<span class="fu">start</span>()</span>
-<span id="cb44-33"><a href="#cb44-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">yield</span>(<span class="fu">yield_to</span>(t, <span class="st">&#39;the_signal&#39;</span>, <span class="dv">5</span>), YIELD)</span>
-<span id="cb44-34"><a href="#cb44-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># since we wait longer than it will take to emit the signal, this assert</span></span>
-<span id="cb44-35"><a href="#cb44-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># will pass</span></span>
-<span id="cb44-36"><a href="#cb44-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_signal_emitted</span>(t, <span class="st">&#39;the_signal&#39;</span>, <span class="st">&#39;This will pass&#39;</span>)</span></code></pre></div>
+<h4 id="-wait_secondstime-msg-"><a name="wait_seconds">
+wait_seconds(time, msg='') </a></h4>
+<p>See <a href="Awaiting.html">Awaiting</a></p>
+<h4 id="-wait_framesframes-msg-"><a name="wait_seconds">
+wait_frames(frames, msg='') </a></h4>
+<p>See <a href="Awaiting.html">Awaiting</a></p>
+<h4 id="-wait_for_signalsig-max_wait-msg-"><a name="wait_for_signal">
+wait_for_signal(sig, max_wait, msg='') </a></h4>
+<p>See <a href="Awaiting.html">Awaiting</a></p>
 <h4 id="-doublepath_or_class-inner_class_pathnull-"><a name="double">
 double(path_or_class, inner_class_path=null) </a></h4>
 <p>This will return a double of a class. See <a
@@ -1447,44 +1378,44 @@ parser error similar to:</p>
 first parameter can be a path to a script, a path to a scene, a loaded
 script, or a loaded scene. The second is the name of the method to
 ignore.</p>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Given this as res://scripts/has_statics.gd</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="kw">static</span> <span class="kw">func</span> <span class="fu">this_is_static</span>():</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">pass</span></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">not_static</span>():</span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="st">&#39;foo&#39;</span></span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------</span></span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="co"># You can double this script like this:</span></span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------</span></span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_can_double_classes_with_statics_if_ignored</span>():</span>
-<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ignore_method_when_doubling</span>(<span class="st">&#39;res://scripts/has_statics.gd&#39;</span>, <span class="st">&#39;this_is_static&#39;</span>)</span>
-<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> d_has_statics <span class="op">=</span> <span class="fu">double</span>(<span class="st">&#39;res://scripts/has_statics.gd&#39;</span>).<span class="fu">new</span>()</span>
-<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_not_null</span>(d_has_statics)</span>
-<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_can_use_loaded_scripts_to_ignore_statics</span>():</span>
-<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> HasStatics <span class="op">=</span> <span class="bu">load</span>(<span class="st">&#39;res://scripts/has_statics.gd&#39;</span>)</span>
-<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ignore_method_when_doubling</span>(HasStatics, <span class="st">&#39;this_is_static&#39;</span>)</span>
-<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> d_has_statics <span class="op">=</span> <span class="fu">double</span>(HasStatics).<span class="fu">new</span>()</span>
-<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_not_null</span>(d_has_statics)</span>
-<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-24"><a href="#cb46-24" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_cannot_spy_or_stub_ignored_methods</span>():</span>
-<span id="cb46-25"><a href="#cb46-25" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> HasStatics <span class="op">=</span> <span class="bu">load</span>(<span class="st">&#39;res://scripts/has_statics.gd&#39;</span>)</span>
-<span id="cb46-26"><a href="#cb46-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ignore_method_when_doubling</span>(HasStatics, <span class="st">&#39;this_is_static&#39;</span>)</span>
-<span id="cb46-27"><a href="#cb46-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ignore_method_when_doubling</span>(HasStatics, <span class="st">&#39;not_static&#39;</span>)</span>
-<span id="cb46-28"><a href="#cb46-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-29"><a href="#cb46-29" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> d_has_statics <span class="op">=</span> <span class="fu">double</span>(HasStatics).<span class="fu">new</span>()</span>
-<span id="cb46-30"><a href="#cb46-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This stub will not be used since the method was ignored</span></span>
-<span id="cb46-31"><a href="#cb46-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stub</span>(d_has_statics, <span class="st">&#39;not_static&#39;</span>).<span class="fu">to_return</span>(<span class="st">&#39;bar&#39;</span>)</span>
-<span id="cb46-32"><a href="#cb46-32" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> result <span class="op">=</span> d_has_statics.<span class="fu">not_static</span>()</span>
-<span id="cb46-33"><a href="#cb46-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-34"><a href="#cb46-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_eq</span>(result, <span class="st">&#39;foo&#39;</span>, <span class="st">&#39;not stubbed so &quot;foo&quot; will be returned&#39;</span>)</span>
-<span id="cb46-35"><a href="#cb46-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># this will pass, even though the method was called,</span></span>
-<span id="cb46-36"><a href="#cb46-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># because you cannot spy on ignored methods.</span></span>
-<span id="cb46-37"><a href="#cb46-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_not_called</span>(d_has_statics, <span class="st">&#39;not_static&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Given this as res://scripts/has_statics.gd</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="kw">static</span> <span class="kw">func</span> <span class="fu">this_is_static</span>():</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">pass</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">not_static</span>():</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="st">&#39;foo&#39;</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="co"># You can double this script like this:</span></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------------------------</span></span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_can_double_classes_with_statics_if_ignored</span>():</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ignore_method_when_doubling</span>(<span class="st">&#39;res://scripts/has_statics.gd&#39;</span>, <span class="st">&#39;this_is_static&#39;</span>)</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> d_has_statics <span class="op">=</span> <span class="fu">double</span>(<span class="st">&#39;res://scripts/has_statics.gd&#39;</span>).<span class="fu">new</span>()</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_not_null</span>(d_has_statics)</span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_can_use_loaded_scripts_to_ignore_statics</span>():</span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> HasStatics <span class="op">=</span> <span class="bu">load</span>(<span class="st">&#39;res://scripts/has_statics.gd&#39;</span>)</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ignore_method_when_doubling</span>(HasStatics, <span class="st">&#39;this_is_static&#39;</span>)</span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> d_has_statics <span class="op">=</span> <span class="fu">double</span>(HasStatics).<span class="fu">new</span>()</span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_not_null</span>(d_has_statics)</span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_cannot_spy_or_stub_ignored_methods</span>():</span>
+<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> HasStatics <span class="op">=</span> <span class="bu">load</span>(<span class="st">&#39;res://scripts/has_statics.gd&#39;</span>)</span>
+<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ignore_method_when_doubling</span>(HasStatics, <span class="st">&#39;this_is_static&#39;</span>)</span>
+<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ignore_method_when_doubling</span>(HasStatics, <span class="st">&#39;not_static&#39;</span>)</span>
+<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-29"><a href="#cb44-29" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> d_has_statics <span class="op">=</span> <span class="fu">double</span>(HasStatics).<span class="fu">new</span>()</span>
+<span id="cb44-30"><a href="#cb44-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This stub will not be used since the method was ignored</span></span>
+<span id="cb44-31"><a href="#cb44-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stub</span>(d_has_statics, <span class="st">&#39;not_static&#39;</span>).<span class="fu">to_return</span>(<span class="st">&#39;bar&#39;</span>)</span>
+<span id="cb44-32"><a href="#cb44-32" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> result <span class="op">=</span> d_has_statics.<span class="fu">not_static</span>()</span>
+<span id="cb44-33"><a href="#cb44-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-34"><a href="#cb44-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_eq</span>(result, <span class="st">&#39;foo&#39;</span>, <span class="st">&#39;not stubbed so &quot;foo&quot; will be returned&#39;</span>)</span>
+<span id="cb44-35"><a href="#cb44-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># this will pass, even though the method was called,</span></span>
+<span id="cb44-36"><a href="#cb44-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># because you cannot spy on ignored methods.</span></span>
+<span id="cb44-37"><a href="#cb44-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assert_not_called</span>(d_has_statics, <span class="st">&#39;not_static&#39;</span>)</span></code></pre></div>
 <h4
 id="-replace_nodebase_node-path_or_node-with_this-"><a name="replace_node">
 replace_node(base_node, path_or_node, with_this) </a></h4>
@@ -1511,49 +1442,49 @@ variable, and the base object has already been added to the tree</li>
 </ul>
 <p>then these variables will point to the old object (which gets freed
 after the call to <code>replace_node</code>).</p>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_replace_node</span>():</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This scene has:</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Node2D</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   - Label</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   - MyPanel</span></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     - MyButton</span></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># And code:</span></span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># double_me_scene.gd:</span></span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># extends Node2D</span></span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># onready var label = get_node(&#39;Label&#39;)</span></span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># func return_hello():</span></span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   return &#39;hello&#39;</span></span>
-<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># func set_label_text(text):</span></span>
-<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   $Label.set_text(text)</span></span>
-<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># func get_button():</span></span>
-<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   return $MyPanel/MyButton</span></span>
-<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> DOUBLE_ME_SCENE <span class="op">=</span> <span class="st">&#39;res://test/resources/doubler_test_objects/double_me_scene.tscn&#39;</span></span>
-<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> scene <span class="op">=</span> <span class="bu">load</span>(DOUBLE_ME_SCENE).<span class="fu">instance</span>()</span>
-<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_child_autofree</span>(scene)</span>
-<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> replace_label <span class="op">=</span> Label.<span class="fu">new</span>()</span>
-<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">replace_node</span>(scene, <span class="st">&#39;Label&#39;</span>, replace_label)</span>
-<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Passing</span></span>
-<span id="cb47-31"><a href="#cb47-31" aria-hidden="true" tabindex="-1"></a>    scene.<span class="fu">set_label_text</span>(<span class="st">&#39;asdf&#39;</span>)</span>
-<span id="cb47-32"><a href="#cb47-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq</span>(replace_label.<span class="fu">get_text</span>(), <span class="st">&#39;asdf&#39;</span>,</span>
-<span id="cb47-33"><a href="#cb47-33" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Since set_label_text references the label using $ this will point to the new one.&quot;</span>)</span>
-<span id="cb47-34"><a href="#cb47-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-35"><a href="#cb47-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> replace_button <span class="op">=</span> Button.<span class="fu">new</span>()</span>
-<span id="cb47-36"><a href="#cb47-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">replace_node</span>(scene, <span class="st">&#39;MyPanel/MyButton&#39;</span>, replace_button)</span>
-<span id="cb47-37"><a href="#cb47-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq</span>(scene.<span class="fu">get_button</span>(), replace_button,</span>
-<span id="cb47-38"><a href="#cb47-38" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;Get button uses $ so this will work.&#39;</span>)</span>
-<span id="cb47-39"><a href="#cb47-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-40"><a href="#cb47-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Failing</span></span>
-<span id="cb47-41"><a href="#cb47-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq</span>(scene.label, replace_label,</span>
-<span id="cb47-42"><a href="#cb47-42" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;The variable &quot;label&quot; was set as onready so it will not be updated&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_replace_node</span>():</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This scene has:</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Node2D</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   - Label</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   - MyPanel</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     - MyButton</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># And code:</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># double_me_scene.gd:</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># extends Node2D</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># onready var label = get_node(&#39;Label&#39;)</span></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># func return_hello():</span></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   return &#39;hello&#39;</span></span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># func set_label_text(text):</span></span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   $Label.set_text(text)</span></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># func get_button():</span></span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   return $MyPanel/MyButton</span></span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> DOUBLE_ME_SCENE <span class="op">=</span> <span class="st">&#39;res://test/resources/doubler_test_objects/double_me_scene.tscn&#39;</span></span>
+<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> scene <span class="op">=</span> <span class="bu">load</span>(DOUBLE_ME_SCENE).<span class="fu">instance</span>()</span>
+<span id="cb45-26"><a href="#cb45-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_child_autofree</span>(scene)</span>
+<span id="cb45-27"><a href="#cb45-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> replace_label <span class="op">=</span> Label.<span class="fu">new</span>()</span>
+<span id="cb45-28"><a href="#cb45-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">replace_node</span>(scene, <span class="st">&#39;Label&#39;</span>, replace_label)</span>
+<span id="cb45-29"><a href="#cb45-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-30"><a href="#cb45-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Passing</span></span>
+<span id="cb45-31"><a href="#cb45-31" aria-hidden="true" tabindex="-1"></a>    scene.<span class="fu">set_label_text</span>(<span class="st">&#39;asdf&#39;</span>)</span>
+<span id="cb45-32"><a href="#cb45-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq</span>(replace_label.<span class="fu">get_text</span>(), <span class="st">&#39;asdf&#39;</span>,</span>
+<span id="cb45-33"><a href="#cb45-33" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Since set_label_text references the label using $ this will point to the new one.&quot;</span>)</span>
+<span id="cb45-34"><a href="#cb45-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-35"><a href="#cb45-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> replace_button <span class="op">=</span> Button.<span class="fu">new</span>()</span>
+<span id="cb45-36"><a href="#cb45-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">replace_node</span>(scene, <span class="st">&#39;MyPanel/MyButton&#39;</span>, replace_button)</span>
+<span id="cb45-37"><a href="#cb45-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq</span>(scene.<span class="fu">get_button</span>(), replace_button,</span>
+<span id="cb45-38"><a href="#cb45-38" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;Get button uses $ so this will work.&#39;</span>)</span>
+<span id="cb45-39"><a href="#cb45-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-40"><a href="#cb45-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Failing</span></span>
+<span id="cb45-41"><a href="#cb45-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq</span>(scene.label, replace_label,</span>
+<span id="cb45-42"><a href="#cb45-42" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;The variable &quot;label&quot; was set as onready so it will not be updated&#39;</span>)</span></code></pre></div>
 <p><a href="Comparing-Things.html">Comparing Things</a></p>
 <h4
 id="-compare_shallowv1-v2-max_differences30-"><a name="compare_shallow">
@@ -1574,29 +1505,29 @@ assert_eq_deep(v1, v2) </a></h4>
 asserts they are equal. If they are not equal then a formatted list of
 differences are displayed. See <a href="Comparing-Things.html">Comparing
 Things</a> for more information.</p>
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_assert_eq_deep</span>():</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> complex_example <span class="op">=</span> [</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>,</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>],</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>:<span class="dv">2</span>, <span class="st">&#39;c&#39;</span>:<span class="dv">3</span>},</span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>        [{<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}, {<span class="st">&#39;b&#39;</span>:<span class="dv">2</span>}]</span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Passing</span></span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_deep</span>([<span class="dv">1</span>, <span class="dv">2</span>, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}], [<span class="dv">1</span>, <span class="dv">2</span>, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}])</span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_deep</span>({<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>:{<span class="st">&#39;c&#39;</span>:<span class="dv">1</span>}}, {<span class="st">&#39;b&#39;</span>:{<span class="st">&#39;c&#39;</span>:<span class="dv">1</span>}, <span class="st">&#39;a&#39;</span>:<span class="dv">1</span>})</span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> shallow_copy  <span class="op">=</span> complex_example.<span class="fu">duplicate</span>(<span class="va">false</span>)</span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> deep_copy <span class="op">=</span> complex_example.<span class="fu">duplicate</span>(<span class="va">true</span>)</span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_deep</span>(complex_example, shallow_copy)</span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_deep</span>(complex_example, deep_copy)</span>
-<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_deep</span>(shallow_copy, deep_copy)</span>
-<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Failing</span></span>
-<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>([<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">1</span>, <span class="dv">2</span> ,<span class="dv">3</span>]) <span class="co"># missing index</span></span>
-<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>({<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>:<span class="dv">2</span>}) <span class="co"># missing key</span></span>
-<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_deep</span>([<span class="dv">1</span>, <span class="dv">2</span>, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}], [<span class="dv">1</span>, <span class="dv">2</span>, {<span class="st">&#39;a&#39;</span>:<span class="fl">1.0</span>}]) <span class="co"># floats != ints</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_assert_eq_deep</span>():</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> complex_example <span class="op">=</span> [</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>,</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>],</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>:<span class="dv">2</span>, <span class="st">&#39;c&#39;</span>:<span class="dv">3</span>},</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>        [{<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}, {<span class="st">&#39;b&#39;</span>:<span class="dv">2</span>}]</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Passing</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_deep</span>([<span class="dv">1</span>, <span class="dv">2</span>, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}], [<span class="dv">1</span>, <span class="dv">2</span>, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}])</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_deep</span>({<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>:{<span class="st">&#39;c&#39;</span>:<span class="dv">1</span>}}, {<span class="st">&#39;b&#39;</span>:{<span class="st">&#39;c&#39;</span>:<span class="dv">1</span>}, <span class="st">&#39;a&#39;</span>:<span class="dv">1</span>})</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> shallow_copy  <span class="op">=</span> complex_example.<span class="fu">duplicate</span>(<span class="va">false</span>)</span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> deep_copy <span class="op">=</span> complex_example.<span class="fu">duplicate</span>(<span class="va">true</span>)</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_deep</span>(complex_example, shallow_copy)</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_deep</span>(complex_example, deep_copy)</span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_deep</span>(shallow_copy, deep_copy)</span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Failing</span></span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>([<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">1</span>, <span class="dv">2</span> ,<span class="dv">3</span>]) <span class="co"># missing index</span></span>
+<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>({<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>:<span class="dv">2</span>}) <span class="co"># missing key</span></span>
+<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_deep</span>([<span class="dv">1</span>, <span class="dv">2</span>, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}], [<span class="dv">1</span>, <span class="dv">2</span>, {<span class="st">&#39;a&#39;</span>:<span class="fl">1.0</span>}]) <span class="co"># floats != ints</span></span></code></pre></div>
 <h4 id="-assert_ne_deepv1-v2-"><a name="assert_ne_deep">
 assert_ne_deep(v1, v2) </a></h4>
 <p>Performs a deep comparison of two arrays or dictionaries and asserts
@@ -1608,36 +1539,36 @@ assert_eq_shallow(v1, v2) </a></h4>
 asserts they are equal. If they are not equal then a formatted list of
 differences are displayed. See <a href="Comparing-Things.html">Comparing
 Things</a> for more information.</p>
-<div class="sourceCode" id="cb49"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_assert_eq_shallow</span>():</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> complex_example <span class="op">=</span> [</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>,</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>],</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>:<span class="dv">2</span>, <span class="st">&#39;c&#39;</span>:<span class="dv">3</span>},</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>        [{<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}, {<span class="st">&#39;b&#39;</span>:<span class="dv">2</span>}]</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Passing</span></span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>([<span class="dv">1</span>, [<span class="dv">2</span>, <span class="dv">3</span>], <span class="dv">4</span>], [<span class="dv">1</span>, [<span class="dv">2</span>, <span class="dv">3</span>], <span class="dv">4</span>])</span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> d1 <span class="op">=</span> {<span class="st">&#39;foo&#39;</span>:<span class="st">&#39;bar&#39;</span>}</span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>([<span class="dv">1</span>, <span class="dv">2</span>, d1], [<span class="dv">1</span>, <span class="dv">2</span>, d1])</span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>({<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>})</span>
-<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>({<span class="st">&#39;a&#39;</span>:[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, d1]}, {<span class="st">&#39;a&#39;</span>:[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, d1]})</span>
-<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> shallow_copy <span class="op">=</span> complex_example.<span class="fu">duplicate</span>(<span class="va">false</span>)</span>
-<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>(complex_example, shallow_copy)</span>
-<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Failing</span></span>
-<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>([<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">1</span>, <span class="dv">2</span> ,<span class="dv">3</span>]) <span class="co"># missing index</span></span>
-<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>({<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>:<span class="dv">2</span>}) <span class="co"># missing key</span></span>
-<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>([<span class="dv">1</span>, <span class="dv">2</span>], [<span class="fl">1.0</span>, <span class="fl">2.0</span>]) <span class="co"># floats != ints</span></span>
-<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>([<span class="dv">1</span>, <span class="dv">2</span>, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}], [<span class="dv">1</span>, <span class="dv">2</span>, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}]) <span class="co"># compare [2] by ref</span></span>
-<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>({<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}, {<span class="st">&#39;a&#39;</span>:<span class="fl">1.0</span>}) <span class="co"># floats != ints</span></span>
-<span id="cb49-26"><a href="#cb49-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>({<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>:{<span class="st">&#39;c&#39;</span>:<span class="dv">1</span>}}, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>:{<span class="st">&#39;c&#39;</span>:<span class="dv">1</span>}}) <span class="co"># compare &#39;b&#39; by ref</span></span>
-<span id="cb49-27"><a href="#cb49-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-28"><a href="#cb49-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> deep_copy <span class="op">=</span> complex_example.<span class="fu">duplicate</span>(<span class="va">true</span>)</span>
-<span id="cb49-29"><a href="#cb49-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>(complex_example, deep_copy)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">test_assert_eq_shallow</span>():</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> complex_example <span class="op">=</span> [</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>,</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>],</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>:<span class="dv">2</span>, <span class="st">&#39;c&#39;</span>:<span class="dv">3</span>},</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>        [{<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}, {<span class="st">&#39;b&#39;</span>:<span class="dv">2</span>}]</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Passing</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>([<span class="dv">1</span>, [<span class="dv">2</span>, <span class="dv">3</span>], <span class="dv">4</span>], [<span class="dv">1</span>, [<span class="dv">2</span>, <span class="dv">3</span>], <span class="dv">4</span>])</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> d1 <span class="op">=</span> {<span class="st">&#39;foo&#39;</span>:<span class="st">&#39;bar&#39;</span>}</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>([<span class="dv">1</span>, <span class="dv">2</span>, d1], [<span class="dv">1</span>, <span class="dv">2</span>, d1])</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>({<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>})</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>({<span class="st">&#39;a&#39;</span>:[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, d1]}, {<span class="st">&#39;a&#39;</span>:[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, d1]})</span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> shallow_copy <span class="op">=</span> complex_example.<span class="fu">duplicate</span>(<span class="va">false</span>)</span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>(complex_example, shallow_copy)</span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Failing</span></span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>([<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">1</span>, <span class="dv">2</span> ,<span class="dv">3</span>]) <span class="co"># missing index</span></span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>({<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>:<span class="dv">2</span>}) <span class="co"># missing key</span></span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>([<span class="dv">1</span>, <span class="dv">2</span>], [<span class="fl">1.0</span>, <span class="fl">2.0</span>]) <span class="co"># floats != ints</span></span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>([<span class="dv">1</span>, <span class="dv">2</span>, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}], [<span class="dv">1</span>, <span class="dv">2</span>, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}]) <span class="co"># compare [2] by ref</span></span>
+<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>({<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>}, {<span class="st">&#39;a&#39;</span>:<span class="fl">1.0</span>}) <span class="co"># floats != ints</span></span>
+<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>({<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>:{<span class="st">&#39;c&#39;</span>:<span class="dv">1</span>}}, {<span class="st">&#39;a&#39;</span>:<span class="dv">1</span>, <span class="st">&#39;b&#39;</span>:{<span class="st">&#39;c&#39;</span>:<span class="dv">1</span>}}) <span class="co"># compare &#39;b&#39; by ref</span></span>
+<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> deep_copy <span class="op">=</span> complex_example.<span class="fu">duplicate</span>(<span class="va">true</span>)</span>
+<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assert_eq_shallow</span>(complex_example, deep_copy)</span></code></pre></div>
 <h4 id="-assert_ne_shallowv1-v2-"><a name="assert_ne_shallow">
 assert_ne_shallow(v1, v2) </a></h4>
 <p>Performs a shallow comparison of two arrays or dictionaries and
@@ -1676,6 +1607,81 @@ assert function. The class under test is a "Health" component. It has a
 <code>max_hap</code> field with no setter or getter assigned. It also
 has a <code>current_hp</code> property with assigned setter and getter
 functions.</p>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- class under test --&#39;</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Health:</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">extends</span> Node</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">export</span>(int) <span class="kw">var</span> max_hp <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">export</span>(int) <span class="kw">var</span> current_hp <span class="op">=</span> <span class="dv">0</span> <span class="kw">setget</span> set_current_hp, get_current_hp</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">func</span> <span class="fu">set_max_hp</span>(value: int) <span class="op">-&gt;</span> void:</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> value <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>        value <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>    max_hp <span class="op">=</span> value</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">func</span> <span class="fu">get_max_hp</span>() <span class="op">-&gt;</span> int:</span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> max_hp</span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">func</span> <span class="fu">set_current_hp</span>(value: int) <span class="op">-&gt;</span> void:</span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>    current_hp <span class="op">=</span> <span class="bu">clamp</span>(value, <span class="dv">0</span>, max_hp)</span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a>  <span class="kw">func</span> <span class="fu">get_current_hp</span>() <span class="op">-&gt;</span> int:</span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> current_hp</span>
+<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-28"><a href="#cb48-28" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- passing --&#39;</span>)</span>
+<span id="cb48-29"><a href="#cb48-29" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_property</span>(Health, <span class="st">&#39;current_hp&#39;</span>, <span class="dv">0</span>, <span class="dv">0</span>) <span class="co"># PASS</span></span>
+<span id="cb48-30"><a href="#cb48-30" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> health <span class="op">=</span> Health.<span class="fu">new</span>()</span>
+<span id="cb48-31"><a href="#cb48-31" aria-hidden="true" tabindex="-1"></a>health.max_hp <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb48-32"><a href="#cb48-32" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_property</span>(health, <span class="st">&#39;current_hp&#39;</span>, <span class="dv">0</span>, <span class="dv">5</span>) <span class="co"># PASS</span></span>
+<span id="cb48-33"><a href="#cb48-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-34"><a href="#cb48-34" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- failing --&#39;</span>)</span>
+<span id="cb48-35"><a href="#cb48-35" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_property</span>(Health, <span class="st">&#39;max_hp&#39;</span>, <span class="dv">0</span>, <span class="dv">5</span>) <span class="co"># FAIL =&gt; no setget keyword</span></span>
+<span id="cb48-36"><a href="#cb48-36" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_property</span>(Health, <span class="st">&#39;current_hp&#39;</span>, <span class="dv">0</span>, <span class="dv">5</span>) <span class="co"># FAIL =&gt; method will clamp current_hp to max_hp which is 0 by default</span></span>
+<span id="cb48-37"><a href="#cb48-37" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> directory <span class="op">=</span> Directory.<span class="fu">new</span>()</span>
+<span id="cb48-38"><a href="#cb48-38" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_property</span>(directory, <span class="st">&#39;current_dir&#39;</span>, <span class="st">&#39;&#39;</span>, <span class="st">&#39;new_dir&#39;</span>) <span class="co"># FAIL =&gt; directory is not a Resource nor a Node</span></span></code></pre></div>
+<h4
+id="-assert_setget_calledtype-name_property-name_setter-name_getter-"><a name="assert_setget_called">
+assert_setget_called(type, name_property, name_setter="",
+name_getter="") </a></h4>
+<p>This method checks if the named setter and getter functions are
+called when the given property is accessed.</p>
+<p>In GDScript this is realized by using the <code>setget</code>
+keyword. The keyword requires you to specify a setter or getter
+function, you can also specify both:</p>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SomeClass:</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> property_both <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> set_property_both, get_property_both</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> property_setter <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> set_property_setter</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> property_getter <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> , get_property_getter</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> normal_class_attribute <span class="op">=</span> <span class="va">null</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> another_property <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> some_completely_different_name, another_different_name</span></code></pre></div>
+<p>With this assert you can test for scenarios equivalent to
+<code>property_both</code>, <code>property_setter</code> and
+<code>property_getter</code>. As shown in the example GDScript allows
+any names for the setter and getter functions. With this assert you can
+test for this scenario as well. With this assert you cannot test for
+normal class attributes.</p>
+<p>The parameter <code>type</code> has to be a <code>Resource</code>.
+Therefore you can put in a <code>Script</code> or a
+<code>PackedScene</code> but no instances of your class / scene under
+test.</p>
+<p>The parameters <code>name_setter</code> and <code>name_getter</code>
+are optional.</p>
+<p>In the following script you can see some examples how to use this
+assert function. The class under test is a "Health" component. It has a
+<code>max_hap</code> field with no setter or getter assigned. It also
+has a <code>current_hp</code> property with assigned setter and getter
+functions. For slightly more convenient ways to test properties with
+setget keyword also look into <a href="#assert_setget">assert_setget</a>
+or <a href="#assert_property">assert_property</a>. They wrap around this
+assert function and set some common defaults to safe you some time.</p>
 <div class="sourceCode" id="cb50"><pre
 class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- class under test --&#39;</span>)</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Health:</span>
@@ -1705,97 +1711,22 @@ class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb50-1">
 <span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- passing --&#39;</span>)</span>
-<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_property</span>(Health, <span class="st">&#39;current_hp&#39;</span>, <span class="dv">0</span>, <span class="dv">0</span>) <span class="co"># PASS</span></span>
-<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> health <span class="op">=</span> Health.<span class="fu">new</span>()</span>
-<span id="cb50-31"><a href="#cb50-31" aria-hidden="true" tabindex="-1"></a>health.max_hp <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb50-32"><a href="#cb50-32" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_property</span>(health, <span class="st">&#39;current_hp&#39;</span>, <span class="dv">0</span>, <span class="dv">5</span>) <span class="co"># PASS</span></span>
+<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;set_current_hp&#39;</span>, <span class="st">&#39;get_current_hp&#39;</span>) <span class="co"># PASS</span></span>
+<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;set_current_hp&#39;</span>) <span class="co"># PASS</span></span>
+<span id="cb50-31"><a href="#cb50-31" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;&#39;</span>, <span class="st">&#39;get_current_hp&#39;</span>) <span class="co"># PASS</span></span>
+<span id="cb50-32"><a href="#cb50-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-33"><a href="#cb50-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-34"><a href="#cb50-34" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- failing --&#39;</span>)</span>
-<span id="cb50-35"><a href="#cb50-35" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_property</span>(Health, <span class="st">&#39;max_hp&#39;</span>, <span class="dv">0</span>, <span class="dv">5</span>) <span class="co"># FAIL =&gt; no setget keyword</span></span>
-<span id="cb50-36"><a href="#cb50-36" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_property</span>(Health, <span class="st">&#39;current_hp&#39;</span>, <span class="dv">0</span>, <span class="dv">5</span>) <span class="co"># FAIL =&gt; method will clamp current_hp to max_hp which is 0 by default</span></span>
-<span id="cb50-37"><a href="#cb50-37" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> directory <span class="op">=</span> Directory.<span class="fu">new</span>()</span>
-<span id="cb50-38"><a href="#cb50-38" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_property</span>(directory, <span class="st">&#39;current_dir&#39;</span>, <span class="st">&#39;&#39;</span>, <span class="st">&#39;new_dir&#39;</span>) <span class="co"># FAIL =&gt; directory is not a Resource nor a Node</span></span></code></pre></div>
-<h4
-id="-assert_setget_calledtype-name_property-name_setter-name_getter-"><a name="assert_setget_called">
-assert_setget_called(type, name_property, name_setter="",
-name_getter="") </a></h4>
-<p>This method checks if the named setter and getter functions are
-called when the given property is accessed.</p>
-<p>In GDScript this is realized by using the <code>setget</code>
-keyword. The keyword requires you to specify a setter or getter
-function, you can also specify both:</p>
-<div class="sourceCode" id="cb51"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SomeClass:</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> property_both <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> set_property_both, get_property_both</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> property_setter <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> set_property_setter</span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> property_getter <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> , get_property_getter</span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> normal_class_attribute <span class="op">=</span> <span class="va">null</span></span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> another_property <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> some_completely_different_name, another_different_name</span></code></pre></div>
-<p>With this assert you can test for scenarios equivalent to
-<code>property_both</code>, <code>property_setter</code> and
-<code>property_getter</code>. As shown in the example GDScript allows
-any names for the setter and getter functions. With this assert you can
-test for this scenario as well. With this assert you cannot test for
-normal class attributes.</p>
-<p>The parameter <code>type</code> has to be a <code>Resource</code>.
-Therefore you can put in a <code>Script</code> or a
-<code>PackedScene</code> but no instances of your class / scene under
-test.</p>
-<p>The parameters <code>name_setter</code> and <code>name_getter</code>
-are optional.</p>
-<p>In the following script you can see some examples how to use this
-assert function. The class under test is a "Health" component. It has a
-<code>max_hap</code> field with no setter or getter assigned. It also
-has a <code>current_hp</code> property with assigned setter and getter
-functions. For slightly more convenient ways to test properties with
-setget keyword also look into <a href="#assert_setget">assert_setget</a>
-or <a href="#assert_property">assert_property</a>. They wrap around this
-assert function and set some common defaults to safe you some time.</p>
-<div class="sourceCode" id="cb52"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- class under test --&#39;</span>)</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Health:</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">extends</span> Node</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">export</span>(int) <span class="kw">var</span> max_hp <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">export</span>(int) <span class="kw">var</span> current_hp <span class="op">=</span> <span class="dv">0</span> <span class="kw">setget</span> set_current_hp, get_current_hp</span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">func</span> <span class="fu">set_max_hp</span>(value: int) <span class="op">-&gt;</span> void:</span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> value <span class="op">&lt;</span> <span class="dv">0</span>:</span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>        value <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>    max_hp <span class="op">=</span> value</span>
-<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">func</span> <span class="fu">get_max_hp</span>() <span class="op">-&gt;</span> int:</span>
-<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> max_hp</span>
-<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">func</span> <span class="fu">set_current_hp</span>(value: int) <span class="op">-&gt;</span> void:</span>
-<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>    current_hp <span class="op">=</span> <span class="bu">clamp</span>(value, <span class="dv">0</span>, max_hp)</span>
-<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>  <span class="kw">func</span> <span class="fu">get_current_hp</span>() <span class="op">-&gt;</span> int:</span>
-<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> current_hp</span>
-<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- passing --&#39;</span>)</span>
-<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;set_current_hp&#39;</span>, <span class="st">&#39;get_current_hp&#39;</span>) <span class="co"># PASS</span></span>
-<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;set_current_hp&#39;</span>) <span class="co"># PASS</span></span>
-<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;&#39;</span>, <span class="st">&#39;get_current_hp&#39;</span>) <span class="co"># PASS</span></span>
-<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- failing --&#39;</span>)</span>
-<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;max_hp&#39;</span>, <span class="st">&#39;set_max_hp&#39;</span>) <span class="co"># FAIL</span></span>
-<span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;max_hp&#39;</span>) <span class="co"># FAIL =&gt; out of scope</span></span>
-<span id="cb52-37"><a href="#cb52-37" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;current_hp&#39;</span>) <span class="co"># FAIL =&gt; setter or getter name must be specified</span></span>
-<span id="cb52-38"><a href="#cb52-38" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;set_current_hp&#39;</span>, <span class="st">&#39;get_current_hp&#39;</span>) <span class="co"># FAIL =&gt; typo...</span></span>
-<span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> health <span class="op">=</span> Health.<span class="fu">new</span>()</span>
-<span id="cb52-40"><a href="#cb52-40" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(health, <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;set_current_hp&#39;</span>) <span class="co"># FAIL =&gt; type has to be a Resource</span></span>
-<span id="cb52-41"><a href="#cb52-41" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, max_hp, <span class="va">null</span>, <span class="va">null</span>) <span class="co"># FAIL =&gt; methods do not exist</span></span>
-<span id="cb52-42"><a href="#cb52-42" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, max_hp, <span class="dv">1</span>, <span class="dv">1</span>)  <span class="co"># FAIL =&gt; methods do not exist</span></span>
-<span id="cb52-43"><a href="#cb52-43" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(<span class="dv">5</span>, <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;set_current_hp&#39;</span>)  <span class="co"># FAIL =&gt; type has to be a Resource</span></span>
-<span id="cb52-44"><a href="#cb52-44" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(<span class="fu">double</span>(Health), <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;set_current_hp&#39;</span>) <span class="co"># FAIL =&gt; type has to be a Resource that can be doubled</span></span></code></pre></div>
+<span id="cb50-35"><a href="#cb50-35" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;max_hp&#39;</span>, <span class="st">&#39;set_max_hp&#39;</span>) <span class="co"># FAIL</span></span>
+<span id="cb50-36"><a href="#cb50-36" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;max_hp&#39;</span>) <span class="co"># FAIL =&gt; out of scope</span></span>
+<span id="cb50-37"><a href="#cb50-37" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;current_hp&#39;</span>) <span class="co"># FAIL =&gt; setter or getter name must be specified</span></span>
+<span id="cb50-38"><a href="#cb50-38" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;set_current_hp&#39;</span>, <span class="st">&#39;get_current_hp&#39;</span>) <span class="co"># FAIL =&gt; typo...</span></span>
+<span id="cb50-39"><a href="#cb50-39" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> health <span class="op">=</span> Health.<span class="fu">new</span>()</span>
+<span id="cb50-40"><a href="#cb50-40" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(health, <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;set_current_hp&#39;</span>) <span class="co"># FAIL =&gt; type has to be a Resource</span></span>
+<span id="cb50-41"><a href="#cb50-41" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, max_hp, <span class="va">null</span>, <span class="va">null</span>) <span class="co"># FAIL =&gt; methods do not exist</span></span>
+<span id="cb50-42"><a href="#cb50-42" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(Health, max_hp, <span class="dv">1</span>, <span class="dv">1</span>)  <span class="co"># FAIL =&gt; methods do not exist</span></span>
+<span id="cb50-43"><a href="#cb50-43" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(<span class="dv">5</span>, <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;set_current_hp&#39;</span>)  <span class="co"># FAIL =&gt; type has to be a Resource</span></span>
+<span id="cb50-44"><a href="#cb50-44" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget_called</span>(<span class="fu">double</span>(Health), <span class="st">&#39;current_hp&#39;</span>, <span class="st">&#39;set_current_hp&#39;</span>) <span class="co"># FAIL =&gt; type has to be a Resource that can be doubled</span></span></code></pre></div>
 <p>Please note the last example. So far an already doubled type cannot
 be doubled again. Since the class under test will be doubled within the
 assert procession it is important to only feed in types that can be
@@ -1810,11 +1741,11 @@ called when the given property is accessed.</p>
 <p>In GDScript this is realized by using the <code>setget</code>
 keyword. The keyword requires you to specify a setter or getter
 function, you can also specify both:</p>
-<div class="sourceCode" id="cb53"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SomeClass:</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> property_both <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> set_property_both, get_property_both</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> property_setter <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> set_property_setter</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> property_getter <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> , get_property_getter</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SomeClass:</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> property_both <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> set_property_both, get_property_both</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> property_setter <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> set_property_setter</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> property_getter <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> , get_property_getter</span></code></pre></div>
 <p>The parameter <code>obj</code> can be any <code>Object</code>.
 Depending on what you put in the function will try retrieve the
 underlying class or to instantiate from <code>obj</code>. It is tested
@@ -1831,37 +1762,37 @@ information on how it works.</p>
 assert function. The class under test is a "Health bar" component. It
 has a <code>health</code> field with a setter but no getter
 assigned.</p>
-<div class="sourceCode" id="cb54"><pre
-class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- class under test --&#39;</span>)</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HealthBar:</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">extends</span> Control</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> Health <span class="op">=</span> <span class="pp">preload</span>(<span class="st">&quot;res://some_path/health.gd&quot;</span>)</span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> health: Health <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> set_health</span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="kw">onready</span> <span class="kw">var</span> progress_bar <span class="op">=</span> <span class="va">$ProgressBar</span></span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="kw">onready</span> <span class="kw">var</span> label <span class="op">=</span> <span class="va">$Label</span></span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">set_health</span>(node: Health) <span class="op">-&gt;</span> void:</span>
-<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>    health <span class="op">=</span> node</span>
-<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">_on_Health_updated</span>() <span class="op">-&gt;</span> void:</span>
-<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> health <span class="op">!=</span> <span class="va">null</span>:</span>
-<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a>        label.text <span class="op">=</span> <span class="st">&quot;</span><span class="sc">%s</span><span class="st"> / </span><span class="sc">%s</span><span class="st">&quot;</span> <span class="op">%</span>[health.current_hp, health.max_hp]</span>
-<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>        progress_bar.max_value <span class="op">=</span> health.max_hp</span>
-<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a>        progress_bar.value <span class="op">=</span> health.current_hp</span>
-<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- passing --&#39;</span>)</span>
-<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget</span>(HealthBar, <span class="st">&#39;health&#39;</span>, <span class="va">true</span>) <span class="co"># PASS</span></span>
-<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> health_bar <span class="op">=</span> <span class="bu">load</span>(<span class="st">&quot;res://some_path/HealthBar.tscn&quot;</span>).<span class="fu">instance</span>()</span>
-<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget</span>(health_bar, <span class="st">&#39;health&#39;</span>, <span class="va">true</span>) <span class="co"># PASS</span></span>
-<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-28"><a href="#cb54-28" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- failing --&#39;</span>)</span>
-<span id="cb54-29"><a href="#cb54-29" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget</span>(HealthBar, <span class="st">&#39;label&#39;</span>) <span class="co"># FAIL =&gt; setter or getter has to be specified</span></span>
-<span id="cb54-30"><a href="#cb54-30" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget</span>(HealthBar, <span class="st">&#39;label&#39;</span>, <span class="va">true</span>) <span class="co"># FAIL =&gt; setter does not exist</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode gdscript"><code class="sourceCode gdscript"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- class under test --&#39;</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HealthBar:</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">extends</span> Control</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> Health <span class="op">=</span> <span class="pp">preload</span>(<span class="st">&quot;res://some_path/health.gd&quot;</span>)</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> health: Health <span class="op">=</span> <span class="va">null</span> <span class="kw">setget</span> set_health</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="kw">onready</span> <span class="kw">var</span> progress_bar <span class="op">=</span> <span class="va">$ProgressBar</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="kw">onready</span> <span class="kw">var</span> label <span class="op">=</span> <span class="va">$Label</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">set_health</span>(node: Health) <span class="op">-&gt;</span> void:</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>    health <span class="op">=</span> node</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="fu">_on_Health_updated</span>() <span class="op">-&gt;</span> void:</span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> health <span class="op">!=</span> <span class="va">null</span>:</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>        label.text <span class="op">=</span> <span class="st">&quot;</span><span class="sc">%s</span><span class="st"> / </span><span class="sc">%s</span><span class="st">&quot;</span> <span class="op">%</span>[health.current_hp, health.max_hp]</span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>        progress_bar.max_value <span class="op">=</span> health.max_hp</span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>        progress_bar.value <span class="op">=</span> health.current_hp</span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- passing --&#39;</span>)</span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget</span>(HealthBar, <span class="st">&#39;health&#39;</span>, <span class="va">true</span>) <span class="co"># PASS</span></span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> health_bar <span class="op">=</span> <span class="bu">load</span>(<span class="st">&quot;res://some_path/HealthBar.tscn&quot;</span>).<span class="fu">instance</span>()</span>
+<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget</span>(health_bar, <span class="st">&#39;health&#39;</span>, <span class="va">true</span>) <span class="co"># PASS</span></span>
+<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a>gut.p(<span class="st">&#39;-- failing --&#39;</span>)</span>
+<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget</span>(HealthBar, <span class="st">&#39;label&#39;</span>) <span class="co"># FAIL =&gt; setter or getter has to be specified</span></span>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_setget</span>(HealthBar, <span class="st">&#39;label&#39;</span>, <span class="va">true</span>) <span class="co"># FAIL =&gt; setter does not exist</span></span></code></pre></div>
 </body>
 </html>
 
